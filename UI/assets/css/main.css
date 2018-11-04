@@ -2,7 +2,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: #ecf0f1;
+  background: #bec0c0;
   font-family: 'Barlow', sans-serif;
 }
 a {
@@ -205,10 +205,6 @@ footer a {
 @media only screen and (max-width: 400px) {
     .order-item {
       flex-direction: column;
-    }
-
-    .order-image {
-      text-align: center;
     }
     .order-button {
       margin: 1em 0;
