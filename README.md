@@ -15,13 +15,14 @@ Send IT  has functionality like:
 
 * Users can create a parcel delivery order.
 
-*Users can change the destination of a parcel delivery order
+* Users can change the destination of a parcel delivery order.
 
-*Users can cancel a parcel delivery order. 
+* Users can cancel a parcel delivery order.
 
-*Users can see the details of a delivery order
+* Users can see the details of a parcel delivery order.
 
-*Admin can change the ​status​ and ​present​ ​location​ of a parcel delivery order. 
+* Admin can change the status and present location of a parcel delivery.
+
 
 
 Prerequisites
