@@ -8,7 +8,8 @@ https://akram256.github.io/SEND_IT/UI
 
 
 
-Description
+# Description
+
 Send IT  has functionality like:
 
 * Users can create an account and log in
@@ -25,36 +26,36 @@ Send IT  has functionality like:
 
 
 
-Prerequisites
+# Prerequisites
 
-A browser installed which is uptodate
+* A browser installed which is uptodate
 
-Installing
+* Installing
 
-Download and install a browser
+* Download and install a browser
 
-Deployment
+* Deployment
 
-The system is deployed on github
+* The system is deployed on github
 
 
-Built With
+# Built With
 
-Visual studio code
+* Visual studio code
 
-css, html and javascript
+* css, html and javascript
 
-Versioning
+# Versioning
 
 I use git hub for versioning.
 
 
-Authors
+# Authors
 
 
 MUKASA AKRAM -(https://github.com/akram256)
 
 
-Acknowledgments
+# Acknowledgments
 
 Thanks to Andela
