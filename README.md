@@ -26,17 +26,26 @@ Send IT  has functionality like:
 
 
 Prerequisites
+
 A browser installed which is uptodate
+
 Installing
+
 Download and install a browser
+
 Deployment
+
 The system is deployed on github
 
 
 Built With
+
 Visual studio code
+
 css, html and javascript
+
 Versioning
+
 I use git hub for versioning.
 
 
@@ -47,4 +56,5 @@ MUKASA AKRAM -(https://github.com/akram256)
 
 
 Acknowledgments
+
 Thanks to Andela
