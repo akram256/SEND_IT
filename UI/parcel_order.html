@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=yes">
+  <title>Parcel_Order</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand">
+      <a href="index.html">send_it</a>
+    </div>
+    <div class="nav-left">
+      <a href="history.html"class="nav-item">Parcel history</a>
+      <a href="profile.html"class="nav-item">Profile</a>
+      <a href="index.html" class="nav-item">Logout</a>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="orders">
+      <h4>Welcome to SEND_IT.</h4>
+      <h6><i>"Have it, Send it faster "</i></h6>
+
+      <div class="menu">
+        LET'S SEND IT NOW
+      </div>
+
+      <form action="history.html" method="GET" class="order-item">
+        <div class="order-content">
+          <div class="title">Parcel Gift <span class="price">15,000 UGX</span> </div>
+          <div class="field">            
+            <input type="text" name="pickup_location" placeholder="pickup_location" required>
+            <input type="text" name="Destination" placeholder="Destination" required>
+          </div>
+        </div>
+          <div class="order-button">
+            <button type="submit" class="button completed">Create_order</button>
+          </div>
+          &nbsp;&nbsp;
+       
+          <div class="order-button">
+            <button type="submit" class="button">Cancel_order</button>
+        </div>
+     
+      </form>
+      <form action="history.html" method="GET" class="order-item">
+        <div class="order-content">
+          <div class="title">Red Parcel box <span class="price">10,000 UGX</span> </div>
+          <div class="field">            
+            <input type="text" name="pickup_location" placeholder="pickup_location" required>
+            <input type="text" name="Destination" placeholder="Parcel_Destination" required>
+          </div>
+        </div>
+        <div class="order-button">
+          <button type="button" class="button completed">Create_order</button>
+        </div>
+        &nbsp;&nbsp;
+     
+        <div class="order-button">
+          <button type="submit" class="button">Cancel_order</button>
+      </div>
+      </form>
+
+
+
+    </div>
+  </div>
+</body>
+</html>
