@@ -7,6 +7,9 @@ Travis   [![Build Status](https://travis-ci.org/akram256/SEND_IT.svg?branch=post
 Coverage     [![Coverage Status](https://coveralls.io/repos/github/akram256/SEND_IT/badge.svg?branch=post_an_order)](https://coveralls.io/github/akram256/SEND_IT?branch=post_an_order)
 
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/12a5a63ac9973e406a37/maintainability)](https://codeclimate.com/github/akram256/SEND_IT/maintainability)
+
+
 ***Features***
  * User can fetch all parcel orders.
  * User can fetch a specific parcel order.
