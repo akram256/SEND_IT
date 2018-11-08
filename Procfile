@@ -1,1 +1,1 @@
-web: gunicorn --chdir SEND_IT run:APP
+web: gunicorn run:APP
