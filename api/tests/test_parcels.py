@@ -55,5 +55,14 @@ class TestViews(unittest.TestCase):
         self.assertIn('Blank space', respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 400)
+    def test_fetch_all_parcels(self):
+        """
+           Method for tesing the get function which returns all parcel_orders
+        """
+        result = self.client().get('api/v1/parcels')
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertEqual(result.status_code, 200)
+        self.assertIn('Parcels', respond)
+        self.assertIsInstance(respond, dict)
         
 
