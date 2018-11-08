@@ -43,12 +43,6 @@ class GetParcelOrders(MethodView):
         pattern = r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$"
         if not re.match(pattern, request.json['email']):
             return jsonify({'email': 'Enter way of your email'}), 400
-        # if request.json['status'] == "":
-        #     return jsonify({'status': 'please enter status'}), 400
-
-        # if not isinstance(request.json['status'], str):
-        #     return jsonify({'message': 'enter status as an string'}), 400
-
         user_name = request.json['user_name']
         email = request.json['email']
         parcel_name = request.json['parcel_name']

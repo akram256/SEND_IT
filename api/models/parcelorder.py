@@ -26,7 +26,7 @@ class ParcelOrder():
 
     def get_all_parcels(self):
         """
-           Method for all get requests
+           Method for all get requests of parcels
         """
         if not self.parcelorders:
             return True
