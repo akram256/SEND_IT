@@ -1,1 +1,1 @@
-web: gunicorn --chdir fast-food-api run:APP
+web: gunicorn --chdir SEND_IT run:APP
