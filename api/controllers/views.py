@@ -65,6 +65,6 @@ class GetParcelOrders(MethodView):
             if parcel_orders.get_all_parcels() is True:
                 return jsonify({'Parcels':'No Parcel orders available at the moment,Please make an order'})
             return jsonify({'Parcels': parcel_orders.get_all_parcels()}), 200
-        return jsonify({"Parcel":"No order"})
+        return jsonify({'Parcels': parcel_orders.get_one_parcel(parcel_id)}), 200
      
         

@@ -31,3 +31,17 @@ class ParcelOrder():
         if not self.parcelorders:
             return True
         return self.parcelorders
+        
+    def get_one_parcel(self, parcel_id):
+        """
+           Method for  getting single request
+        """
+        available_parcel_id = [
+            order.__dict__ for order in self.parcelorders
+            if order.__dict__['id'] == parcel_id]
+        if not available_parcel_id:
+            return {parcel_id:"Parcel_id doesnot exist"}
+        return {'Requested order': [
+            order.__dict__
+            for order in self.parcelorders
+            if order.__dict__['id'] == parcel_id]}
