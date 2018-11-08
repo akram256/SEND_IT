@@ -63,5 +63,14 @@ class GetParcelOrders(MethodView):
             'Parcel_orders': parcel_orders.__dict__
         }
         return jsonify(response_object), 201
+    def get(self, parcel_id):
+        """
+           method for all get requests and single request
+        """
+        if parcel_id is None:
+            if parcel_orders.get_all_parcels() is True:
+                return jsonify({'Parcels':'No Parcel orders available at the moment,Please make an order'})
+            return jsonify({'Parcels': parcel_orders.get_all_parcels()}), 200
+        return jsonify({"Parcel":"No order"})
      
         

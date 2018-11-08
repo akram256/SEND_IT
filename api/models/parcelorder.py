@@ -24,4 +24,10 @@ class ParcelOrder():
         self.parcelorders.append(order)
         return self.parcelorders
 
-
+    def get_all_parcels(self):
+        """
+           Method for all get requests
+        """
+        if not self.parcelorders:
+            return True
+        return self.parcelorders
