@@ -1,3 +1,4 @@
+from flask import request
 """ Module for parcel orders
 """
 class ParcelOrder():
@@ -7,13 +8,14 @@ class ParcelOrder():
     def __init__(self):
         self.parcelorders = []
 
-    def add_parcel(self, user_name,email, parcel_name, pick_location,destination, price                  , status,parcel_id):
+    def add_parcel(self,user_name,email, parcel_name, pick_location,destination, price                  , status, user_id,parcel_id):
         """
            Method to post requests
         """
         parcel_list = [order for order in self.parcelorders]
 
         id = len(parcel_list) + 1
+        # user_id =len(parcel_list)+1
 
 
         order = {
@@ -22,7 +24,8 @@ class ParcelOrder():
             'id': id
         }
         self.parcelorders.append(order)
-        return self.parcelorders
+        return {'New order': [
+            order for order in self.parcelorders]}
 
     def get_all_parcels(self):
         """
@@ -45,3 +48,18 @@ class ParcelOrder():
             order.__dict__
             for order in self.parcelorders
             if order.__dict__['id'] == parcel_id]}
+
+
+    def cancel_a_parcel(self,parcel_id):
+        """
+           method for updating order status
+           params:parcel_id
+           response: dictionary
+        """
+        for order in self.parcelorders:
+            if parcel_id == order['id']:
+                parcel_json = request.get_json()
+                status = parcel_json['status']
+                order['status'] = status
+                return {parcel_id:'Parcel has been cancelled'}
+   

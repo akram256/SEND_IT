@@ -20,4 +20,6 @@ class Urls():
         parcel_order_post = GetParcelOrders.as_view('post_parcels')
         order.add_url_rule('/api/v1/parcels',
                            view_func=parcel_order_post, methods=['POST',])
+        order.add_url_rule('/api/v1/parcels/<int:parcel_id>/cancel',
+                           view_func=parcel_order_post, methods=['PUT',])
         
