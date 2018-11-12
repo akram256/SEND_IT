@@ -124,15 +124,15 @@ class TestViews(unittest.TestCase):
         """
             Method for testing for cancel order
         """
-        result = self.client().put('api/v1/parcels',
+        result = self.client().put('api/v1/parcels/1/cancel',
                                     content_type="application/json",
                                     data=json.dumps(dict(parcel_id=1,user_id=1,status="cancelled" 
                                                          )))
         respond = json.loads(result.data.decode("utf8"))
-        self.assertIn('parcelorders', respond)
+        self.assertIn('Parcel_order', respond)
         self.assertIsInstance(respond, dict)
-        self.assertEqual(result.status_code, 201)
-        self.assertTrue(result.json["parcelorders"])
+        self.assertEqual(result.status_code, 200)
+        # self.assertTrue(result.json["Parcel_order"])
     
 
        
