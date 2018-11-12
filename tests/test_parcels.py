@@ -23,13 +23,13 @@ class TestViews(unittest.TestCase):
         """
         result = self.client().post('api/v1/parcels',
                                     content_type="application/json",
-                                    data=json.dumps(dict(parcel_id=1, user_name="Akram",email="akram@gmail.com", parcel_name="gift", pickup_location="mbra",destination="kampala", price =10000 ,
+                                    data=json.dumps(dict(parcel_id=1, user_name="Akram", parcel_name="gift", pickup_location="mbra",destination="kampala", price =10000 ,
                                                          )))
         respond = json.loads(result.data.decode("utf8"))
-        self.assertIn('Parcel_orders', respond)
+        self.assertIn('parcelorders', respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 201)
-        self.assertTrue(result.json["Parcel_orders"])
+        self.assertTrue(result.json["parcelorders"])
 
     def test_missing_field(self):
         """
@@ -43,18 +43,7 @@ class TestViews(unittest.TestCase):
         self.assertIn('Blank space', respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 400)
-    def test_wrong_email_address(self):
-        """
-            Method for testing a wrong email in the post function
-        """
-        result = self.client().post('api/v1/parcels',
-                                    content_type="application/json",
-                                    data=json.dumps(dict(parcel_id=18, user_name="Akram",email="", parcel_name="gift", pick_location="mbra"  
-                                                         )))
-        respond = json.loads(result.data.decode("utf8"))
-        self.assertIn('Blank space', respond)
-        self.assertIsInstance(respond, dict)
-        self.assertEqual(result.status_code, 400)
+    
     def test_fetch_all_parcels(self):
         """
            Method for testing the get function which returns all parcel_orders
@@ -88,6 +77,8 @@ class TestViews(unittest.TestCase):
         self.assertIn('Parcel_order', respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result1.status_code, 200)
+    # def test_missing_status_field(self)
+
 
     def test_inputs(self):
         """
@@ -115,45 +106,19 @@ class TestViews(unittest.TestCase):
         self.assertEqual(result.status_code, 400)
         self.assertTrue(result.json["message"])
 
-    def test_wrong_email_format(self):
+    def test_invalid_data(self):
         """
-            Method for testing wrong email format
-        """
-        result = self.client().post('api/v1/parcels',
-                                    content_type="application/json",
-                                    data=json.dumps(dict(parcel_id=1, user_name="Akram",email="akramgmail.com", parcel_name="gift", pickup_location="mbra",destination="kampala", price =1000 ,
-                                                         )))
-        respond = json.loads(result.data.decode("utf8"))
-        self.assertIn('email', respond)
-        self.assertIsInstance(respond, dict)
-        self.assertEqual(result.status_code, 400)
-        self.assertTrue(result.json["email"])
-
-    def test_missing_user_name(self):
-        """
-            Method for testing wrong email format
+            Method for testing invalid data input
         """
         result = self.client().post('api/v1/parcels',
                                     content_type="application/json",
-                                    data=json.dumps(dict(parcel_id=1, user_name="",email="akram@gmail.com", parcel_name="gift", pickup_location="mbra",destination="kampala", price =1000 ,
+                                    data=json.dumps(dict(parcel_id=1, user_name="",email="akram@gmail.com", parcel_name=10000, pickup_location="mbra",destination="kampala", price =1000
                                                          )))
         respond = json.loads(result.data.decode("utf8"))
-        self.assertIn('user_name', respond)
+        self.assertIn('error_message', respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 400)
-        self.assertTrue(result.json["user_name"])
+        self.assertTrue(result.json["error_message"])
     
-    def test_missing_parcel_name(self):
-        """
-            Method for testing wrong email format
-        """
-        result = self.client().post('api/v1/parcels',
-                                    content_type="application/json",
-                                    data=json.dumps(dict(parcel_id=1, user_name="Akram",email="akram@gmail.com", parcel_name= "", pickup_location="mbra",destination="kampala", price =1000 ,``
-                                                         )))
-        respond = json.loads(result.data.decode("utf8"))
-        self.assertIsInstance(respond, dict)
-        self.assertEqual(result.status_code, 400)
-        self.assertTrue(result.json["parcel_name"])
-       
 
+       
