@@ -120,5 +120,19 @@ class TestViews(unittest.TestCase):
         self.assertEqual(result.status_code, 400)
         self.assertTrue(result.json["error_message"])
     
+    def test_cancel_order(self):
+        """
+            Method for testing for cancel order
+        """
+        result = self.client().put('api/v1/parcels',
+                                    content_type="application/json",
+                                    data=json.dumps(dict(status="cancelled" ,
+                                                         )))
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertIn('parcelorders', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertEqual(result.status_code, 201)
+        self.assertTrue(result.json["parcelorders"])
+    
 
        

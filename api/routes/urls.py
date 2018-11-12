@@ -17,6 +17,8 @@ class Urls():
                            defaults={'parcel_id': None}, methods=['GET',])
         order.add_url_rule('/api/v1/parcels/<int:parcel_id>',
                            view_func=order_view, methods=['GET',])
+        order.add_url_rule('/api/v1/users/<int:user_id>/parcels',
+                           view_func=order_view, methods=['GET',])
         parcel_order_post = GetParcelOrders.as_view('post_parcels')
         order.add_url_rule('/api/v1/parcels',
                            view_func=parcel_order_post, methods=['POST',])
