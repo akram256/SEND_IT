@@ -23,7 +23,7 @@ class TestViews(unittest.TestCase):
         """
         result = self.client().post('api/v1/parcels',
                                     content_type="application/json",
-                                    data=json.dumps(dict(parcel_id=1, user_name="Akram", parcel_name="gift", pickup_location="mbra",destination="kampala", price =10000 ,
+                                    data=json.dumps(dict(parcel_id=1, user_id= 1,user_name="Akram", parcel_name="gift", pickup_location="mbra",destination="kampala", price =10000 ,
                                                          )))
         respond = json.loads(result.data.decode("utf8"))
         self.assertIn('parcelorders', respond)
@@ -37,7 +37,7 @@ class TestViews(unittest.TestCase):
         """
         result = self.client().post('api/v1/parcels',
                                     content_type="application/json",
-                                    data=json.dumps(dict(parcel_id=18, user_name="Akram",email="akram@gmail.com", parcel_name="gift", pick_location="mbra"  
+                                    data=json.dumps(dict(parcel_id=18,user_id=1, user_name="Akram",email="akram@gmail.com", parcel_name="gift", pick_location="mbra"  
                                                          )))
         respond = json.loads(result.data.decode("utf8"))
         self.assertIn('Blank space', respond)
@@ -98,7 +98,7 @@ class TestViews(unittest.TestCase):
         """
         result = self.client().post('api/v1/parcels',
                                     content_type="application/json",
-                                    data=json.dumps(dict(parcel_id=1, user_name="Akram",email="akram@gmail.com", parcel_name="gift", pickup_location="mbra",destination="kampala", price ="1000" ,
+                                    data=json.dumps(dict(parcel_id=1,user_id=1, user_name="Akram",email="akram@gmail.com", parcel_name="gift", pickup_location="mbra",destination="kampala", price ="1000" ,
                                                          )))
         respond = json.loads(result.data.decode("utf8"))
         self.assertIn('message', respond)
@@ -112,7 +112,7 @@ class TestViews(unittest.TestCase):
         """
         result = self.client().post('api/v1/parcels',
                                     content_type="application/json",
-                                    data=json.dumps(dict(parcel_id=1, user_name="",email="akram@gmail.com", parcel_name=10000, pickup_location="mbra",destination="kampala", price =1000
+                                    data=json.dumps(dict(parcel_id=1, user_id=1,user_name="",email="akram@gmail.com", parcel_name=10000, pickup_location="mbra",destination="kampala", price =1000
                                                          )))
         respond = json.loads(result.data.decode("utf8"))
         self.assertIn('error_message', respond)
@@ -126,7 +126,7 @@ class TestViews(unittest.TestCase):
         """
         result = self.client().put('api/v1/parcels',
                                     content_type="application/json",
-                                    data=json.dumps(dict(status="cancelled" ,
+                                    data=json.dumps(dict(parcel_id=1,user_id=1,status="cancelled" 
                                                          )))
         respond = json.loads(result.data.decode("utf8"))
         self.assertIn('parcelorders', respond)
