@@ -17,6 +17,16 @@ class TestViews(unittest.TestCase):
         """
         self.client = APP.test_client
 
+    def test_fetch_all_parcels(self):
+        """
+           Method for testing the get function which returns all parcel_orders
+        """
+        result = self.client().get('api/v1/parcels')
+        respond = json.loads(result.data.decode("utf"))
+        self.assertEqual(result.status_code, 200)
+        self.assertIn('Parcels', respond)
+        self.assertIsInstance(respond, dict)
+
     def test_make_a_parcel(self):
         """
             Method for tesing the post function which posts a parcel_order
@@ -31,6 +41,17 @@ class TestViews(unittest.TestCase):
         self.assertEqual(result.status_code, 201)
         self.assertTrue(result.json["parcelorders"])
 
+    def test_get_a_Parcel(self):
+        """
+            Method for testing the get function which returns one parcel_order
+        """
+        result = self.client().get('api/v1/parcels/17')
+        result2 = self.client().get('api/v1/parcels/a')
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertEqual(result.status_code, 200)
+        self.assertEqual(result2.status_code, 404)
+        self.assertIsInstance(respond, dict)
+
     def test_missing_field(self):
         """
             Method for testing a missing field in the post function
@@ -43,26 +64,7 @@ class TestViews(unittest.TestCase):
         self.assertIn('Blank space', respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 400)
-    
-    def test_fetch_all_parcels(self):
-        """
-           Method for testing the get function which returns all parcel_orders
-        """
-        result = self.client().get('api/v1/parcels')
-        respond = json.loads(result.data.decode("utf8"))
-        self.assertEqual(result.status_code, 200)
-        self.assertIn('Parcels', respond)
-        self.assertIsInstance(respond, dict)
-    def test_get_a_Parcel(self):
-        """
-            Method for testing the get function which returns one parcel_order
-        """
-        result = self.client().get('api/v1/parcels/17')
-        result2 = self.client().get('api/v1/parcels/a')
-        respond = json.loads(result.data.decode("utf8"))
-        self.assertEqual(result.status_code, 200)
-        self.assertEqual(result2.status_code, 404)
-        self.assertIsInstance(respond, dict)
+   
     def test_cancel_a_Parcel(self):
         """
             Method for testing the update function
@@ -132,7 +134,18 @@ class TestViews(unittest.TestCase):
         self.assertIn('Parcel_order', respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 200)
-        # self.assertTrue(result.json["Parcel_order"])
+    
+    def test_get_specific_user(self):
+        """
+            Method for testing the get function which returns one parcel_order
+        """
+        result = self.client().get('api/v1/users/1/parcels')
+        result2 = self.client().get('api/v1/users/a/parcels')
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertEqual(result.status_code, 200)
+        self.assertEqual(result2.status_code, 404)
+        self.assertIsInstance(respond, dict)
+      
     
 
        

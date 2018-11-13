@@ -68,7 +68,7 @@ class ParcelOrder():
                     'Parcels': 'Parcel orders gotten successfully',
                     'data': self.userlist
                 }
-                return (response), 200
+                return (response)
             return ("No orders at the moment")
 
 
