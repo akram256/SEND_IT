@@ -67,14 +67,13 @@ class GetParcelOrders(MethodView):
         """
            method for all get requests and single request
         """
-        parcels = parcel_orders.get_all_parcels()
-        if not parcels:
-            return jsonify({'Parcels': parcel_orders.get_all_parcels()}), 200
-        elif parcel_id:
-            return jsonify({'Parcels': parcel_orders.get_one_parcel(parcel_id)}), 200  
-        elif user_id:
-            return jsonify({'Parcels': parcel_orders.get_order_of_specific_user(user_id)}),200
-        
+        if user_id is None:
+            if parcel_id is None:
+                if parcel_orders.get_all_parcels() is True:
+                    return jsonify({'Parcels':'No Parcel orders available at the moment,Please make an order'})
+                return jsonify({'Parcels': parcel_orders.get_all_parcels()}), 200
+            return jsonify({'Parcels': parcel_orders.get_one_parcel(parcel_id)}), 200
+        return jsonify({'Parcels': parcel_orders.get_order_of_specific_user(user_id)}),200
     def put(self,parcel_id):
         """
            post method for puts/cancels requests

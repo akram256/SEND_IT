@@ -8,7 +8,8 @@ source=api/
 omit=
     *tests/*
     *models/*
-    *routes/*                                         
+    *routes/*
+    *handler/*                                         
     *config*
     */__init__.py
 # Regexes for lines to exclude from consideration
