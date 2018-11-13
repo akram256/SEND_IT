@@ -5,10 +5,13 @@ class ParcelOrder():
     """
         class defining all methods
     """
+    userlist = []
     def __init__(self):
+        # self.userlist = []
         self.parcelorders = []
+        
 
-    def add_parcel(self,user_name,email, parcel_name, pick_location,destination, price                  , status, user_id,parcel_id):
+    def add_parcel(self,user_name,user_id, parcel_name, pick_location,destination, price                  , status,parcel_id):
         """
            Method to post requests
         """
@@ -18,8 +21,9 @@ class ParcelOrder():
         # user_id =len(parcel_list)+1
 
 
+       
         order = {
-            'User_name': user_name,'email':email, 'parcel_name': parcel_name,
+            'User_name': user_name, 'user_id':user_id,'parcel_name': parcel_name,
              'pick_location': pick_location, 'destination': destination,'price': price,'status':status,
             'id': id
         }
@@ -40,14 +44,32 @@ class ParcelOrder():
            Method for  getting single request
         """
         available_parcel_id = [
-            order.__dict__ for order in self.parcelorders
-            if order.__dict__['id'] == parcel_id]
+            order for order in self.parcelorders
+            if order ['id'] == parcel_id]
         if not available_parcel_id:
             return {parcel_id:"Parcel_id doesnot exist"}
-        return {'Requested order': [
-            order.__dict__
+        return ( [
+            order
             for order in self.parcelorders
-            if order.__dict__['id'] == parcel_id]}
+            if order['id'] == parcel_id])
+
+    def get_order_of_specific_user(self,user_id):
+        """
+            method for getting orders for a specific user
+        """
+        self.userlist = []
+
+        for order in self.parcelorders:
+            if user_id == order['user_id']:
+                for order in self.parcelorders:
+                    if user_id == order['user_id']:
+                        self.userlist.append(order)
+                response= {
+                    'Parcels': 'Parcel orders gotten successfully',
+                    'data': self.userlist
+                }
+                return (response)
+            return ("No orders at the moment")
 
 
     def cancel_a_parcel(self,parcel_id):
