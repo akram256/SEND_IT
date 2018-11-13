@@ -41,7 +41,7 @@ nav .brand a {
   width: 30%;
   margin: auto;
   box-sizing: border-box;
-  border: white solid;
+  border: rgb(241, 238, 238) solid;
   margin-top: 10px;
   text-align: center;
 
@@ -54,8 +54,8 @@ nav .brand a {
   text-align: center;
 }
 .form .field {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 20px;
   padding: 10px;
 }
 .form label {
