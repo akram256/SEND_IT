@@ -29,6 +29,11 @@ class GetParcelOrders(MethodView):
             
         if not isinstance(request.json['price'], int):
             return jsonify({'message': 'enter price as an interger'}), 400
+        
+        if parcel_orders.exist_order(request.json['user_id']):
+                return jsonify({'Alert':'wait order is being processed, You cant order twice'})
+        
+        
 
       
         post_data = request.get_json()

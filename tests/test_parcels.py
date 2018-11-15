@@ -52,6 +52,7 @@ class TestViews(unittest.TestCase):
         self.assertEqual(result2.status_code, 404)
         self.assertIsInstance(respond, dict)
 
+
     def test_missing_field(self):
         """
             Method for testing a missing field in the post function
@@ -64,8 +65,10 @@ class TestViews(unittest.TestCase):
         self.assertIn('Blank space', respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 400)
+
+
    
-    def test_cancel_a_Parcel(self):
+    def test_update__a_Parcel(self):
         """
             Method for testing the update function
         """
@@ -79,7 +82,39 @@ class TestViews(unittest.TestCase):
         self.assertIn('Parcel_order', respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result1.status_code, 200)
-    # def test_missing_status_field(self)
+    
+    def test_missing_update_Parcel_field(self):
+        """
+            Method for testing the missing update field
+        """
+        result1 = self.client().put('api/v1/parcels/1/cancel',
+                                    content_type="application/json",
+                                    data=json.dumps(dict(parcel_id=1,
+                                                         status=
+                                                         "")))
+       
+        respond = json.loads(result1.data.decode("utf8"))
+        self.assertIn('error_message', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertEqual(result1.status_code, 400)
+        self.assertTrue(result1.json["error_message"],'some fields have no data')
+    
+    def test_wrong_update_Parcel_field_formart(self):
+        """
+            Method for testing the nissing update field
+        """
+        result1 = self.client().put('api/v1/parcels/1/cancel',
+                                    content_type="application/json",
+                                    data=json.dumps(dict(parcel_id=1,
+                                                         status=
+                                                         1000)))
+       
+        respond = json.loads(result1.data.decode("utf8"))
+        self.assertIn('error_message', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertEqual(result1.status_code, 400)
+        self.assertTrue(result1.json["error_message"])
+    
 
 
     def test_inputs(self):
@@ -134,10 +169,11 @@ class TestViews(unittest.TestCase):
         self.assertIn('Parcel_order', respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 200)
+
     
     def test_get_specific_user(self):
         """
-            Method for testing the get function which returns one parcel_order
+            Method for testing the get function which returns one parcel_order of a specific user
         """
         result = self.client().get('api/v1/users/1/parcels')
         result2 = self.client().get('api/v1/users/a/parcels')
@@ -145,7 +181,61 @@ class TestViews(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertEqual(result2.status_code, 404)
         self.assertIsInstance(respond, dict)
-      
+    
+    def test_get_of_non_existing_specific_user(self):
+        """
+            Method for testing non existing specific user
+        """
+        result = self.client().post('api/v1/parcels',
+                                    content_type="application/json",
+                                    data=json.dumps(dict(parcel_id=1, user_id= 3,user_name="Akram", parcel_name="gift", pickup_location="mbra",destination="kampala", price =10000 ,
+                                                         )))
+        result = self.client().get('api/v1/users/4/parcels')
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertIn('Parcels', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertTrue(result.json['Parcels'],'None existing user, No order at the moment')
+
+    
+    def test_same_order(self):
+        """
+            Method for tesing the post function which posts the same order
+        """
+        result = self.client().post('api/v1/parcels',
+                                    content_type="application/json",
+                                    data=json.dumps(dict(parcel_id=1, user_id= 1,user_name="Akram", parcel_name="gift", pickup_location="mbra",destination="kampala", price =10000 ,
+                                                         )))
+        result = self.client().post('api/v1/parcels',
+                                    content_type="application/json",
+                                    data=json.dumps(dict(parcel_id=1, user_id= 1,user_name="Akram", parcel_name="gift", pickup_location="mbra",destination="kampala", price =10000 ,
+                                                         )))
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertIn('Alert', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertEqual(result.status_code, 200)
+        self.assertTrue(result.json['Alert'],'wait order is being processed, You cant order twice')
+
+    def test_get_order_not_exist(self):
+        """
+            Method for testing the get function of an order that doesnot exist
+        """
+        result = self.client().post('api/v1/parcels',
+                                    content_type="application/json",
+                                    data=json.dumps(dict(parcel_id=12, user_id= 2,user_name="Akram", parcel_name="gift", pickup_location="mbra",destination="kampala", price =10000 ,
+                                                         )))
+        result = self.client().get('api/v1/parcels/17')
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertIn('Parcels', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertEqual(result.status_code, 200)
+        self.assertTrue(result.json["Parcels"],{'17':'Parcel_id doesnot exist'})
+    
+
+
+  
+
+       
+    
     
 
        
