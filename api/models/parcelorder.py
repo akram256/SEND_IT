@@ -69,7 +69,7 @@ class ParcelOrder():
                     'data': self.userlist
                 }
                 return (response)
-            return ("No orders at the moment")
+            return ("None existing user, No order at the moment")
 
 
     def cancel_a_parcel(self,parcel_id):
@@ -84,4 +84,10 @@ class ParcelOrder():
                 status = parcel_json['status']
                 order['status'] = status
                 return {parcel_id:'Parcel has been cancelled'}
+
+    def exist_order(self, user_id):
+        for order in self.parcelorders:
+            if user_id == order['user_id']:
+                return True
+        return False
    
