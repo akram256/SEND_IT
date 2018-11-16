@@ -26,7 +26,7 @@ class AuthUser(MethodView):
         keys = ("user_name" ,"name", "password")
         
         if not set(keys).issubset(set(request.json)):
-            return ErrorFeedback.missing_key(keys)
+            return jsonify({'Blank space': 'Your request has Empty feilds'}), 400
             
       
         post_data = request.get_json()
