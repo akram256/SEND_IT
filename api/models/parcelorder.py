@@ -45,10 +45,7 @@ class ParcelOrder():
             if order ['id'] == parcel_id]
         if not available_parcel_id:
             return {parcel_id:"Parcel_id doesnot exist"}
-        return ( [
-            order
-            for order in self.parcelorders
-            if order['id'] == parcel_id])
+        return available_parcel_id
 
     def get_order_of_specific_user(self,user_id):
         """
