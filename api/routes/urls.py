@@ -2,6 +2,8 @@
    Class for defining url / routes
 """
 from api.controllers.views import GetParcelOrders
+from api.controllers.user_views import AuthUser
+from api.controllers.user_views import Login
 class Urls():
     """
        GetRoutes defines urls
@@ -24,4 +26,12 @@ class Urls():
                            view_func=parcel_order_post, methods=['POST',])
         order.add_url_rule('/api/v1/parcels/<int:parcel_id>/cancel',
                            view_func=parcel_order_post, methods=['PUT',])
+        users = AuthUser.as_view('users_post')
+        order.add_url_rule('/api/v1/auth/users/signup',
+                           view_func=users, methods=['POST',])
+        order.add_url_rule('/api/v1/auth/users',
+                           view_func=users, methods=['GET',])
+        user_login =Login.as_view('login')
+        order.add_url_rule('/api/v1/auth/users/login',
+                           view_func=user_login, methods=['POST',])
         

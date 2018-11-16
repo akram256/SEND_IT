@@ -6,6 +6,7 @@ from flask import jsonify, request
 from flask.views import MethodView
 from api.handler.error_handler import ErrorFeedback
 from api.models.parcelorder import ParcelOrder
+from api.auth.user import Users
 import re
 
 parcel_orders = ParcelOrder()
@@ -30,7 +31,7 @@ class GetParcelOrders(MethodView):
         if not isinstance(request.json['price'], int):
             return jsonify({'message': 'enter price as an interger'}), 400
         
-        if parcel_orders.exist_order(request.json['user_id']):
+        if parcel_orders.exist_order(request.json['parcel_name']):
                 return jsonify({'Alert':'wait order is being processed, You cant order twice'})
         
         
@@ -60,7 +61,7 @@ class GetParcelOrders(MethodView):
 
         if not user_name or not parcel_name or not pickup_location or not destination or not price:
             return ErrorFeedback.empty_data_fields()
-
+        
         parcel_orders.add_parcel(user_name,user_id,parcel_name,pickup_location,destination,price, status,id)
 
         response_object =  parcel_orders.__dict__

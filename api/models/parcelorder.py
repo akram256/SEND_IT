@@ -1,13 +1,14 @@
 from flask import request
+from api.auth.user import Users 
+
 """ Module for parcel orders
 """
 class ParcelOrder():
     """
         class defining all methods
     """
-    userlist = []
+    # userlist = []
     def __init__(self):
-        # self.userlist = []
         self.parcelorders = []
         
 
@@ -18,10 +19,6 @@ class ParcelOrder():
         parcel_list = [order for order in self.parcelorders]
 
         id = len(parcel_list) + 1
-        # user_id =len(parcel_list)+1
-
-
-       
         order = {
             'User_name': user_name, 'user_id':user_id,'parcel_name': parcel_name,
              'pick_location': pick_location, 'destination': destination,'price': price,'status':status,
@@ -57,16 +54,16 @@ class ParcelOrder():
         """
             method for getting orders for a specific user
         """
-        self.userlist = []
+        self.user_list = []
 
         for order in self.parcelorders:
             if user_id == order['user_id']:
                 for order in self.parcelorders:
                     if user_id == order['user_id']:
-                        self.userlist.append(order)
+                        self.user_list.append(order)
                 response= {
                     'Parcels': 'Parcel orders gotten successfully',
-                    'data': self.userlist
+                    'data': self.user_list
                 }
                 return (response)
             return ("None existing user, No order at the moment")
@@ -85,9 +82,9 @@ class ParcelOrder():
                 order['status'] = status
                 return {parcel_id:'Parcel has been cancelled'}
 
-    def exist_order(self, user_id):
+    def exist_order(self, parcel_name):
         for order in self.parcelorders:
-            if user_id == order['user_id']:
+            if parcel_name == order['parcel_name']:
                 return True
         return False
    
