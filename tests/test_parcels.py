@@ -229,6 +229,108 @@ class TestViews(unittest.TestCase):
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 200)
         self.assertTrue(result.json["Parcels"],{'17':'Parcel_id doesnot exist'})
+
+    def test_add_a_user(self):
+        """
+            Method for tesing the post function which adds a user
+        """
+        result = self.client().post('api/v1/auth/users/signup',
+                                    content_type="application/json",
+                                    data=json.dumps(dict(user_name="Akram",name='akram' ,password='123333' ,
+                                                         )))
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertIn('userlist', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertEqual(result.status_code, 201)
+        self.assertTrue(result.json["userlist"])
+
+    def test_login(self):
+        """
+            Method for tesing the post function which logins a user
+        """
+        result = self.client().post('api/v1/auth/users/login',
+                                    content_type="application/json",
+                                    data=json.dumps(dict(user_name="Akram" ,password='123333' ,
+                                                         )))
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertIn('message', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertEqual(result.status_code, 200)
+        self.assertTrue(result.json["message"],'User logged in successfully')
+    
+    def test_invalid_login(self):
+        """
+            Method for tesing the post function which logins a user with invalid details
+        """
+        result = self.client().post('api/v1/auth/users/signup',
+                                    content_type="application/json",
+                                    data=json.dumps(dict(user_name="Akram", name='akram' ,password='123333' ,
+                                                         )))
+        result = self.client().post('api/v1/auth/users/login',
+                                    content_type="application/json",
+                                    data=json.dumps(dict(user_name="Aam", name='akram' ,password='123333' ,
+                                                         )))
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertIn('message', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertEqual(result.status_code, 400)
+    
+    def test_empty_login_fields(self):
+        """
+            Method for tesing the post function for missing login feilds
+        """
+        result = self.client().post('api/v1/auth/users/login',
+                                    content_type="application/json",
+                                    data=json.dumps(dict( password='123333' ,
+                                                         )))
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertIn('blank', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertEqual(result.status_code, 400)
+        self.assertTrue(result.json["blank"],'Your request has Empty feilds')
+    
+    def test_empty_register_fields(self):
+        """
+            Method for tesing the post function for missing register feilds
+        """
+        result = self.client().post('api/v1/auth/users/signup',
+                                    content_type="application/json",
+                                    data=json.dumps(dict( user_name='akram',password='123333' ,
+                                                         )))
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertIn('Blank space', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertEqual(result.status_code, 400)
+        self.assertTrue(result.json["Blank space"],'Your request has Empty feilds')
+    
+    def test_invalid_login_data(self):
+        """
+            Method for tesing the post function for inavalid data
+        """
+        result = self.client().post('api/v1/auth/users/login',
+                                    content_type="application/json",
+                                    data=json.dumps(dict( user_name=11111111,password='123333' ,
+                                                         )))
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertIn('error_message', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertEqual(result.status_code, 400)
+        self.assertTrue(result.json["error_message"],'Please use character strings')
+
+    def test_get_all_users(self):
+        """
+           Method for testing the get function which returns all users
+        """
+        result = self.client().get('/api/v1/auth/users')
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertEqual(result.status_code, 200)
+        self.assertIn('users', respond)
+        self.assertIsInstance(respond, dict)
+
+
+    
+    
+        
     
 
 
