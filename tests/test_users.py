@@ -7,7 +7,7 @@ import psycopg2
 from run import APP
 from api.models.users import Users
 from api.models.database import Databaseconn
-from api.models.parcels import Parcel
+# from api.models.parcels import Parcel
 from api.config import TestingConfig
 import os
 from . import *

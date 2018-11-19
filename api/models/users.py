@@ -40,5 +40,22 @@ class Users:
             if user[2] == email and check_password_hash(user[3], password):
                 return user[0]
         return None 
+    def check_admin(self, user_id):
+        """
+           Method for getting an admin
+        """
+        dbhandler = Databaseconn()
+        dbhandler.cursor.execute("SELECT * FROM users WHERE user_id = '{}' AND is_admin = True".format(user_id))
+        user_now = dbhandler.cursor.fetchone()
+        return user_now
 
+    def set_admin(self, user_id):
+        """
+        makes a user an admin by setting the is_admin column to true
+        """
+        dbhandler = Databaseconn()
+        query = "UPDATE users SET is_admin = True WHERE user_id=%s" 
+        dbhandler.cursor.execute(query, (user_id,))
+        updated_rows = dbhandler.cursor.rowcount
+        return updated_rows
     
