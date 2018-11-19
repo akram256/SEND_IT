@@ -90,6 +90,21 @@ class Parcel():
         dbhandler.cursor.execute(parcel_status_query,(parcel_status, parcel_id, ))
         updated_rows = dbhandler.cursor.rowcount
         return updated_rows
+    
+    def update_current_location(self,parcel_id,current_location):
+        """
+             this is a method for updating a current location
+        """
+     
+        dbhandler.cursor.execute("""SELECT "parcel_id" FROM parcels WHERE parcel_id= %s""",(parcel_id, ) )
+        check_current_location=dbhandler.cursor.fetchone()
+        if not check_current_location:
+            return "No current location to update, please select another parcel_id"
+        parcel_current_location_query = "UPDATE  parcels SET current_location = %s WHERE parcel_id = %s;"
+        dbhandler.cursor.execute(parcel_current_location_query,(current_location, parcel_id, ))
+        updated_rows = dbhandler.cursor.rowcount
+        return updated_rows
+    
 
 
 

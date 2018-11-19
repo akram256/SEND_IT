@@ -155,6 +155,43 @@ class UpdateStatus(MethodView):
                 return jsonify({'message': "Parcel status has been updated"}), 200
             return jsonify({"message":'No Parcel status to update'}), 400
         return jsonify({'Alert':"Not Authorised to perform this task"})
+class UpdateCurrentlocation(MethodView):
+    """
+        Class to get all orders
+       params: order_status
+       respone: json data
+    """
+    @jwt_required
+    def put(self,parcel_id):
+        """
+            this method for putting or updating current location
+        """
+        # # user = Users()
+        update_current_location = Parcel()
+        # user_id = get_jwt_identity()
+        # is_admin = True
+        # is_admin_now = update_current_location.update_current_location(user_id,current_location)
+        # if  is_admin_now is True:
+        user_id = get_jwt_identity()
+        is_admin = update_current_location.activate_admin(user_id)
+        if user_id and  not is_admin:
+            post_data =request.get_json()
+            keys = ("current_location")
+            if keys not in post_data:
+                return ErrorFeedback.missing_key(keys)
+            try:
+                current_location = post_data['current_location'].strip()
+            except AttributeError:
+                return ErrorFeedback.invalid_data_format(),400
+            if not current_location:
+                return ErrorFeedback.empty_data_fields(),400
+            new_parcel_status = update_current_location.update_current_location(str(parcel_id), request.json['current_location'].strip())
+
+            if new_parcel_status:
+                return jsonify({'message': "Current location has been changed"}), 200
+            return jsonify({"message":'No location to change'})
+        return jsonify({'Alert':"Not Authorised to perform this task"})
+
 
 class Activateadmin(MethodView):
     """

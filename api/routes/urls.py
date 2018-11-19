@@ -34,3 +34,4 @@ class Urls(object):
                          view_func=UpdateDestination.as_view('update destination'), methods=['PUT',])
         app.add_url_rule('/api/v1/parcels/<int:parcel_id>/status',
                          view_func=UpdateStatus.as_view('update status'), methods=['PUT',])
+                         
