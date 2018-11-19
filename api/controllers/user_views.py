@@ -55,5 +55,43 @@ class SignUp(MethodView):
             return jsonify({'message': user_details}), 401
 
         return jsonify({'message': user_details}), 201
+    
+
+class Login(MethodView):
+    """
+       Class for logging in the user
+    """
+    def post(self):
+        """
+           Method for logging in  user
+           params: json requests
+           response: json data
+        """
+        login_user = Users()
+        keys = ("email", "password")
+
+        if not set(keys).issubset(set(request.json)):
+            return jsonify({'message': 'Your request has Empty feilds'}), 400
+
+        if request.json["email"] == "":
+            return jsonify({'message': 'Ennter email'}), 400
+
+        if (' ' in request.json['email']) == True:
+            return jsonify({'message': 'email should not contain any spaces'}), 400
+
+        if request.json["password"] == "":
+            return jsonify({'message': 'Enter password'}), 400
+
+        
+        user_id = login_user.fetch_password(request.json['email'], request.json['password'])
+
+        if user_id:
+            return jsonify({
+                "access_token" : create_access_token(identity=user_id),
+                "message": "User logged in successfully"
+            }), 200
+
+        return jsonify({"message": "Wrong username or passwerd"}), 400
+
 
 

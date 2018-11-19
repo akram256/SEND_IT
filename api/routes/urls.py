@@ -2,7 +2,7 @@
 This module handels requests to urls.
 """
 from flask.views import MethodView
-from api.controllers.user_views import SignUp
+from api.controllers.user_views import SignUp,Login
 
 
 
@@ -20,4 +20,6 @@ class Urls(object):
         """
         app.add_url_rule('/api/v1/auth/signup',
                          view_func=SignUp.as_view('Signup'), methods=['POST',])
+        app.add_url_rule('/api/v1/auth/login',
+                         view_func=Login.as_view('Login'), methods=['POST',])
         
