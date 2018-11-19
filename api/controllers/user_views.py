@@ -2,11 +2,13 @@
 This module provides responses to url requests.
 """
 import re
+from flask_jwt_extended import  jwt_required, create_access_token, get_jwt_identity
 from flask import jsonify, request
 from flask.views import MethodView
 from api.models.database import Databaseconn
 from api.models.users import Users
-from flask_jwt_extended import  jwt_required, create_access_token, get_jwt_identity
+from api.handler.error_handler import ErrorFeedback
+
 
 
 
@@ -23,36 +25,30 @@ class SignUp(MethodView):
         new_user = Users()
         keys = ("user_name", "email", "password")
         if not set(keys).issubset(set(request.json)):
-            return jsonify({'New user': 'Your request has Empty feilds'}), 400
+            return ErrorFeedback.missing_key(keys)
 
-        if request.json['user_name'] == "":
-            return jsonify({'user_name': 'enter user_name'}), 400
-        if (' ' in request.json['user_name']) == True:
-            return jsonify({'message': 'user_name should not contain any spaces'}), 400
+        post_data = request.get_json()
+        user_name =request.json['user_name']
+        password = request.json['password']  
+        
+        try:
+            user_name = post_data['user_name'].strip()
+            password = post_data['password'].strip()
+        except AttributeError:
+            return ErrorFeedback.invalid_data_format()
+        if not user_name or not password:
+            return ErrorFeedback.empty_data_fields()
 
-        if request.json['email'] == "":
-            return jsonify({'email': 'enter email'}), 400
-
-        if (' ' in request.json['email']) == True:
-            return jsonify({'message': 'email should not contain any spaces'}), 400
-
-        if request.json['password'] == "":
-            return jsonify({'message': 'password should not contain any spaces'}), 400
-
-        if (' ' in request.json['password']) == True:
-            return jsonify({'Password': 'Password should not contain any spaces'}), 400
-
-        if len(request.json['password']) < 8:
-            return jsonify({'Password': 'Your password should be more than 8 digits'}), 400
-
-        pattern = r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$"
+        pattern = r"(^[a-zA-Z0-9-.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
         if not re.match(pattern, request.json['email']):
-            return jsonify({'email': 'Enter right format of email thanks'}), 400
+            return jsonify({'message': 'Enter right format of email thanks',
+                            'status':'Failure'}), 400
 
        
         user_details = new_user.register_a_user(request.json['user_name'], request.json['email'], request.json['password'])
-        if user_details == "email exits boss, use another email":
-            return jsonify({'message': user_details}), 401
+        if user_details == "Email exists boss, Please use another email":
+            return jsonify({'message': user_details,
+                            'status':'success'}), 401
 
         return jsonify({'message': user_details}), 201
     
@@ -71,16 +67,18 @@ class Login(MethodView):
         keys = ("email", "password")
 
         if not set(keys).issubset(set(request.json)):
-            return jsonify({'message': 'Your request has Empty feilds'}), 400
+            return ErrorFeedback.missing_key(keys)
 
-        if request.json["email"] == "":
-            return jsonify({'message': 'Ennter email'}), 400
-
-        if (' ' in request.json['email']) == True:
-            return jsonify({'message': 'email should not contain any spaces'}), 400
-
-        if request.json["password"] == "":
-            return jsonify({'message': 'Enter password'}), 400
+        post_data = request.get_json()
+        user_name =request.json['user_name']
+        password = request.json['password']   
+        try:
+            user_name = post_data['user_name'].strip()
+            password = post_data['password'].strip()
+        except AttributeError:
+            return ErrorFeedback.invalid_data_format()
+        if not user_name or not password:
+            return ErrorFeedback.empty_data_fields()
 
         
         user_id = login_user.fetch_password(request.json['email'], request.json['password'])
@@ -88,10 +86,12 @@ class Login(MethodView):
         if user_id:
             return jsonify({
                 "access_token" : create_access_token(identity=user_id),
-                "message": "User logged in successfully"
+                "message": "User logged in successfully",
+                "status":"success"
             }), 200
 
-        return jsonify({"message": "Wrong username or passwerd"}), 400
+        return jsonify({"message": "Wrong username or passwerd",
+                        'status':'failure'}), 400
 
 
 

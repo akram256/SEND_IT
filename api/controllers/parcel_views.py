@@ -2,13 +2,14 @@
 This module provides responses to url requests.
 """
 import re
+from flask_jwt_extended import  jwt_required, create_access_token, get_jwt_identity
 from flask import jsonify, request
 from flask.views import MethodView
 from api.models.database import Databaseconn
 from api.models.users import Users
 from api.models.parcels import Parcel
 from api.handler.error_handler import ErrorFeedback
-from flask_jwt_extended import  jwt_required, create_access_token, get_jwt_identity
+
 
 
 
