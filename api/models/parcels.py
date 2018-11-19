@@ -67,6 +67,15 @@ class Parcel():
         if check_exist:
             return True
         return False
+    
+    def activate_admin(self,user_id):
+        """
+            method to activate admin to perform tasks
+        """
+        query = "UPDATE users SET is_admin = True WHERE user_id=%s" 
+        dbhandler.cursor.execute(query, (user_id,))
+        updated_rows = dbhandler.cursor.rowcount
+        return updated_rows
 
 
 
