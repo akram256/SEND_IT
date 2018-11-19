@@ -1,15 +1,14 @@
 """
     Module for making tests on the app for sign up
 """
-import unittest
+import os
 import json
+import unittest
 import psycopg2
 from run import APP
 from api.models.users import Users
 from api.models.database import Databaseconn
-# from api.models.parcels import Parcel
 from api.config import TestingConfig
-import os
 from . import *
 class TestViews(unittest.TestCase):
     """"
@@ -24,8 +23,8 @@ class TestViews(unittest.TestCase):
         APP.config.from_object('api.config.TestingConfig')
         self.client = APP.test_client
         with self.client() as client:
-            down_tables = Databaseconn()
-            down_tables.create_tables()
+            create_test_tables = Databaseconn()
+            create_test_tables.create_tables()
             self.post_token = post_auth_header(client)
             self.get_token = get_auth_header(client)
 

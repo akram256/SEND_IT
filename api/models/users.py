@@ -1,8 +1,9 @@
 """
     This is a a user model
 """
-from api.models.database import Databaseconn
 from werkzeug.security import generate_password_hash, check_password_hash
+from api.models.database import Databaseconn
+
 
 
         

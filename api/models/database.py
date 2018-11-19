@@ -82,8 +82,6 @@ class Databaseconn:
             
             for command in commands:
                 self.cursor.execute(command)
-            print("success")
-
         except(Exception, psycopg2.DatabaseError) as error:
             raise error
 

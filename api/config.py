@@ -10,8 +10,8 @@ class Config(object):
     """  
     DEBUG = False
     TESTING = False
-    SECRET_KEY = 'codeislove'
-    # 'postgresql://username:password@hostname/database'
+    SECRET_KEY = 'code@256#love'
+
 
 
 class DevelopmentConfig(Config):
@@ -19,7 +19,7 @@ class DevelopmentConfig(Config):
        Method for defining the development environment
     """   
     DEBUG = True
-    # DATABASE_URL = 'postgresql://postgres:12345@localhost/sendit'
+    DATABASE_URL = 'postgresql://postgres:12345@localhost/sendit'
 
 
 class TestingConfig(Config):
@@ -28,7 +28,7 @@ class TestingConfig(Config):
     """
     DEBUG = True
     TESTING = True
-    # DATABASE_URL = 'postgresql://postgres:@localhost/sendit_test'
+    DATABASE_URL = 'postgresql://postgres:@localhost/sendit_test'
 
 
 

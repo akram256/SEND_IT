@@ -12,7 +12,9 @@ class ErrorFeedback:
     def invalid_data_format():
         response_object = {
         
-            'error_message': 'Please use character strings'
+             'status': 'fail',
+            'error_message': 'Please use character strings',
+            'data': False
             
         }
         return jsonify(response_object), 400
@@ -21,7 +23,9 @@ class ErrorFeedback:
     def empty_data_fields():
         response_object = {
            
-            'error_message': 'Some fields have no data'
+            'status': 'fail',
+            'error_message': 'Some fields have no data',
+            'data': False
             
         }
         return jsonify(response_object), 400
@@ -30,7 +34,9 @@ class ErrorFeedback:
     def missing_key(keys):
         response_object = {
            
-            'Blank space': 'You have missing feilds ' 
+             'status': 'fail',
+            'error_message': 'You have missing fields',
+            'data': False
           
         }
         return jsonify(response_object), 400

@@ -1,6 +1,12 @@
 
 # SEND_IT
 This is an application for sending and recieving parcel orders
+
+
+TRAVIS BADGE
+[![Build Status](https://travis-ci.org/akram256/SEND_IT.svg?branch=login_db)](https://travis-ci.org/akram256/SEND_IT)
+
+
 ## Getting started
 The information below  will be of use n the setup  plus running  the application on your local machine.
 
