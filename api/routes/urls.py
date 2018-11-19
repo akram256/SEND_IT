@@ -3,7 +3,7 @@ This module handels requests to urls.
 """
 from flask.views import MethodView
 from api.controllers.user_views import SignUp,Login
-from api.controllers.parcel_views import PlaceOrder,GetParcel,UpdateDestination
+from api.controllers.parcel_views import PlaceOrder,GetParcel,UpdateDestination,UpdateStatus
 
 
 
@@ -32,4 +32,5 @@ class Urls(object):
                          view_func=GetParcel.as_view('one_order'), methods=['GET',])
         app.add_url_rule('/api/v1/parcels/<int:parcel_id>/destination',
                          view_func=UpdateDestination.as_view('update destination'), methods=['PUT',])
-        
+        app.add_url_rule('/api/v1/parcels/<int:parcel_id>/status',
+                         view_func=UpdateStatus.as_view('update status'), methods=['PUT',])

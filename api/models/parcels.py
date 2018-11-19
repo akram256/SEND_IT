@@ -76,6 +76,20 @@ class Parcel():
         dbhandler.cursor.execute(query, (user_id,))
         updated_rows = dbhandler.cursor.rowcount
         return updated_rows
+    
+    def update_parcel_status(self,parcel_id,parcel_status):
+        """
+             this is a method for updating an parcel_status
+        """
+     
+        dbhandler.cursor.execute("""SELECT "parcel_id" FROM parcels WHERE parcel_id= %s""",(parcel_id, ) )
+        check_status=dbhandler.cursor.fetchone()
+        if not check_status:
+            return "No parcel_order to update, please select another parcel_id"
+        parcel_status_query = "UPDATE  parcels SET parcel_status = %s WHERE parcel_id = %s;"
+        dbhandler.cursor.execute(parcel_status_query,(parcel_status, parcel_id, ))
+        updated_rows = dbhandler.cursor.rowcount
+        return updated_rows
 
 
 
