@@ -9,6 +9,8 @@ TRAVIS BADGE
 COVERAGE
 [![Coverage Status](https://coveralls.io/repos/github/akram256/SEND_IT/badge.svg?branch=challenge_three)](https://coveralls.io/github/akram256/SEND_IT?branch=challenge_three)
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/12a5a63ac9973e406a37/maintainability)](https://codeclimate.com/github/akram256/SEND_IT/maintainability)
+
 
 ## Getting started
 The information below  will be of use n the setup  plus running  the application on your local machine.
