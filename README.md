@@ -44,11 +44,50 @@ if using Visual Studio code will open the code location.
      source /env/bin/activate
 
 ## Databases 
-		Env
-         --Production = sendit'
-         --Testing         =sendittest
+		Env variables
+         --development = sendit'
+         --TESTING         = sendittest
+         --Production = Heroku postgres
 
 ## Running tests:
 **Testing the API endpoints.**
 Run the `run.py` file and test the endpoints in Postman as shown below:
+
+    Endpoint                        | Verb          | Action                     |   Parameters     | Privileges |
+| ----------------------------------- |:-------------:|  ------------------------- | ----------------- | -----------|
+| api/v1/auth/signup                     | POST          | Register a user          | username,email,password,is_admin  | user/admin |
+| api/v1/auth/login        | POST           | Login a user          | email, password  | client/admin |
+| /api/v1/parcels        | POST          | Make_a_parcel_order          | parcel_name, pickup_location,destination,reciever,current_location,weight | client |
+| /api/v1/users/parcels | GET     | Get all parcel_orders for a particular user   | none  | client |
+| /api/v1/parcel | GET     | Get all parcel_orders | none | admin |
+| /api/v1/parcels/<int:parcel_Id> | GET     | Fetch specific parcel | parcel_id(URL) | admin |
+| /api/v1/parcels/<int:parcel_Id>/status | PUT     | Update status of a parcel | parcel_status | admin |
+| /api/v1/parcels/<int:parcel_Id>/destination| PUT     | Update destination | destination  | client |
+|/api/v1/parcels/<int:parcel_Id>/currenlocation| PUT    | Update currentlocation | current_location | admin |
+
+## Running the tests
+
+- To run the tests, run the following commands
+
+```bash
+pytest --cov=.
+
+## Deployment:
+N/A
+
+## Built with:
+**API endpoints**
+* Python 3.6
+* Flask
+* JWT_Extended
+* PostgreSQL
+
+## Authors
+
+* **Mukasa  Akram** -  - [akram256](https://github.com/akram256)
+
+## Acknowledgments
+
+* Andela Development Uganda
+
 

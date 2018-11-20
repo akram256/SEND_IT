@@ -70,14 +70,14 @@ class Login(MethodView):
             return ErrorFeedback.missing_key(keys)
 
         post_data = request.get_json()
-        user_name =request.json['user_name']
+        email =request.json['email']
         password = request.json['password']   
         try:
-            user_name = post_data['user_name'].strip()
+            email = post_data['email'].strip()
             password = post_data['password'].strip()
         except AttributeError:
             return ErrorFeedback.invalid_data_format()
-        if not user_name or not password:
+        if not email or not password:
             return ErrorFeedback.empty_data_fields()
 
         

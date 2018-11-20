@@ -10,10 +10,7 @@ from api.models.users import Users
 from api.models.parcels import Parcel
 from api.handler.error_handler import ErrorFeedback
 
-
-
-
-
+activate_admin=Databaseconn()
 class PlaceOrder(MethodView):
     """
         Method for placing an order
@@ -40,13 +37,17 @@ class PlaceOrder(MethodView):
         if  not parcel_name or not pickup_location or not destination or not weight or not current_location:
             return ErrorFeedback.empty_data_fields()
         if place_order.exist_order(request.json['parcel_name']):
-                return jsonify({'Alert':'wait order is being processed, You cant order twice'})
+                return jsonify({'message':'wait order is being processed, You cant order twice'})
        
         user_id = get_jwt_identity()
         parcel_data = place_order.make_parcel_order(str(user_id),request.json['parcel_name'],request.json['pickup_location'],request.json['destination'],request.json['reciever'],request.json['weight'],request.json['current_location'])
         if parcel_data:
-            return jsonify({'message': parcel_data}), 201
-        return jsonify({'message':'no order made'})
+            response_object = {
+            'status': 'Success',
+            'message':parcel_data
+            
+        }
+            return jsonify(response_object), 201
 
 class GetParcel(MethodView):
     """
@@ -63,14 +64,9 @@ class GetParcel(MethodView):
         """
        
         get_parcel = Parcel()
-
         user_id = get_jwt_identity()
-        # is_admin = False
-        # is_admin_now = get_parcel.activate_admin(user_id,is_admin)
-        # if  is_admin_now is True:
-        user_id = get_jwt_identity()
-        is_admin = get_parcel.activate_admin(user_id)
-        if user_id and  not is_admin:
+        is_admin = activate_admin.check_admin_status(user_id)
+        if user_id and is_admin:
             if parcel_id is None:
                 parcels_list = get_parcel.get_all_parcels()
                 if parcels_list == "No parcel_orders available at the moment, Please make an order":
@@ -79,8 +75,13 @@ class GetParcel(MethodView):
             
             orders_list = get_parcel.get_one_parcel(parcel_id)
             if orders_list == "No parcel_orders available at the moment, Please make an order":
-                return jsonify({"Order": "No orders found at the moment for the order_id"}), 404
-            return jsonify({"Order": orders_list}), 200
+                return ErrorFeedback.order_absent(), 404
+            response_object = {
+            'status': 'Success',
+            'message': orders_list
+            
+        }
+            return jsonify(response_object), 200
         return jsonify({'Alert':"Not Authorised to perform this task"})
 
 class UpdateDestination(MethodView):
@@ -95,13 +96,9 @@ class UpdateDestination(MethodView):
             this method for putting or updating the order_status
         """
         update_destination = Parcel()
-        # user_id = get_jwt_identity()
-        # is_admin = True
-        # is_admin_now = update_destination.update_parcel_destination(user_id,destination)
-        # if  is_admin_now is not True:
         user_id = get_jwt_identity()
-        is_admin = update_destination.activate_admin(user_id)
-        if user_id and  not is_admin:
+        is_admin = activate_admin.check_admin_status(user_id)
+        if user_id and not is_admin:
             keys = ("destination",)
             if not set(keys).issubset(set(request.json)):
                 return ErrorFeedback.missing_key(keys), 400
@@ -115,8 +112,12 @@ class UpdateDestination(MethodView):
             new_parcel_destination = update_destination.update_parcel_destination(str(parcel_id), request.json['destination'].strip())
 
             if new_parcel_destination:
-                return jsonify({'message': "Destination has been updated"}), 200
-            return jsonify({"message":'No Destination to update'})
+                response_object = {
+                'status': 'Success',
+                'message': new_parcel_destination
+        }
+                return jsonify(response_object), 200
+            return ErrorFeedback.order_absent()
         return jsonify({'Alert':"Not Authorised to perform this task"}),401
 
 
@@ -133,13 +134,9 @@ class UpdateStatus(MethodView):
         """
       
         update_status = Parcel()
-        # user_id = get_jwt_identity()
-        # is_admin = True
-        # is_admin_now = update_status.update_parcel_status(user_id,parcel_status)
-        # if  is_admin_now is True:
         user_id = get_jwt_identity()
-        is_admin = update_status.activate_admin(user_id)
-        if user_id and  not is_admin:
+        is_admin = activate_admin.check_admin_status(user_id)
+        if user_id and is_admin:
             post_data =request.get_json()
             keys = ("parcel_status",)
             if keys not in post_data:
@@ -153,8 +150,11 @@ class UpdateStatus(MethodView):
             new_parcel_status = update_status.update_parcel_status(str(parcel_id), request.json['parcel_status'].strip())
 
             if new_parcel_status:
-                return jsonify({'message': "Parcel status has been updated"}), 200
-            return jsonify({"message":'No Parcel status to update'}), 400
+                response_object = {
+                'status': 'Success',
+                'message': new_parcel_status }
+                return jsonify(response_object), 200
+            return ErrorFeedback.order_absent()
         return jsonify({'Alert':"Not Authorised to perform this task"})
 class UpdateCurrentlocation(MethodView):
     """
@@ -167,15 +167,12 @@ class UpdateCurrentlocation(MethodView):
         """
             this method for putting or updating current location
         """
-        # # user = Users()
-        update_current_location = Parcel()
-        # user_id = get_jwt_identity()
-        # is_admin = True
-        # is_admin_now = update_current_location.update_current_location(user_id,current_location)
-        # if  is_admin_now is True:
+
+        update_current_location = Parcel() 
+       
         user_id = get_jwt_identity()
-        is_admin = update_current_location.activate_admin(user_id)
-        if user_id and  not is_admin:
+        is_admin = activate_admin.check_admin_status(user_id)
+        if user_id and is_admin:
             post_data =request.get_json()
             keys = ("current_location")
             if keys not in post_data:
@@ -186,39 +183,15 @@ class UpdateCurrentlocation(MethodView):
                 return ErrorFeedback.invalid_data_format(),400
             if not current_location:
                 return ErrorFeedback.empty_data_fields(),400
-            new_parcel_status = update_current_location.update_current_location(str(parcel_id), request.json['current_location'].strip())
+            new_parcel_location = update_current_location.update_current_location(str(parcel_id), request.json['current_location'].strip())
 
-            if new_parcel_status:
-                return jsonify({'message': "Current location has been changed"}), 200
-            return jsonify({"message":'No location to change'})
+            if new_parcel_location:
+                response_object = {
+                'status': 'Success',
+                'message': new_parcel_location
+        }
+                return jsonify(response_object), 200
+            return ErrorFeedback.order_absent()
         return jsonify({'Alert':"Not Authorised to perform this task"})
 
 
-class Activateadmin(MethodView):
-    """
-        Class to get all orders
-       params: order_status
-       respone: json data
-    """
-    @jwt_required
-    def put(self,user_id):
-        """
-            this method for putting or updating the order_status
-        """
-        # user = Users()
-        update_admin = Parcel()
-        # user_id = get_jwt_identity()
-        # is_admin_now = user.check_admin(user_id)
-        # if user_id and is_admin_now :
-
-        admin = update_admin.activate_admin(str(user_id),)
-
-        if admin:
-            return jsonify({'message': "Your now admin"}), 200
-        
-        
-
-
-        
-        
-            
