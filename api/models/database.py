@@ -3,11 +3,10 @@ This module handlesusers and database
 """
 import os
 import psycopg2
+from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 from flask import request, jsonify
 from flask.views import MethodView
-
-
 
 
 class Databaseconn:
@@ -24,12 +23,14 @@ class Databaseconn:
         """
         This method creates the connection object 
         """
+       
         try:
-            # from run import APP
+
+            
             if(os.getenv("FLASK_ENV")) == "Production":
                 self.connection = psycopg2.connect(os.getenv("DATABASE_URL"))
-            # elif(APP.config["TESTING"]):
-            #     self.connection = psycopg2.connect('postgresql://postgres:12345@localhost/sendittest')
+            elif(os.getenv("FLASK_ENV")) == "TESTING":
+                self.connection = psycopg2.connect('postgresql://postgres:12345@localhost/sendittest')
             else:
                 self.connection = psycopg2.connect("postgresql://postgres:12345@localhost/sendit")
             self.connection.autocommit = True
@@ -82,8 +83,31 @@ class Databaseconn:
             
             for command in commands:
                 self.cursor.execute(command)
+            # self.check_admin()
         except(Exception, psycopg2.DatabaseError) as error:
             raise error
+    def add_admin(self):
+        """
+            method to activate admin to perform tasks
+        """
+        self.cursor.execute("SELECT * FROM users  WHERE email = 'admin@yahoo.com'")
+        admin = self.cursor.fetchone()
+        if admin:
+            return
+        hashed_password = generate_password_hash('12345', method='sha256')
+        self.cursor.execute("INSERT INTO users(username,email,password,is_admin)VALUES('admin','admin@yahoo.com','{}',true)".format(hashed_password))
+
+    def check_admin_status(self,user_id):
+        """
+           Method for getting an admin
+        """
+        self.cursor.execute("SELECT * FROM users WHERE user_id = '{}' AND is_admin = True".format(user_id))
+        user_now = self.cursor.fetchone()
+        if user_now:
+            return True
+        return False
+        
+        
 
     def delete_tables(self):
        

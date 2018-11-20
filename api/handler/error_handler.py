@@ -23,10 +23,19 @@ class ErrorFeedback:
     def empty_data_fields():
         response_object = {
            
-            'status': 'fail',
+            'status': 'failure',
             'error_message': 'Some fields have no data',
             'data': False
             
+        }
+        return jsonify(response_object), 400
+        
+    @staticmethod
+    def order_absent():
+        response_object = {
+            'status': 'failure',
+            'error_message': 'No orders found at the moment for the order_id',
+            'data': False
         }
         return jsonify(response_object), 400
 
@@ -34,7 +43,7 @@ class ErrorFeedback:
     def missing_key(keys):
         response_object = {
            
-             'status': 'fail',
+             'status': 'failure',
             'error_message': 'You have missing fields',
             'data': False
           

@@ -12,7 +12,7 @@ class Parcel():
     def make_parcel_order(self, user_id,parcel_name,pickup_location,destination,reciever,current_location,weight):
         """
            Method for placing an order
-           params: order_now
+           
         """
         add_order_query = "INSERT INTO parcels(parcel_name,pickup_location,destination,reciever,weight,current_location,user_id) VALUES( %s,%s,%s,%s,%s,%s,%s);"
         dbhandler.cursor.execute(add_order_query,(parcel_name,pickup_location,destination,reciever,current_location,weight,user_id,))
@@ -68,14 +68,8 @@ class Parcel():
             return True
         return False
     
-    def activate_admin(self,user_id):
-        """
-            method to activate admin to perform tasks
-        """
-        query = "UPDATE users SET is_admin = True WHERE user_id=%s" 
-        dbhandler.cursor.execute(query, (user_id,))
-        updated_rows = dbhandler.cursor.rowcount
-        return updated_rows
+   
+        
     
     def update_parcel_status(self,parcel_id,parcel_status):
         """

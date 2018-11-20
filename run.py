@@ -22,6 +22,7 @@ jwt = JWTManager(APP)
 def create_tables():
     table_handler=Databaseconn()
     table_handler.create_tables()
+    table_handler.add_admin()
     # user = Users()
     # user.set_admin(1)
 
