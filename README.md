@@ -7,7 +7,6 @@ TRAVIS BADGE
 [![Build Status](https://travis-ci.org/akram256/SEND_IT.svg?branch=challenge_three)](https://travis-ci.org/akram256/SEND_IT)
 
 COVERAGE
-
 [![Coverage Status](https://coveralls.io/repos/github/akram256/SEND_IT/badge.svg?branch=challenge_three)](https://coveralls.io/github/akram256/SEND_IT?branch=challenge_three)
 
 
