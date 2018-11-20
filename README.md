@@ -6,6 +6,10 @@ This is an application for sending and recieving parcel orders
 TRAVIS BADGE
 [![Build Status](https://travis-ci.org/akram256/SEND_IT.svg?branch=challenge_three)](https://travis-ci.org/akram256/SEND_IT)
 
+COVERAGE
+
+[![Coverage Status](https://coveralls.io/repos/github/akram256/SEND_IT/badge.svg?branch=challenge_three)](https://coveralls.io/github/akram256/SEND_IT?branch=challenge_three)
+
 
 ## Getting started
 The information below  will be of use n the setup  plus running  the application on your local machine.
