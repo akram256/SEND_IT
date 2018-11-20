@@ -1,0 +1,22 @@
+language: python
+python:
+- '3.5.2'
+install:
+  - pip install -r requirements.txt
+env:
+  - TESTING = True
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database sendit;'  -U postgres
+addons:
+  postgresql: "9.4"
+script:
+  - pytest --cov=.
+  - coverage  
+  - coveralls 
+after_success:
+- coveralls
+
+  
+
