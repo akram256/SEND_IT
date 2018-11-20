@@ -32,6 +32,35 @@ LOGIN_OTHER_USER = {
     "email": "admin@gmail.com",
     "password": "0123456789",
 }
+ORDER = {
+    "parcel_name": "book",
+    "pickup_location":"kla",
+    "destination":"mbra", 
+    "reciever":"akram",
+    "current_location":"gulu",
+    "weight":12,
+
+    
+}
+EMPTY_ORDER = {
+    "parcel_name": "",
+    "pickup_location":"",
+    "destination":"mbra", 
+    "reciever":"akram",
+    "current_location":"gulu",
+    "weight":12,
+}
+
+EMPTY_PARCEL_STATUS = {
+    "parcel_status": "",
+}
+PARCEL_STATUS = {
+    "parcel_status": "completed",
+}
+DESTINATION_UPDATE ={
+    "destination":"jinja",
+}
+
 
 def get_token(client):
     # signup admin
