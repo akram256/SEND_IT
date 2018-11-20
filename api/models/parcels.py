@@ -12,7 +12,7 @@ class Parcel():
     def make_parcel_order(self, user_id,parcel_name,pickup_location,destination,reciever,current_location,weight):
         """
            Method for placing an order
-           params: order_now
+           
         """
         add_order_query = "INSERT INTO parcels(parcel_name,pickup_location,destination,reciever,weight,current_location,user_id) VALUES( %s,%s,%s,%s,%s,%s,%s);"
         dbhandler.cursor.execute(add_order_query,(parcel_name,pickup_location,destination,reciever,current_location,weight,user_id,))
