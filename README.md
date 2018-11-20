@@ -4,7 +4,7 @@ This is an application for sending and recieving parcel orders
 
 
 TRAVIS BADGE
-[![Build Status](https://travis-ci.org/akram256/SEND_IT.svg?branch=login_db)](https://travis-ci.org/akram256/SEND_IT)
+[![Build Status](https://travis-ci.org/akram256/SEND_IT.svg?branch=challenge_three)](https://travis-ci.org/akram256/SEND_IT)
 
 
 ## Getting started
