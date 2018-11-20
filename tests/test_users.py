@@ -113,7 +113,8 @@ class TestViews(unittest.TestCase):
         self.assertIn( "message", respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 400)
-        self.assertTrue(result.json["message"])
+        self.assertTrue(result.json["message"],)
+
 
   
        

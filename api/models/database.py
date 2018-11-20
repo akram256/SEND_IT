@@ -83,9 +83,9 @@ class Databaseconn:
             
             for command in commands:
                 self.cursor.execute(command)
-            # self.check_admin()
         except(Exception, psycopg2.DatabaseError) as error:
             raise error
+            
     def add_admin(self):
         """
             method to activate admin to perform tasks

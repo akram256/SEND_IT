@@ -98,15 +98,15 @@ class UpdateDestination(MethodView):
         update_destination = Parcel()
         user_id = get_jwt_identity()
         is_admin = activate_admin.check_admin_status(user_id)
-        if user_id and not is_admin:
+        if user_id and is_admin:
             keys = ("destination",)
             if not set(keys).issubset(set(request.json)):
                 return ErrorFeedback.missing_key(keys), 400
             try:
-                parcel_destination = request.json['parcel_destination'].strip()
+                destination = request.json['destination'].strip()
             except AttributeError:
                 return ErrorFeedback.invalid_data_format(),400
-            if not parcel_destination:
+            if not destination:
                 return ErrorFeedback.empty_data_fields(),400
 
             new_parcel_destination = update_destination.update_parcel_destination(str(parcel_id), request.json['destination'].strip())
@@ -114,7 +114,8 @@ class UpdateDestination(MethodView):
             if new_parcel_destination:
                 response_object = {
                 'status': 'Success',
-                'message': new_parcel_destination
+                'data': new_parcel_destination,
+                'message':'successfully changed destination'
         }
                 return jsonify(response_object), 200
             return ErrorFeedback.order_absent()
@@ -138,7 +139,7 @@ class UpdateStatus(MethodView):
         is_admin = activate_admin.check_admin_status(user_id)
         if user_id and is_admin:
             post_data =request.get_json()
-            keys = ("parcel_status",)
+            keys = ('parcel_status')
             if keys not in post_data:
                 return ErrorFeedback.missing_key(keys)
             try:
