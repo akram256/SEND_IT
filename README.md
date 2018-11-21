@@ -11,6 +11,8 @@ COVERAGE
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/12a5a63ac9973e406a37/maintainability)](https://codeclimate.com/github/akram256/SEND_IT/maintainability)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/017c5a5476aa4ebe962eea6081e2ca63)](https://www.codacy.com/app/akram256/SEND_IT?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=akram256/SEND_IT&amp;utm_campaign=Badge_Grade)
+
 
 ## Getting started
 The information below  will be of use n the setup  plus running  the application on your local machine.
