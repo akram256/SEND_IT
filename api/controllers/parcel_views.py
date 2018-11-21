@@ -21,7 +21,7 @@ class PlaceOrder(MethodView):
             this is a method for placing an order
         """   
         place_order = Parcel ()
-        key = ("parcel_name","pickup_location","destination","reciever","weight","current_location",)
+        key = ("parcel_name","pickup_location","destination","reciever","weight",)
 
         if not set(key).issubset(set(request.json)):
             return ErrorFeedback.missing_key(key)
@@ -31,16 +31,16 @@ class PlaceOrder(MethodView):
             pickup_location = post_data['pickup_location'].strip()
             destination = post_data['destination'].strip()
             weight = post_data['weight']
-            current_location = post_data['current_location']
+            
         except AttributeError:
             return ErrorFeedback.invalid_data_format()
-        if  not parcel_name or not pickup_location or not destination or not weight or not current_location:
+        if  not parcel_name or not pickup_location or not destination or not weight:
             return ErrorFeedback.empty_data_fields()
         if place_order.exist_order(request.json['parcel_name']):
                 return jsonify({'message':'wait order is being processed, You cant order twice'})
        
         user_id = get_jwt_identity()
-        parcel_data = place_order.make_parcel_order(str(user_id),request.json['parcel_name'],request.json['pickup_location'],request.json['destination'],request.json['reciever'],request.json['weight'],request.json['current_location'])
+        parcel_data = place_order.make_parcel_order(str(user_id),request.json['parcel_name'],request.json['pickup_location'],request.json['destination'],request.json['reciever'],request.json['weight'])
         if parcel_data:
             response_object = {
             'status': 'Success',
@@ -98,7 +98,7 @@ class UpdateDestination(MethodView):
         update_destination = Parcel()
         keys = ("destination",)
         if not set(keys).issubset(set(request.json)):
-            return ErrorFeedback.missing_key(keys), 400
+            return ErrorFeedback.missing_key(), 400
         try:
             destination = request.json['destination'].strip()
         except AttributeError:
@@ -110,10 +110,8 @@ class UpdateDestination(MethodView):
 
         if new_parcel_destination:
             response_object = {
-            'status': 'Success',
-            'data': new_parcel_destination,
-            'message':'successfully changed destination'
-        }
+            'status': 'success',
+            'message':'destination has been update'}
             return jsonify(response_object), 200
         return ErrorFeedback.order_absent()
         
@@ -138,7 +136,7 @@ class UpdateStatus(MethodView):
             post_data =request.get_json()
             keys = ('parcel_status')
             if keys not in post_data:
-                return ErrorFeedback.missing_key(keys)
+                return ErrorFeedback.missing_key()
             try:
                 parcel_status = post_data['parcel_status'].strip()
             except AttributeError:
@@ -150,7 +148,7 @@ class UpdateStatus(MethodView):
             if new_parcel_status:
                 response_object = {
                 'status': 'Success',
-                'message': new_parcel_status }
+                'message': 'Status has beeen updated' }
                 return jsonify(response_object), 200
             return ErrorFeedback.order_absent()
         return jsonify({'Alert':"Not Authorised to perform this task"})
@@ -174,7 +172,7 @@ class UpdateCurrentlocation(MethodView):
             post_data =request.get_json()
             keys = ("current_location")
             if keys not in post_data:
-                return ErrorFeedback.missing_key(keys)
+                return ErrorFeedback.missing_key()
             try:
                 current_location = post_data['current_location'].strip()
             except AttributeError:
@@ -186,8 +184,7 @@ class UpdateCurrentlocation(MethodView):
             if new_parcel_location:
                 response_object = {
                 'status': 'Success',
-                'message': new_parcel_location
-        }
+                'message': 'current location has been updated'}
                 return jsonify(response_object), 200
             return ErrorFeedback.order_absent()
         return jsonify({'Alert':"Not Authorised to perform this task"})
@@ -208,6 +205,6 @@ class GetSpecific(MethodView):
                 'status': 'Success',
                 'message': user_list }
             return jsonify(response_object),200
-        return jsonify ({"orders":"Not allowed to perform this task"})
+        return jsonify ({"Alert":"Not allowed to perform this task"})
 
 

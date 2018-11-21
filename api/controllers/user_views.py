@@ -2,6 +2,7 @@
 This module provides responses to url requests.
 """
 import re
+import flasgger
 from flask_jwt_extended import  jwt_required, create_access_token, get_jwt_identity
 from flask import jsonify, request
 from flask.views import MethodView
@@ -11,11 +12,11 @@ from api.handler.error_handler import ErrorFeedback
 
 
 
-
 class SignUp(MethodView):
     """
        Class contains method plus all signup performances
     """
+    @flasgger.swag_from("../docs/signup.yml")
     def post(self):
         """
            Method for creating new user
@@ -25,11 +26,15 @@ class SignUp(MethodView):
         new_user = Users()
         keys = ("user_name", "email", "password")
         if not set(keys).issubset(set(request.json)):
-            return ErrorFeedback.missing_key(keys)
+            return ErrorFeedback.missing_key()
+        
 
         post_data = request.get_json()
         user_name =request.json['user_name']
         password = request.json['password']  
+        if len(password)<8:
+            return jsonify({'message':'Password should be more than 8 characters',
+                            'status':'failure'}),400
         
         try:
             user_name = post_data['user_name'].strip()
@@ -57,6 +62,7 @@ class Login(MethodView):
     """
        Class for logging in the user
     """
+    @flasgger.swag_from("../docs/login.yml")
     def post(self):
         """
            Method for logging in  user
@@ -67,7 +73,7 @@ class Login(MethodView):
         keys = ("email", "password")
 
         if not set(keys).issubset(set(request.json)):
-            return ErrorFeedback.missing_key(keys)
+            return ErrorFeedback.missing_key()
 
         post_data = request.get_json()
         email =request.json['email']

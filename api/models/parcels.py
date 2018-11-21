@@ -9,13 +9,13 @@ class Parcel():
         this class handles all order methods
     """
           
-    def make_parcel_order(self, user_id,parcel_name,pickup_location,destination,reciever,current_location,weight):
+    def make_parcel_order(self, user_id,parcel_name,pickup_location,destination,reciever,weight):
         """
            Method for placing an order
            
         """
-        add_order_query = "INSERT INTO parcels(parcel_name,pickup_location,destination,reciever,weight,current_location,user_id) VALUES( %s,%s,%s,%s,%s,%s,%s);"
-        dbhandler.cursor.execute(add_order_query,(parcel_name,pickup_location,destination,reciever,current_location,weight,user_id,))
+        add_order_query = "INSERT INTO parcels(parcel_name,pickup_location,destination,reciever,weight,user_id) VALUES(%s,%s,%s,%s,%s,%s);"
+        dbhandler.cursor.execute(add_order_query,(parcel_name,pickup_location,destination,reciever,weight,user_id,))
         return "Order has been Placed successfully"
     def get_all_parcels(self):
         """
@@ -23,7 +23,7 @@ class Parcel():
         """
         parcel_query= "SELECT * FROM parcels"
         dbhandler.cursor.execute(parcel_query)
-        keys = ["parcel_id", "parcel_name","pickup_location","destination","reciever","current_location" ,"weight","parcel_status","user_id","order_date"]
+        keys = ["parcel_id", "parcel_name","pickup_location","destination","reciever" ,'current_location',"weight","parcel_status","user_id","order_date"]
         parcels = dbhandler.cursor.fetchall()
         parcel_list = []
         for parcel in parcels:
@@ -53,7 +53,6 @@ class Parcel():
      
         dbhandler.cursor.execute("""SELECT "parcel_id" FROM parcels WHERE parcel_id= %s""",(parcel_id, ) )
         check_destination=dbhandler.cursor.fetchone()
-        print(check_destination)
         if not check_destination:
             return "No parcel destination to update, please select another parcel_id"
         put_status_query = "UPDATE  parcels SET destination = %s WHERE parcel_id = %s;"
