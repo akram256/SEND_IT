@@ -65,7 +65,7 @@ class DatabaseUtilities:
                     pickup_location VARCHAR (50) NOT NULL,
                     destination VARCHAR (50) NOT NULL,
                     reciever  VARCHAR (50) NOT NULL,
-                    current_location  VARCHAR (50) NOT NULL,
+                    current_location  VARCHAR (50) DEFAULT 'in_transit',
                     weight integer,
                     parcel_status VARCHAR (255) DEFAULT 'pending',
                     user_id integer,

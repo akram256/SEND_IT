@@ -9,7 +9,7 @@ module init tests
 token_user = {
     "user_name": "admin",
     "email": "admin@yahoo.com",
-    "password": "12345",
+    "password": "123456789",
 }
 OTHER_USER = {
     "user_name": "mukasa",
@@ -37,7 +37,6 @@ ORDER = {
     "pickup_location":"kla",
     "destination":"mbra", 
     "reciever":"akram",
-    "current_location":"gulu",
     "weight":12,
 
     
@@ -47,7 +46,6 @@ EMPTY_ORDER = {
     "pickup_location":"",
     "destination":"mbra", 
     "reciever":"akram",
-    "current_location":"gulu",
     "weight":12,
 }
 
@@ -57,21 +55,28 @@ EMPTY_PARCEL_STATUS = {
 PARCEL_STATUS = {
     "parcel_status": "completed",
 }
+CURRENTLOCATION_UPDATE ={
+    "current_location":"jinja",
+}
+EMPTY_UPDATE ={
+    "destination":"",
+}
+
 DESTINATION_UPDATE ={
-    "destination":"jinja",
+    "destination":"Jinja",
 }
 
 
 def get_token(client):
     # signup admin
-    result = client.post('/api/v1/auth/signup',content_type="application/json",data=json.dumps(token_user))
+    result = client.post('/api/v2/auth/signup',content_type="application/json",data=json.dumps(token_user))
     if result.status_code != 201:
         raise Exception("failed to signup user")
     # give user admin rights
     user = Users()
     user.set_admin(1)
     # login user and get access token
-    result = client.post('/api/v1/auth/login',content_type="application/json",data=json.dumps(token_user))
+    result = client.post('/api/v2/auth/login',content_type="application/json",data=json.dumps(token_user))
     if result.status_code != 200:
         raise Exception("failed to login user")
     response = json.loads(result.data.decode())

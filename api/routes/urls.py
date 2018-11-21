@@ -19,23 +19,23 @@ class Urls(object):
         :param: app: takes in the app variable
         :return: urls
         """
-        app.add_url_rule('/api/v1/auth/signup',
+        app.add_url_rule('/api/v2/auth/signup',
                          view_func=SignUp.as_view('Signup'), methods=['POST',])
-        app.add_url_rule('/api/v1/auth/login',
+        app.add_url_rule('/api/v2/auth/login',
                          view_func=Login.as_view('Login'), methods=['POST',])
-        app.add_url_rule('/api/v1/parcels',
+        app.add_url_rule('/api/v2/parcels',
                          view_func=PlaceOrder.as_view('parcel order'), methods=['POST',])
-        app.add_url_rule('/api/v1/parcels',
+        app.add_url_rule('/api/v2/parcels',
                          view_func=GetParcel.as_view('PlaceOrder'),
                          defaults={'parcel_id': None}, methods=['GET',])
-        app.add_url_rule('/api/v1/parcels/<int:parcel_id>',
+        app.add_url_rule('/api/v2/parcels/<int:parcel_id>',
                          view_func=GetParcel.as_view('one_order'), methods=['GET',])
-        app.add_url_rule('/api/v1/parcels/<int:parcel_id>/destination',
+        app.add_url_rule('/api/v2/parcels/<int:parcel_id>/destination',
                          view_func=UpdateDestination.as_view('update destination'), methods=['PUT',])
-        app.add_url_rule('/api/v1/parcels/<int:parcel_id>/status',
+        app.add_url_rule('/api/v2/parcels/<int:parcel_id>/status',
                          view_func=UpdateStatus.as_view('update status'), methods=['PUT',])
-        app.add_url_rule('/api/v1/parcels/<int:parcel_id>/currentlocation',
+        app.add_url_rule('/api/v2/parcels/<int:parcel_id>/currentlocation',
                          view_func=UpdateCurrentlocation.as_view('update currentlocation'), methods=['PUT',])
-        app.add_url_rule('/api/v1/users/parcels',
+        app.add_url_rule('/api/v2/users/parcels',
                          view_func=GetSpecific.as_view('user_specfic'),defaults={'parcel_id': None, 'user_id':None}, methods=['GET',])
                          

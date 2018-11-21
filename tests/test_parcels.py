@@ -9,7 +9,7 @@ from run import APP
 from api.models.database import DatabaseUtilities
 from api.models.users import Users
 from api.models.parcels import Parcel
-from . import get_token,get_auth_header,post_auth_header,OTHER_USER,ORDER,EMPTY_PARCEL_STATUS,PARCEL_STATUS,DESTINATION_UPDATE
+from . import get_token,get_auth_header,post_auth_header,OTHER_USER,ORDER,EMPTY_PARCEL_STATUS,PARCEL_STATUS,CURRENTLOCATION_UPDATE,DESTINATION_UPDATE
 
 class TestViews(unittest.TestCase):
     """"
@@ -41,7 +41,7 @@ class TestViews(unittest.TestCase):
         """
             Method for testing the post function for checking a token
         """
-        result = self.client().post('/api/v1/parcels',
+        result = self.client().post('/api/v2/parcels',
                                     content_type="application/json",
                                     data=json.dumps(ORDER))        
         
@@ -53,7 +53,7 @@ class TestViews(unittest.TestCase):
         """
             Method for testing to place an order
         """
-        result = self.client().post('/api/v1/parcels',data=json.dumps(ORDER),headers=self.post_token)
+        result = self.client().post('/api/v2/parcels',data=json.dumps(ORDER),headers=self.post_token)
         respond = json.loads(result.data.decode("utf8"))
         print(str(respond))
         self.assertEqual(result.status_code, 201)
@@ -65,7 +65,7 @@ class TestViews(unittest.TestCase):
         """
            Method for testing get all no parcel orders 
         """
-        result = self.client().get('/api/v1/parcels',headers=self.post_token)
+        result = self.client().get('/api/v2/parcels',headers=self.post_token)
         respond = json.loads(result.data.decode("utf8"))
         print(str(respond))
         self.assertEqual(result.status_code, 404)
@@ -77,8 +77,8 @@ class TestViews(unittest.TestCase):
         """
            Method for testing get all orders 
         """
-        result = self.client().post('/api/v1/parcels',data=json.dumps(ORDER),headers=self.post_token)
-        result = self.client().get('/api/v1/parcels',headers=self.post_token)
+        result = self.client().post('/api/v2/parcels',data=json.dumps(ORDER),headers=self.post_token)
+        result = self.client().get('/api/v2/parcels',headers=self.post_token)
         respond = json.loads(result.data.decode("utf8"))
         self.assertEqual(result.status_code, 200)
         self.assertIn('Orders', respond)
@@ -88,8 +88,8 @@ class TestViews(unittest.TestCase):
         """
             This method tests for getting one parcel 
         """
-        result = self.client().post('/api/v1/parcels',data=json.dumps(ORDER),headers=self.post_token)
-        result = self.client().get('/api/v1/parcels/1',headers=self.post_token)
+        result = self.client().post('/api/v2/parcels',data=json.dumps(ORDER),headers=self.post_token)
+        result = self.client().get('/api/v2/parcels/1',headers=self.post_token)
         respond = json.loads(result.data.decode("utf8"))
         self.assertEqual(result.status_code, 200)
         self.assertIn('message', respond)
@@ -101,10 +101,9 @@ class TestViews(unittest.TestCase):
         """
             Method for testing to update an parcel_status by admin
         """
-        result = self.client().post('/api/v1/parcels',data=json.dumps(ORDER),headers=self.post_token)
-        result = self.client().put('/api/v1/parcels/2/status', data=json.dumps(PARCEL_STATUS), headers=self.post_token)
+        result = self.client().post('/api/v2/parcels',data=json.dumps(ORDER),headers=self.post_token)
+        result = self.client().put('/api/v2/parcels/2/status', data=json.dumps(PARCEL_STATUS), headers=self.post_token)
         respond = json.loads(result.data.decode("utf8"))
-        print(respond)
         self.assertEqual(result.status_code, 200)
         self.assertTrue(['message'], 'order has been updated' )
         self.assertIn('message', respond)
@@ -114,8 +113,8 @@ class TestViews(unittest.TestCase):
         """
             Method for testing to updating empty fields
         """
-        result = self.client().post('/api/v1/parcels',data=json.dumps(ORDER),headers=self.post_token)
-        result = self.client().put('/api/v1/parcels/1/status', data=json.dumps(ORDER), headers=self.post_token)
+        result = self.client().post('/api/v2/parcels',data=json.dumps(ORDER),headers=self.post_token)
+        result = self.client().put('/api/v2/parcels/2/status', data=json.dumps(ORDER), headers=self.post_token)
         respond = json.loads(result.data.decode("utf8"))
         self.assertEqual(result.status_code,400)
         self.assertIn('error_message', respond)
@@ -127,20 +126,22 @@ class TestViews(unittest.TestCase):
         """
             Method for testing to update an parcel_status by admin
         """
-        result = self.client().post('/api/v1/parcels',data=json.dumps(ORDER),headers=self.post_token)
-        result = self.client().put('/api/v1/parcels/1/destination', data=json.dumps(ORDER), headers=self.post_token)
+        result = self.client().post('/api/v2/parcels',data=json.dumps(ORDER),headers=self.post_token)
+        result = self.client().put('/api/v2/parcels/2/destination', data=json.dumps(DESTINATION_UPDATE), headers=self.post_token)
         respond = json.loads(result.data.decode("utf8"))
         self.assertEqual(result.status_code, 200)
-        self.assertTrue(['message'], 'successfully changed destination' )
+        self.assertTrue(['mes'], 'successfully changed destination' )
         self.assertIn('message', respond)
         self.assertIsInstance(respond, dict, )
+    
+    
     
     def test_updating_current_location(self):
         """
             Method for testing to update an parcel_current location
         """
-        result = self.client().post('/api/v1/parcels',data=json.dumps(ORDER),headers=self.post_token)
-        result = self.client().put('/api/v1/parcels/1/currentlocation', data=json.dumps(ORDER), headers=self.post_token)
+        result = self.client().post('/api/v2/parcels',data=json.dumps(ORDER),headers=self.post_token)
+        result = self.client().put('/api/v2/parcels/2/currentlocation', data=json.dumps(CURRENTLOCATION_UPDATE), headers=self.post_token)
         respond = json.loads(result.data.decode("utf8"))
         self.assertEqual(result.status_code, 200)
         self.assertTrue(['message'], 'successfully changed current location' )
@@ -151,8 +152,8 @@ class TestViews(unittest.TestCase):
         """
            Method for testing get all user parcel 
         """
-        result = self.client().post('/api/v1/parcels',data=json.dumps(ORDER),headers=self.post_token)
-        result = self.client().get('/api/v1/users/parcels',headers=self.post_token)
+        result = self.client().post('/api/v2/parcels',data=json.dumps(ORDER),headers=self.post_token)
+        result = self.client().get('/api/v2/users/parcels',headers=self.post_token)
         respond = json.loads(result.data.decode("utf8"))
         self.assertEqual(result.status_code, 200)
         self.assertIn('message', respond)
@@ -163,7 +164,7 @@ class TestViews(unittest.TestCase):
         """
            Method for testing get all user parcel 
         """
-        result = self.client().get('/api/v1/users/parcels',headers=self.post_token)
+        result = self.client().get('/api/v2/users/parcels',headers=self.post_token)
         respond = json.loads(result.data.decode("utf8"))
         self.assertEqual(result.status_code, 200)
         self.assertIn('message', respond)

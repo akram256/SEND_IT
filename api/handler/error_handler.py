@@ -40,12 +40,12 @@ class ErrorFeedback:
         return jsonify(response_object), 400
 
     @staticmethod
-    def missing_key(keys):
+    def missing_key():
         response_object = {
            
             'status': 'failure',
-            'error_message': 'You have missing fields',
-            'data': False
+            'error_message': 'You have missing fields'
+            # 'data': False
           
         }
         return jsonify(response_object), 400
