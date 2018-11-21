@@ -60,7 +60,7 @@ if using Visual Studio code will open the code location.
 **Testing the API endpoints.**
 Run the `run.py` file and test the endpoints in Postman as shown below:
 
-    Endpoint    | Verb          | Action                     |   Parameters     | Privileges |
+|Endpoint    | Verb          | Action                     |   Parameters     | Privileges |
 | ---------------|--------------|----------------------------|----------------- | -----------|
 | api/v1/auth/signup| POST       | Register a user          | username,email,password,is_admin  | user/admin |
 | api/v1/auth/login| POST           | Login a user          | email, password  | client/admin |
