@@ -61,8 +61,8 @@ if using Visual Studio code will open the code location.
 Run the `run.py` file and test the endpoints in Postman as shown below:
 
     Endpoint    | Verb          | Action                     |   Parameters     | Privileges |
-| ----------------------------------- |:-------------:|  ------------------------- | ----------------- | -----------|
-| api/v1/auth/signup| POST          | Register a user          | username,email,password,is_admin  | user/admin |
+| ---------------|--------------|----------------------------|----------------- | -----------|
+| api/v1/auth/signup| POST       | Register a user          | username,email,password,is_admin  | user/admin |
 | api/v1/auth/login| POST           | Login a user          | email, password  | client/admin |
 | /api/v1/parcel| POST| Make_a_parcel_order| parcel_name, pickup_location,destination,reciever,current_location,weight|
 | /api/v1/users/parcels | GET     | Get all parcel_orders for a particular user   | none  | client |
