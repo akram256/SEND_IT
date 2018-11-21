@@ -3,7 +3,7 @@ This module handels requests to urls.
 """
 from flask.views import MethodView
 from api.controllers.user_views import SignUp,Login
-from api.controllers.parcel_views import PlaceOrder,GetParcel,UpdateDestination,UpdateStatus, UpdateCurrentlocation
+from api.controllers.parcel_views import PlaceOrder,GetParcel,UpdateDestination,UpdateStatus, UpdateCurrentlocation, GetSpecific
 
 
 
@@ -36,4 +36,6 @@ class Urls(object):
                          view_func=UpdateStatus.as_view('update status'), methods=['PUT',])
         app.add_url_rule('/api/v1/parcels/<int:parcel_id>/currentlocation',
                          view_func=UpdateCurrentlocation.as_view('update currentlocation'), methods=['PUT',])
+        app.add_url_rule('/api/v1/users/parcels',
+                         view_func=GetSpecific.as_view('user_specfic'),defaults={'parcel_id': None, 'user_id':None}, methods=['GET',])
                          

@@ -2,7 +2,7 @@
     This is a a user model
 """
 from werkzeug.security import generate_password_hash, check_password_hash
-from api.models.database import Databaseconn
+from api.models.database import DatabaseUtilities
 
 
 
@@ -12,13 +12,13 @@ class Users:
         This class handles the users
     """
 
-
+    dbhandler = DatabaseUtilities()
     def register_a_user(self, username, email, password):
         """
            Method for registering a user
         """
 
-        dbhandler = Databaseconn()
+        dbhandler = DatabaseUtilities()
 
         dbhandler.cursor.execute("SELECT * FROM users WHERE email = %s", [email])
         check_email = dbhandler.cursor.fetchone()
@@ -34,7 +34,7 @@ class Users:
         """
            Method for fetching the user_password
         """
-        dbhandler = Databaseconn()
+        dbhandler = DatabaseUtilities()
         dbhandler.cursor.execute("SELECT * FROM users")
         users = dbhandler.cursor.fetchall()
         for user in users:
@@ -45,7 +45,7 @@ class Users:
         """
            Method for getting an admin
         """
-        dbhandler = Databaseconn()
+        dbhandler = DatabaseUtilities()
         dbhandler.cursor.execute("SELECT * FROM users WHERE user_id = '{}' AND is_admin = True".format(user_id))
         user_now = dbhandler.cursor.fetchone()
         return user_now
@@ -54,9 +54,31 @@ class Users:
         """
         makes a user an admin by setting the is_admin column to true
         """
-        dbhandler = Databaseconn()
+        dbhandler = DatabaseUtilities()
         query = "UPDATE users SET is_admin = True WHERE user_id=%s" 
         dbhandler.cursor.execute(query, (user_id,))
         updated_rows = dbhandler.cursor.rowcount
         return updated_rows
-    
+
+    def add_admin(self):
+        """
+            method to activate admin to perform tasks
+        """
+        dbhandler = DatabaseUtilities()
+        dbhandler.cursor.execute("SELECT * FROM users  WHERE email = 'admin@yahoo.com'")
+        admin = dbhandler.cursor.fetchone()
+        if admin:
+            return
+        hashed_password = generate_password_hash('12345', method='sha256')
+        dbhandler.cursor.execute("INSERT INTO users(username,email,password,is_admin)VALUES('admin','admin@yahoo.com','{}',true)".format(hashed_password))
+
+    def check_admin_status(self,user_id):
+        """
+           Method for getting an admin
+        """
+        dbhandler = DatabaseUtilities()
+        dbhandler.cursor.execute("SELECT * FROM users WHERE user_id = '{}' AND is_admin = True".format(user_id))
+        user_now = dbhandler.cursor.fetchone()
+        if user_now:
+            return True
+        return False

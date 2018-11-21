@@ -7,7 +7,8 @@ This is the main module
 """
 from flask import Flask
 from api.routes.urls import Urls
-from api.models.database import Databaseconn
+from api.models.users import Users
+from api.models.database import DatabaseUtilities
 from flask_jwt_extended import JWTManager
 
 
@@ -20,9 +21,10 @@ jwt = JWTManager(APP)
 
 @APP.before_first_request
 def create_tables():
-    table_handler=Databaseconn()
+    admin_user=Users()
+    table_handler=DatabaseUtilities()
     table_handler.create_tables()
-    table_handler.add_admin()
+    admin_user.add_admin()
     # user = Users()
     # user.set_admin(1)
 
