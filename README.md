@@ -27,7 +27,7 @@ The  following are needed:
 
 ## Project links:
 **API endpoints:** The code of the endpoints can be accessed at my github account: https://github.com/akram256/sendit
-HEROKU LINK:   https://senditapp3.herokuapp.com/api/v1/parcels
+HEROKU LINK:   https://senditapp3.herokuapp.com/api/v2/parcels
 
 ## Project features
 **API endpoints**
