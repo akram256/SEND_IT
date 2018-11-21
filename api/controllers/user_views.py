@@ -5,7 +5,7 @@ import re
 from flask_jwt_extended import  jwt_required, create_access_token, get_jwt_identity
 from flask import jsonify, request
 from flask.views import MethodView
-from api.models.database import Databaseconn
+from api.models.database import DatabaseUtilities
 from api.models.users import Users
 from api.handler.error_handler import ErrorFeedback
 
@@ -48,7 +48,7 @@ class SignUp(MethodView):
         user_details = new_user.register_a_user(request.json['user_name'], request.json['email'], request.json['password'])
         if user_details == "Email exists boss, Please use another email":
             return jsonify({'message': user_details,
-                            'status':'success'}), 401
+                            'status':'success'}), 400
 
         return jsonify({'message': user_details}), 201
     

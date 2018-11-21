@@ -5,12 +5,12 @@ import re
 from flask_jwt_extended import  jwt_required, create_access_token, get_jwt_identity
 from flask import jsonify, request
 from flask.views import MethodView
-from api.models.database import Databaseconn
+from api.models.database import DatabaseUtilities
 from api.models.users import Users
 from api.models.parcels import Parcel
 from api.handler.error_handler import ErrorFeedback
 
-activate_admin=Databaseconn()
+activate_admin=Users()
 class PlaceOrder(MethodView):
     """
         Method for placing an order
@@ -96,30 +96,27 @@ class UpdateDestination(MethodView):
             this method for putting or updating the order_status
         """
         update_destination = Parcel()
-        user_id = get_jwt_identity()
-        is_admin = activate_admin.check_admin_status(user_id)
-        if user_id and is_admin:
-            keys = ("destination",)
-            if not set(keys).issubset(set(request.json)):
-                return ErrorFeedback.missing_key(keys), 400
-            try:
-                destination = request.json['destination'].strip()
-            except AttributeError:
-                return ErrorFeedback.invalid_data_format(),400
-            if not destination:
-                return ErrorFeedback.empty_data_fields(),400
+        keys = ("destination",)
+        if not set(keys).issubset(set(request.json)):
+            return ErrorFeedback.missing_key(keys), 400
+        try:
+            destination = request.json['destination'].strip()
+        except AttributeError:
+            return ErrorFeedback.invalid_data_format(),400
+        if not destination:
+            return ErrorFeedback.empty_data_fields(),400
 
-            new_parcel_destination = update_destination.update_parcel_destination(str(parcel_id), request.json['destination'].strip())
+        new_parcel_destination = update_destination.update_parcel_destination(str(parcel_id), request.json['destination'].strip())
 
-            if new_parcel_destination:
-                response_object = {
-                'status': 'Success',
-                'data': new_parcel_destination,
-                'message':'successfully changed destination'
+        if new_parcel_destination:
+            response_object = {
+            'status': 'Success',
+            'data': new_parcel_destination,
+            'message':'successfully changed destination'
         }
-                return jsonify(response_object), 200
-            return ErrorFeedback.order_absent()
-        return jsonify({'Alert':"Not Authorised to perform this task"}),401
+            return jsonify(response_object), 200
+        return ErrorFeedback.order_absent()
+        
 
 
 class UpdateStatus(MethodView):
@@ -194,5 +191,23 @@ class UpdateCurrentlocation(MethodView):
                 return jsonify(response_object), 200
             return ErrorFeedback.order_absent()
         return jsonify({'Alert':"Not Authorised to perform this task"})
+
+class GetSpecific(MethodView):
+    @jwt_required
+    def get(self,user_id,parcel_id=None):
+        """
+            this method returns parcel for a particular user
+        """
+        specify_order = Parcel()
+        user_id = get_jwt_identity()
+        if user_id:
+            user_list = specify_order.specify_user_parcel()
+            if user_list== "user has not made parcel_orders yet": 
+                return ErrorFeedback.order_absent(),404
+            response_object = {
+                'status': 'Success',
+                'message': user_list }
+            return jsonify(response_object),200
+        return jsonify ({"orders":"Not allowed to perform this task"})
 
 

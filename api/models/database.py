@@ -9,7 +9,7 @@ from flask import request, jsonify
 from flask.views import MethodView
 
 
-class Databaseconn:
+class DatabaseUtilities:
     
     """
         This method returns all 
@@ -85,27 +85,6 @@ class Databaseconn:
                 self.cursor.execute(command)
         except(Exception, psycopg2.DatabaseError) as error:
             raise error
-            
-    def add_admin(self):
-        """
-            method to activate admin to perform tasks
-        """
-        self.cursor.execute("SELECT * FROM users  WHERE email = 'admin@yahoo.com'")
-        admin = self.cursor.fetchone()
-        if admin:
-            return
-        hashed_password = generate_password_hash('12345', method='sha256')
-        self.cursor.execute("INSERT INTO users(username,email,password,is_admin)VALUES('admin','admin@yahoo.com','{}',true)".format(hashed_password))
-
-    def check_admin_status(self,user_id):
-        """
-           Method for getting an admin
-        """
-        self.cursor.execute("SELECT * FROM users WHERE user_id = '{}' AND is_admin = True".format(user_id))
-        user_now = self.cursor.fetchone()
-        if user_now:
-            return True
-        return False
         
         
 

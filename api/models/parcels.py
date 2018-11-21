@@ -1,9 +1,9 @@
 """ 
     This is an Order model
 """
-from api.models.database import Databaseconn
+from api.models.database import DatabaseUtilities
 
-dbhandler = Databaseconn()
+dbhandler = DatabaseUtilities()
 class Parcel():
     """
         this class handles all order methods
@@ -68,9 +68,7 @@ class Parcel():
             return True
         return False
     
-   
-        
-    
+
     def update_parcel_status(self,parcel_id,parcel_status):
         """
              this is a method for updating an parcel_status
@@ -98,6 +96,22 @@ class Parcel():
         dbhandler.cursor.execute(parcel_current_location_query,(current_location, parcel_id, ))
         updated_rows = dbhandler.cursor.rowcount
         return updated_rows
+
+    def specify_user_parcel(self):
+        """
+            this method is for getting orders for a specific user
+        """
+        dbhandler = DatabaseUtilities()
+        parcel_user_query= "SELECT * FROM parcels"
+        dbhandler.cursor.execute(parcel_user_query)
+        keys = ["parcel_id", "parcel_name","pickup_location","destination","reciever","current_location" ,"weight","parcel_status","user_id","order_date"]
+        parcels = dbhandler.cursor.fetchall()
+        specfic_list = []
+        for user_parcel in parcels:
+            specfic_list.append(dict(zip(keys, user_parcel)))
+        if not specfic_list:
+            return "user has not made made parcel_orders yet"
+        return specfic_list
     
 
 
