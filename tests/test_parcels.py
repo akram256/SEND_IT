@@ -6,7 +6,7 @@ import json
 import psycopg2
 import os
 from run import APP
-from api.models.database import Databaseconn
+from api.models.database import DatabaseUtilities
 from api.models.users import Users
 from api.models.parcels import Parcel
 from . import get_token,get_auth_header,post_auth_header,OTHER_USER,ORDER,EMPTY_PARCEL_STATUS,PARCEL_STATUS,DESTINATION_UPDATE
@@ -23,7 +23,7 @@ class TestViews(unittest.TestCase):
         """
         self.client = APP.test_client
         with self.client() as client:
-            create_test_tables = Databaseconn()
+            create_test_tables = DatabaseUtilities()
             create_test_tables.create_tables()
             self.post_token = post_auth_header(client)
             self.get_token = get_auth_header(client)
@@ -34,7 +34,7 @@ class TestViews(unittest.TestCase):
            Method for deleting tables in the database object
         """
         with self.client():
-            drop_tables = Databaseconn()
+            drop_tables = DatabaseUtilities()
             drop_tables.delete_tables()
 
     def test_post_with_an_empty_without_a_token(self):
@@ -135,8 +135,6 @@ class TestViews(unittest.TestCase):
         self.assertIn('message', respond)
         self.assertIsInstance(respond, dict, )
     
-
-    
     def test_updating_current_location(self):
         """
             Method for testing to update an parcel_current location
@@ -148,6 +146,30 @@ class TestViews(unittest.TestCase):
         self.assertTrue(['message'], 'successfully changed current location' )
         self.assertIn('message', respond)
         self.assertIsInstance(respond, dict, )
+
+    def test_fetch_all_user_parcels(self):
+        """
+           Method for testing get all user parcel 
+        """
+        result = self.client().post('/api/v1/parcels',data=json.dumps(ORDER),headers=self.post_token)
+        result = self.client().get('/api/v1/users/parcels',headers=self.post_token)
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertEqual(result.status_code, 200)
+        self.assertIn('message', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertTrue(['status'], 'success' )
+    
+    def test_fetch_no_user_parcels(self):
+        """
+           Method for testing get all user parcel 
+        """
+        result = self.client().get('/api/v1/users/parcels',headers=self.post_token)
+        respond = json.loads(result.data.decode("utf8"))
+        self.assertEqual(result.status_code, 200)
+        self.assertIn('message', respond)
+        self.assertIsInstance(respond, dict)
+        self.assertTrue(['message'], 'user has not made made parcel_orders yet' )
+    
 
 
     

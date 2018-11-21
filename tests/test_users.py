@@ -7,7 +7,7 @@ import unittest
 import psycopg2
 from run import APP
 from api.models.users import Users
-from api.models.database import Databaseconn
+from api.models.database import DatabaseUtilities
 from api.config import TestingConfig
 from . import get_token,get_auth_header,post_auth_header,OTHER_USER
 
@@ -25,7 +25,7 @@ class TestViews(unittest.TestCase):
        
         self.client = APP.test_client
         with self.client() as client:
-            create_test_tables = Databaseconn()
+            create_test_tables = DatabaseUtilities()
             create_test_tables.create_tables()
             self.post_token = post_auth_header(client)
             self.get_token = get_auth_header(client)
@@ -35,7 +35,7 @@ class TestViews(unittest.TestCase):
            Method for deleting tables in the database object
         """
         with self.client():
-            drop_tables = Databaseconn()
+            drop_tables = DatabaseUtilities()
             drop_tables.delete_tables()
 
     def test_signup(self):
@@ -74,7 +74,7 @@ class TestViews(unittest.TestCase):
         result = json.loads(result.data.decode())
         self.assertTrue(['post_token'])
 
-    def test_sign_wrong_missing_email(self):
+    def test_sign_wrong_email(self):
         """
                 Method for testing the post function for missing email
             """
@@ -113,7 +113,7 @@ class TestViews(unittest.TestCase):
         self.assertIn( "message", respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 400)
-        self.assertTrue(result.json["message"],)
+        self.assertTrue(result.json["message"],'wrong username or password')
 
 
   
