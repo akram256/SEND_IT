@@ -18,7 +18,7 @@ from api.models.database import DatabaseUtilities
 APP = Flask(__name__)
 APP.config.from_object('api.config.DevelopmentConfig')
 flasgger.Swagger(APP)
-APP.config['JWT_SECRET_KEY'] = 'codeislove' 
+APP.config['JWT_SECRET_KEY'] = 'code@256#love'
 jwt = JWTManager(APP)
 
 @APP.before_first_request

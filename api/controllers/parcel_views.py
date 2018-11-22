@@ -1,11 +1,10 @@
 """
 This module provides responses to url requests.
 """
-import re
-from flask_jwt_extended import  jwt_required, create_access_token, get_jwt_identity
+import flasgger
+from flask_jwt_extended import  jwt_required,  get_jwt_identity
 from flask import jsonify, request
 from flask.views import MethodView
-from api.models.database import DatabaseUtilities
 from api.models.users import Users
 from api.models.parcels import Parcel
 from api.handler.error_handler import ErrorFeedback
@@ -16,6 +15,7 @@ class PlaceOrder(MethodView):
         Method for placing an order
     """
     @jwt_required
+    @flasgger.swag_from("../docs/post.yml")
     def post(self):
         """
             this is a method for placing an order
@@ -31,21 +31,18 @@ class PlaceOrder(MethodView):
             pickup_location = post_data['pickup_location'].strip()
             destination = post_data['destination'].strip()
             weight = post_data['weight']
-            
         except AttributeError:
             return ErrorFeedback.invalid_data_format()
         if  not parcel_name or not pickup_location or not destination or not weight:
             return ErrorFeedback.empty_data_fields()
         if place_order.exist_order(request.json['parcel_name']):
                 return jsonify({'message':'wait order is being processed, You cant order twice'})
-       
         user_id = get_jwt_identity()
         parcel_data = place_order.make_parcel_order(str(user_id),request.json['parcel_name'],request.json['pickup_location'],request.json['destination'],request.json['reciever'],request.json['weight'])
         if parcel_data:
             response_object = {
             'status': 'Success',
-            'message':parcel_data
-            
+            'message':parcel_data   
         }
             return jsonify(response_object), 201
 
@@ -55,14 +52,15 @@ class GetParcel(MethodView):
        params: order_id
        respone: json data
     """
+    # @flasgger.swag_from("../docs/get.yml")
     @jwt_required
+    
     def get(self, parcel_id):
         """
            get method for get parcel history
            param: route /api/v1/parcels and /api/v1/parcfels/<int:parcel_id>
            response: json data get_all_parcels() and self.get_one_parcel(parcel_id)
         """
-       
         get_parcel = Parcel()
         user_id = get_jwt_identity()
         is_admin = activate_admin.check_admin_status(user_id)
@@ -72,15 +70,12 @@ class GetParcel(MethodView):
                 if parcels_list == "No parcel_orders available at the moment, Please make an order":
                     return jsonify({"Orders": parcels_list}), 404
                 return jsonify({"Orders": parcels_list}), 200
-            
             orders_list = get_parcel.get_one_parcel(parcel_id)
             if orders_list == "No parcel_orders available at the moment, Please make an order":
                 return ErrorFeedback.order_absent(), 404
             response_object = {
             'status': 'Success',
-            'message': orders_list
-            
-        }
+            'message': orders_list}
             return jsonify(response_object), 200
         return jsonify({'Alert':"Not Authorised to perform this task"})
 
@@ -90,7 +85,9 @@ class UpdateDestination(MethodView):
        params: order_status
        respone: json data
     """
+   
     @jwt_required
+    @flasgger.swag_from("../docs/update_destination.yml")
     def put(self,parcel_id):
         """
             this method for putting or updating the order_status
@@ -104,10 +101,9 @@ class UpdateDestination(MethodView):
         except AttributeError:
             return ErrorFeedback.invalid_data_format(),400
         if not destination:
-            return ErrorFeedback.empty_data_fields(),400
-
+            return jsonify({'message':'You have field has no data, Please fill it',
+                                'status':'failure'}),400
         new_parcel_destination = update_destination.update_parcel_destination(str(parcel_id), request.json['destination'].strip())
-
         if new_parcel_destination == 'No parcel destination to update, please select another parcel_id':
             return jsonify({'message':'No order to update',
             'status':'failure'}),400
@@ -115,10 +111,6 @@ class UpdateDestination(MethodView):
             'status': 'success',
             'message':'destination has been updated'}
         return jsonify(response_object), 200
-        
-        
-
-
 class UpdateStatus(MethodView):
     """
         Class to get all orders
@@ -126,11 +118,11 @@ class UpdateStatus(MethodView):
        respone: json data
     """
     @jwt_required
+    @flasgger.swag_from("../docs/update_status.yml")
     def put(self,parcel_id):
         """
             this method for putting or updating the order_status
         """
-      
         update_status = Parcel()
         user_id = get_jwt_identity()
         is_admin = activate_admin.check_admin_status(user_id)
@@ -144,7 +136,8 @@ class UpdateStatus(MethodView):
             except AttributeError:
                 return ErrorFeedback.invalid_data_format(),400
             if not parcel_status:
-                return ErrorFeedback.empty_data_fields(),400
+                return jsonify({'message':'You have field has no data, Please fill it',
+                                'status':'failure'}),400
             new_parcel_status = update_status.update_parcel_status(str(parcel_id), request.json['parcel_status'].strip())
 
             if new_parcel_status == 'No parcel_order to update, please select another parcel_id':
@@ -162,14 +155,14 @@ class UpdateCurrentlocation(MethodView):
        params: order_status
        respone: json data
     """
+   
     @jwt_required
+    @flasgger.swag_from("../docs/update_current_location.yml")
     def put(self,parcel_id):
         """
             this method for putting or updating current location
         """
-
         update_current_location = Parcel() 
-       
         user_id = get_jwt_identity()
         is_admin = activate_admin.check_admin_status(user_id)
         if user_id and is_admin:
@@ -182,7 +175,8 @@ class UpdateCurrentlocation(MethodView):
             except AttributeError:
                 return ErrorFeedback.invalid_data_format(),400
             if not current_location:
-                return ErrorFeedback.empty_data_fields(),400
+                return jsonify({'message':'You have field has no data, Please fill it',
+                                'status':'failure'}),400
             new_parcel_location = update_current_location.update_current_location(str(parcel_id), request.json['current_location'].strip())
 
             if not new_parcel_location == 'No current location to update, please select another parcel_id':
@@ -192,26 +186,27 @@ class UpdateCurrentlocation(MethodView):
                 return jsonify(response_object), 200
             return jsonify({'message':'No order to update',
             'status':'failure'}),400
-            # return ErrorFeedback.order_absent()
         return jsonify({'Alert':"Not Authorised to perform this task"})
 
 class GetSpecific(MethodView):
+    """
+        method for getting specific user parcels
+    """
+    # @flasgger.swag_from("../docs/specific_user.yml")
     @jwt_required
     def get(self,user_id=None,parcel_id=None):
         """
-            this method returns parcel for a particular user
+            this method returns parcels for a particular user
         """
         specify_order = Parcel()
         user_id = get_jwt_identity()
         if parcel_id is None:
             user_list = specify_order.specify_user_parcel(user_id)
-            if user_list== "no order now": 
-                return ErrorFeedback.order_absent(),404
+            if user_list == "no order now":
+                return ErrorFeedback.order_absent(), 404
             response_object = {
                 'status': 'Success',
-                'message': user_list 
+                'message': user_list
                 }
-            return jsonify(response_object),200
-        return jsonify ({"Alert":"Not allowed to perform this task"})
-
-
+            return jsonify(response_object), 200
+        return jsonify({"Alert":"Not allowed to perform this task"})
