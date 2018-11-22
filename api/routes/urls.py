@@ -36,6 +36,6 @@ class Urls(object):
                          view_func=UpdateStatus.as_view('update status'), methods=['PUT',])
         app.add_url_rule('/api/v2/parcels/<int:parcel_id>/currentlocation',
                          view_func=UpdateCurrentlocation.as_view('update currentlocation'), methods=['PUT',])
-        app.add_url_rule('/api/v2/users/<int:user_id>parcels',
+        app.add_url_rule('/api/v2/users/<int:user_id>/parcels',
                          view_func=GetSpecific.as_view('user_specfic'),defaults={'parcel_id': None, 'user_id':None}, methods=['GET',])
                          

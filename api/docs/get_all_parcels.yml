@@ -1,0 +1,28 @@
+Get parcel orders all and one
+---
+tags:
+- SendIT Orders
+description: This is a GET request to get all parcel order orders and also gets one parcel order.
+
+parameters:
+- in: header
+  name: Authorization
+  description: authorization header
+  required: true
+  type: string
+  schema:
+  id: bearer
+
+responses:
+  200:
+    description: Parcels
+
+security:
+  - JWT:
+      description: Pass in JWT token
+      type: apikey
+      schema: bearer
+      name: Authorization
+      in: header
+      template: "Bearer {apikey}"
+      bearerFormat: JWT

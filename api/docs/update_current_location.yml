@@ -1,0 +1,28 @@
+Update current_location
+---
+tags:
+- SendIT Update Orders endpoints
+description: This is a PUT request to updated a current location by admin.
+
+parameters:
+- in: header
+  name: Authorization
+  description: authorization header
+  required: true
+  type: string
+  schema:
+  id: bearer
+
+responses:
+  200:
+    description: Order has been sucessfully updated
+
+security:
+  - JWT:
+      description: Pass in JWT token
+      type: apikey
+      schema: bearer
+      name: Authorization
+      in: header
+      template: "Bearer {apikey}"
+      bearerFormat: JWT

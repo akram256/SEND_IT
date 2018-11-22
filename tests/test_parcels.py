@@ -10,33 +10,13 @@ from api.models.database import DatabaseUtilities
 from api.models.users import Users
 from api.models.parcels import Parcel
 from . import get_token,get_auth_header,post_auth_header,OTHER_USER,ORDER,EMPTY_PARCEL_STATUS,PARCEL_STATUS,CURRENTLOCATION_UPDATE,DESTINATION_UPDATE
+from .test_base import Testbase
 
-class TestViews(unittest.TestCase):
+class TestViews(Testbase):
     """"
         Class for making tests on sign in
         params: unittest.testCase
     """
-
-    def setUp(self):
-        """
-           Method for making the client object
-        """
-        self.client = APP.test_client
-        with self.client() as client:
-            create_test_tables = DatabaseUtilities()
-            create_test_tables.create_tables()
-            self.post_token = post_auth_header(client)
-            self.get_token = get_auth_header(client)
-            
-
-    def tearDown(self):
-        """
-           Method for deleting tables in the database object
-        """
-        with self.client():
-            drop_tables = DatabaseUtilities()
-            drop_tables.delete_tables()
-
     def test_post_with_an_empty_without_a_token(self):
         """
             Method for testing the post function for checking a token

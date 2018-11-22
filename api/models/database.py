@@ -26,7 +26,7 @@ class DatabaseUtilities:
        
         try:
 
-            
+        
             if(os.getenv("FLASK_ENV")) == "Production":
                 self.connection = psycopg2.connect(os.getenv("DATABASE_URL"))
             elif(os.getenv("FLASK_ENV")) == "TESTING":

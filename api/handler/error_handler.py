@@ -25,9 +25,7 @@ class ErrorFeedback:
            
             'status': 'failure',
             'error_message': 'Some fields have no data',
-            'data': False
-            
-        }
+            'data': False }
         return jsonify(response_object), 400
         
     @staticmethod
@@ -44,8 +42,8 @@ class ErrorFeedback:
         response_object = {
            
             'status': 'failure',
-            'error_message': 'You have missing fields'
-            # 'data': False
+            'error_message': 'You have missing fields',
+            'data': False
           
         }
         return jsonify(response_object), 400
