@@ -1,0 +1,24 @@
+Authentication docs
+---
+tags:
+ - User Authentication
+parameters:
+  - in: body
+    name: body
+    required: true
+    type: string
+    description: This route is used to sigup a new user. 
+responses:
+  200:
+    description: Account successfully created, Please login. 
+    schema:
+      id: user
+      properties:
+        email:
+          type: string
+          default: mukasa.akram@example.com
+        password:
+          type: string
+          default: password
+  400:
+    description: Email exists boss, Please use another email.

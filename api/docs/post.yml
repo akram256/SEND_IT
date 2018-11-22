@@ -1,0 +1,33 @@
+post_parcel_order.yml
+---
+tags:
+- Send it post parcels end points
+responses:
+  200:
+    description: User is able to create a parcel order here.
+parameters:
+      - name: auth
+        in: header
+        name: Authorization
+        description: an authorization header
+        required: true
+        type: string
+
+      - name: Create parcel order
+        in: body
+        name: body
+        description: User enters order details here
+        required: true
+        type: string
+responses:
+  201:
+    description: Parcels  have been  succesfully placed 
+security:
+  - JWT:
+      description: Pass in jwt_extended token. i.e Bearer <jwt_extended>
+      type: apiKey
+      scheme: bearer
+      name: Authorization
+      in: header
+      template: "Bearer {apiKey}"
+      bearerFormat: JWT

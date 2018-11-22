@@ -1,0 +1,28 @@
+Get parcel orders for a specfic user
+---
+tags:
+- SendIT Parcels
+description: This is a GET request to get all orders.
+
+parameters:
+- in: header
+  name: Authorization
+  description: authorization header
+  required: true
+  type: string
+  schema:
+  id: bearer
+
+responses:
+  200:
+    description: Parcel_orders
+
+security:
+  - JWT:
+      description: Pass in JWT token
+      type: apikey
+      schema: bearer
+      name: Authorization
+      in: header
+      template: "Bearer {apikey}"
+      bearerFormat: JWT
