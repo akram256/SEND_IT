@@ -70,7 +70,7 @@ class Users:
         if admin:
             return
         hashed_password = generate_password_hash('123456789', method='sha256')
-        dbhandler.cursor.execute("INSERT INTO users(username,email,password,is_admin)VALUES('admin','admin@yahoo.com','{}',true)".format(hashed_password))
+        dbhandler.cursor.execute("INSERT INTO users(username,email,password,is_admin)VALUES('admin','admin@gmail.com','{}',true)".format(hashed_password))
 
     def check_admin_status(self,user_id):
         """
