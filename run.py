@@ -14,7 +14,6 @@ from api.models.database import DatabaseUtilities
 
 
 
-
 APP = Flask(__name__)
 APP.config.from_object('api.config.DevelopmentConfig')
 flasgger.Swagger(APP)
@@ -27,8 +26,7 @@ def create_tables():
     table_handler=DatabaseUtilities()
     table_handler.create_tables()
     admin_user.add_admin()
-    # user = Users()
-    # user.set_admin(1)
+   
 
 Urls.generate_url(APP)
 if __name__ == '__main__':
