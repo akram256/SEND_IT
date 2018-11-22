@@ -52,9 +52,9 @@ class GetParcel(MethodView):
        params: order_id
        respone: json data
     """
-    # @flasgger.swag_from("../docs/get.yml")
-    @jwt_required
     
+    @jwt_required
+    @flasgger.swag_from("../docs/get_all_parcels.yml")
     def get(self, parcel_id):
         """
            get method for get parcel history
