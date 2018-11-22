@@ -8,7 +8,7 @@ module init tests
 
 token_user = {
     "user_name": "admin",
-    "email": "admin@yahoo.com",
+    "email": "admin@gmail.com",
     "password": "123456789",
 }
 OTHER_USER = {
@@ -29,7 +29,7 @@ LOGIN = {
 
 }
 LOGIN_OTHER_USER = {
-    "email": "admin@gmail.com",
+    "email": "adin@gmail.com",
     "password": "0123456789",
 }
 ORDER = {

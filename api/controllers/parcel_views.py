@@ -24,7 +24,7 @@ class PlaceOrder(MethodView):
         key = ("parcel_name","pickup_location","destination","reciever","weight",)
 
         if not set(key).issubset(set(request.json)):
-            return ErrorFeedback.missing_key(key)
+            return ErrorFeedback.missing_key()
         post_data = request.get_json()
         try:
             parcel_name = post_data['parcel_name'].strip()
@@ -108,12 +108,14 @@ class UpdateDestination(MethodView):
 
         new_parcel_destination = update_destination.update_parcel_destination(str(parcel_id), request.json['destination'].strip())
 
-        if new_parcel_destination:
-            response_object = {
+        if new_parcel_destination == 'No parcel destination to update, please select another parcel_id':
+            return jsonify({'message':'No order to update',
+            'status':'failure'}),400
+        response_object = {
             'status': 'success',
-            'message':'destination has been update'}
-            return jsonify(response_object), 200
-        return ErrorFeedback.order_absent()
+            'message':'destination has been updated'}
+        return jsonify(response_object), 200
+        
         
 
 
@@ -145,12 +147,14 @@ class UpdateStatus(MethodView):
                 return ErrorFeedback.empty_data_fields(),400
             new_parcel_status = update_status.update_parcel_status(str(parcel_id), request.json['parcel_status'].strip())
 
-            if new_parcel_status:
-                response_object = {
+            if new_parcel_status == 'No parcel_order to update, please select another parcel_id':
+                return jsonify({'message':'No order to update',
+                'status':'failure'}),400
+            response_object = {
                 'status': 'Success',
                 'message': 'Status has beeen updated' }
-                return jsonify(response_object), 200
-            return ErrorFeedback.order_absent()
+            return jsonify(response_object), 200
+            
         return jsonify({'Alert':"Not Authorised to perform this task"})
 class UpdateCurrentlocation(MethodView):
     """
@@ -181,29 +185,32 @@ class UpdateCurrentlocation(MethodView):
                 return ErrorFeedback.empty_data_fields(),400
             new_parcel_location = update_current_location.update_current_location(str(parcel_id), request.json['current_location'].strip())
 
-            if new_parcel_location:
+            if not new_parcel_location == 'No current location to update, please select another parcel_id':
                 response_object = {
                 'status': 'Success',
                 'message': 'current location has been updated'}
                 return jsonify(response_object), 200
-            return ErrorFeedback.order_absent()
+            return jsonify({'message':'No order to update',
+            'status':'failure'}),400
+            # return ErrorFeedback.order_absent()
         return jsonify({'Alert':"Not Authorised to perform this task"})
 
 class GetSpecific(MethodView):
     @jwt_required
-    def get(self,user_id,parcel_id=None):
+    def get(self,user_id=None,parcel_id=None):
         """
             this method returns parcel for a particular user
         """
         specify_order = Parcel()
         user_id = get_jwt_identity()
-        if user_id:
-            user_list = specify_order.specify_user_parcel()
-            if user_list== "user has not made parcel_orders yet": 
+        if parcel_id is None:
+            user_list = specify_order.specify_user_parcel(user_id)
+            if user_list== "no order now": 
                 return ErrorFeedback.order_absent(),404
             response_object = {
                 'status': 'Success',
-                'message': user_list }
+                'message': user_list 
+                }
             return jsonify(response_object),200
         return jsonify ({"Alert":"Not allowed to perform this task"})
 
