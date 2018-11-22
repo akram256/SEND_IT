@@ -65,7 +65,7 @@ class Users:
             method to activate admin to perform tasks
         """
         dbhandler = DatabaseUtilities()
-        dbhandler.cursor.execute("SELECT * FROM users  WHERE email = 'admin@yahoo.com'")
+        dbhandler.cursor.execute("SELECT * FROM users  WHERE email = 'admin@gmail.com'")
         admin = dbhandler.cursor.fetchone()
         if admin:
             return
