@@ -38,7 +38,7 @@ class Parcel():
         """
         dbhandler.cursor.execute("SELECT * FROM parcels WHERE parcel_id = %s", [parcel_id])
         parcel_list = dbhandler.cursor.fetchone()
-        keys=["parcel_id", "parcel_name","pickup_location","destination","reciever","weight","parcel_status","current_location" ,"user_id","order_date"]
+        keys=["parcel_id", "parcel_name","pickup_location","destination","reciever","current_location","weight","parcel_status" ,"user_id","order_date"]
         if not parcel_list:
             return "Order not available at the moment"
         one_parcel_list = []
@@ -96,22 +96,21 @@ class Parcel():
         updated_rows = dbhandler.cursor.rowcount
         return updated_rows
 
-    def specify_user_parcel(self):
+    def specify_user_parcel(self,user_id):
         """
             this method is for getting orders for a specific user
         """
         dbhandler = DatabaseUtilities()
-        parcel_user_query= "SELECT * FROM parcels"
-        dbhandler.cursor.execute(parcel_user_query)
+        order_query_user= "SELECT * FROM parcels WHERE user_id = {}".format(user_id) 
+        dbhandler.cursor.execute(order_query_user)
         keys = ["parcel_id", "parcel_name","pickup_location","destination","reciever","current_location" ,"weight","parcel_status","user_id","order_date"]
         parcels = dbhandler.cursor.fetchall()
         specfic_list = []
-        for user_parcel in parcels:
-            specfic_list.append(dict(zip(keys, user_parcel)))
+        for parcel in parcels:
+            specfic_list.append(dict(zip(keys, parcel)))
         if not specfic_list:
-            return "user has not made made parcel_orders yet"
+            return "user has not made orders yet"
         return specfic_list
-    
 
 
 
