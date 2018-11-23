@@ -4,9 +4,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from api.models.database import DatabaseUtilities
 
-
-
-        
 class Users:
     """
         This class handles the users
@@ -26,7 +23,8 @@ class Users:
         if check_email:
             return "This email already exists, Please use another email"
 
-        insert_user = "INSERT INTO users(username, email, password) VALUES('"+username+"', '"+email+"', '"+hashed_password+"')"
+        insert_user = "INSERT INTO users(username, email, password)\
+         VALUES('"+username+"', '"+email+"', '"+hashed_password+"')"
         dbhandler.cursor.execute(insert_user)
         return "Account successfully created, Please login "
     
@@ -41,13 +39,14 @@ class Users:
             if user[2] == email and check_password_hash(user[3], password):
                 return user[0]
         return None 
+
     def check_admin(self, user_id):
         """
            Method for getting an admin
         """
         dbhandler = DatabaseUtilities()
         dbhandler.cursor.execute("SELECT * FROM users WHERE user_id = '{}' AND is_admin = True".format(user_id))
-        user_now = dbhandler.cursor.fetchone()
+        user_now= dbhandler.cursor.fetchone()
         return user_now
 
     def set_admin(self, user_id):
@@ -56,7 +55,7 @@ class Users:
         """
         dbhandler = DatabaseUtilities()
         query = "UPDATE users SET is_admin = True WHERE user_id=%s" 
-        dbhandler.cursor.execute(query, (user_id,))
+        dbhandler.cursor.execute(query, (user_id, ))
         updated_rows = dbhandler.cursor.rowcount
         return updated_rows
 
@@ -72,7 +71,7 @@ class Users:
         hashed_password = generate_password_hash('123456789', method='sha256')
         dbhandler.cursor.execute("INSERT INTO users(username,email,password,is_admin)VALUES('admin','admin@gmail.com','{}',true)".format(hashed_password))
 
-    def check_admin_status(self,user_id):
+    def check_admin_status(self, user_id):
         """
            Method for getting an admin
         """
