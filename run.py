@@ -12,8 +12,6 @@ from api.routes.urls import Urls
 from api.models.users import Users
 from api.models.database import DatabaseUtilities
 
-
-
 APP = Flask(__name__)
 APP.config.from_object('api.config.DevelopmentConfig')
 flasgger.Swagger(APP)
@@ -26,9 +24,8 @@ def create_tables():
     table_handler=DatabaseUtilities()
     table_handler.create_tables()
     admin_user.add_admin()
-   
 
 Urls.generate_url(APP)
-if __name__ == '__main__':
-    
+if __name__ == '__main__':  
     APP.run()
+    

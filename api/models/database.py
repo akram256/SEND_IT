@@ -18,15 +18,10 @@ class DatabaseUtilities:
     """
     
     def __init__(self):
-    
-
         """
         This method creates the connection object 
         """
-       
         try:
-
-        
             if(os.getenv("FLASK_ENV")) == "Production":
                 self.connection = psycopg2.connect(os.getenv("DATABASE_URL"))
             elif(os.getenv("FLASK_ENV")) == "TESTING":
@@ -35,11 +30,9 @@ class DatabaseUtilities:
                 self.connection = psycopg2.connect("postgresql://postgres:12345@localhost/sendit")
             self.connection.autocommit = True
             self.cursor = self.connection.cursor()
-
         except(Exception, psycopg2.DatabaseError) as error:
             raise error
     
-
     def create_tables(self):
         """
         This method creates tables in the PostgreSQL database.
@@ -55,7 +48,6 @@ class DatabaseUtilities:
                     email VARCHAR(50) UNIQUE NOT NULL,
                     password VARCHAR(80) NOT NULL,
                     is_admin BOOLEAN NULL DEFAULT FALSE
-                        
                 )
             """,
             """
@@ -72,24 +64,16 @@ class DatabaseUtilities:
                     FOREIGN KEY (user_id)
                     REFERENCES users(user_id),
                     order_date TIMESTAMP DEFAULT NOW()
-                    
-                    
-          
                 )
             """,)
-    
-
         try:
             
             for command in commands:
                 self.cursor.execute(command)
         except(Exception, psycopg2.DatabaseError) as error:
-            raise error
-        
-        
+            raise error  
 
     def delete_tables(self):
-       
         """
             this method is for dropping tables
         """
@@ -97,5 +81,3 @@ class DatabaseUtilities:
         for name in table_names:
             self.cursor.execute("DROP TABLE IF EXISTS {} CASCADE".format(name))
         
-
-   

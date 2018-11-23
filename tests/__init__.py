@@ -55,6 +55,15 @@ EMPTY_PARCEL_STATUS = {
 PARCEL_STATUS = {
     "parcel_status": "completed",
 }
+CANCEL_UPDATE ={
+    "parcel_status":"cancelled",
+}
+WRONG_UPDATE ={
+    "parcel_status":"agaggag",
+}
+EMPTY_UPDATE ={
+    "parcel_status":"",
+}
 CURRENTLOCATION_UPDATE ={
     "current_location":"jinja",
 }
@@ -82,6 +91,29 @@ def get_token(client):
     response = json.loads(result.data.decode())
     # print(response ['access_token'])
     return response ['access_token']
+
+def get_normal_user_token(client):
+    # signup admin
+    result = client.post('/api/v2/auth/signup',content_type="application/json",data=json.dumps(OTHER_USER))
+    if result.status_code != 201:
+        raise Exception("failed to signup user")
+    # give user admin rights
+    user = Users()
+    user.set_admin(1)
+    # login user and get access token
+    result = client.post('/api/v2/auth/login',content_type="application/json",data=json.dumps(OTHER_USER))
+    if result.status_code != 200:
+        raise Exception("failed to login user")
+    response = json.loads(result.data.decode())
+    # print(response ['access_token'])
+    return response ['access_token']
+    
+def post_normal(client):
+    token=get_normal_user_token(client)
+    return{
+        'Content-type':"application/json",
+        "authorization": "Bearer {}".format(token) 
+    }
 
 def post_auth_header(client):
     token = get_token(client)

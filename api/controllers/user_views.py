@@ -35,6 +35,11 @@ class SignUp(MethodView):
         if len(password)<8:
             return jsonify({'message':'Password should be more than 8 characters',
                             'status':'failure'}),400
+        string_pattern = r"(^[a-zA-Z]+$)"
+        if not re.match(string_pattern,request.json['user_name']):
+            return jsonify({'message':'Wrong format of the user_name',
+                                'status':'failure'})
+
         
         try:
             user_name = post_data['user_name'].strip()
@@ -55,7 +60,8 @@ class SignUp(MethodView):
             return jsonify({'message': user_details,
                             'status':'success'}), 400
 
-        return jsonify({'message': user_details}), 201
+        return jsonify({'message': user_details,
+        'status':'success'}), 201
     
 
 class Login(MethodView):
