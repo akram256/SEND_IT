@@ -9,7 +9,8 @@ class Parcel():
         this class handles all order methods
     """
           
-    def make_parcel_order(self, user_id, parcel_name, pickup_location, destination, reciever, weight):
+    def make_parcel_order(self, user_id, parcel_name, pickup_location, destination, 
+    reciever, weight):
         """
            Method for placing an order
            
