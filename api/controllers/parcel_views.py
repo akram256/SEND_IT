@@ -242,7 +242,6 @@ class CancelOrder(MethodView):
                 'status': 'Success',
                 'message': 'Order has been cancelled '}
                 return jsonify(response_object), 200
-            
             return jsonify({'message':'No order to be cancelled',
             'status':'failure'}),404
         return jsonify({'Alert':"Not Authorised to perform this task"})
@@ -251,7 +250,7 @@ class GetSpecific(MethodView):
     """
         method for getting specific user parcels
     """
-    # @flasgger.swag_from("../docs/specific_user.yml")
+    @flasgger.swag_from("../docs/specific_user.yml")
     @jwt_required
     def get(self,user_id=None,parcel_id=None):
         """
