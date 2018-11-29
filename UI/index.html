@@ -18,20 +18,20 @@
   </nav>
   <div class="content">
     <div class="form">
-      <form class="signup" action="parcel_order.html" method="GET">
+      <form class="signup"  method="POST">
         <h4>WELCOME TO SEND IT APPLICATION</h4>
         <h5>lets login</h5>
         <div class="field">
-          <label for="email">Email</label>
-          <input type="email" name="email" value="" required>
+          <label for="email" >Email</label>
+          <input type="email" id=email name="email" value="" required>
         </div>
         <div class="field">
           <label for="password">Login Password</label>
-          <input type="password" name="password" value=""  required>
+          <input type="password" id=password name="password" value=""  required>
         </div>
 
         <div class="field button">
-          <button type="submit" class="submit">Sign In</button>
+          <button type="submit" onclick="LoginUser()"  class="submit">Sign In</button>
         </div>
       </form>
       <div class="link">
@@ -39,5 +39,6 @@
       </div>
     </div>
   </div>
+  <script type="text/javascript" src="assets/js/login.js"></script>
 </body>
 </html>
