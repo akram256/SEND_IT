@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=yes">
     <title>signup</title>
     <link rel="stylesheet" href="assets/css/main.css">
+    <link>
   </head>
   <body>
     <nav class="nav">
@@ -20,30 +21,24 @@
     </nav>
     <div class="content">
       <div class="form">
-        <form class="signup" action="index.html" method="GET">
+        <form class="signup"  method="POST">
           <h4>create an account</h4>
+        
           <div class="field">
-            <label for="firstname">First Name</label>
-            <input type="text" name="firstname" value="" required>
+            <label for="username">username</label>
+            <input type="text" id="user_name" value=""  required>
           </div>
           <div class="field">
-            <label for="lastname">Last Name</label>
-            <input type="text" name="lastname" value=""  required>
+            <label for="email">email</label>
+            <input type="email" id="email" value="" required>
           </div>
           <div class="field">
-            <label for="email">Email</label>
-            <input type="email" name="email" value="" required>
-          </div>
-          <div class="field">
-            <label for="password">Login Password</label>
-            <input type="password" name="password" value="" min="8" required>
-          </div>
-          <div class="field">
-            <label for="password">Confirm Password</label>
-            <input type="password" name="confirm_password" value="" min="8" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" value="" min="8" required>
           </div>
           <div class="button">
-            <button type="submit" class="submit">Sign Up</button>
+            <!-- <input type="submit" id ="Signup"  value="submit" class="submit"> -->
+            <button type="submit" onclick="SignupUser()" value = "submit"class="submit">SignUp</button>
           </div>
         </form>
         <div class="link">
@@ -51,5 +46,6 @@
         </div>
       </div>
     </div>
+    <script type="text/javascript" src="assets/js/signup.js"></script>
   </body>
 </html>
