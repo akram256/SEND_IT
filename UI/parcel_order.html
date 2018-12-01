@@ -25,18 +25,20 @@
         LET'S SEND IT NOW
       </div>
 
-      <form action="history.html" method="GET" class="order-item">
+      <form action  method="POST" class="order-item">
         <div class="order-content">
           <div class="title">Parcel Gift  </div>
-          <div class="field">           
-            <input type="text" name="pickup_location" placeholder="enter pickup_location" required>
-            <input type="text" name="Destination" placeholder="enter Destination" required>
-            <input type="text" name="Weight" placeholder="enter Weight" required>
+          <div class="field">  
+            <input type="text" id= "parcel_name"  placeholder="enter parcel_name" required>       
+            <input type="text" id= "pickup_location"  placeholder="enter pickup_location" required>
+            <input type="text" id = "destination"  placeholder="enter destination" required>
+            <input type="text" id= "reciever"  placeholder="enter reciever" required>
+            <input type="text" id= "weight"  placeholder="enter Weight" required>
        
           </div>
         </div>
           <div class="order-button">
-            <button type="submit" class="button completed">Create_order</button>
+            <button type="submit" onclick="post_parcel()"  class="button completed">Create_order</button>
           </div>
           &nbsp;&nbsp;
        
@@ -50,5 +52,6 @@
 
     </div>
   </div>
+  <script type="text/javascript" src="assets/js/makeparcel.js"></script>
 </body>
 </html>
