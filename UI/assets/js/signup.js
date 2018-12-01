@@ -19,6 +19,7 @@ function SignupUser(){
         .then(result => {
             if(result.status === 'success'){
                alert(result.message)
+               window.location.href = 'index.html';
             }
             else{
                 alert(result.message)

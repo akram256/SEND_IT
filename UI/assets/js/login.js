@@ -3,6 +3,7 @@ function LoginUser(){
     var password = document.getElementById('password').value;
     const data = {"email":email, "password":password};
 
+
     fetch('http://127.0.0.1:5000/api/v2/auth/login', {
         method: 'POST',
         headers: {
@@ -17,11 +18,11 @@ function LoginUser(){
         .then(result => {
             if(result.status === 'success'){
                 if(email == "admin@gmail.com"){
-                    localStorage.setItem("auth-token",result.auth_token);
-                    window.location.href = 'admin.html';
+                    localStorage.setItem("accessToken", data.access_token)
+                    window.location.href = 'adminhistory.html';
                 }
                 else{
-                    localStorage.setItem("auth-token",result.auth_token);
+                    localStorage.setItem("accessToken", data.access_token)
                     window.location.href = 'parcel_order.html';
                 }
             }
