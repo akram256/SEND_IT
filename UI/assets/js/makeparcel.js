@@ -8,6 +8,7 @@ function post_parcel(){
         var weight = document.getElementById('weight').value;
         const data = {"parcel_name":parcel_name, "pickup_location":pickup_location,"destination":destination,"reciever":reciever,"weight":weight};
         console.log(data);
+        // alert(JSON.stringify(data));
 
         
             fetch('http://127.0.0.1:5000/api/v2/parcels', {
@@ -24,6 +25,7 @@ function post_parcel(){
             })
             .then((res) => res.json())
             .then((data) => {
+                alert(JSON.stringify(data));
 
                 let message = data.message;
                 // localStorage.setItem("auth-token", data.auth-token)
