@@ -20,9 +20,9 @@ function specific_parcels(){
                     // let out_put = "";
 
                     // console.log(data.parcel_list.length);
-                var i = 0;
+                let i = 0;
 
-                var table = '<table border="2px">'+
+                let table = '<table border="2px">'+
                             '<tr>'+
                             '<th>current_location</th>'+
                             '<th>destination</th>'+

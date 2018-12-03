@@ -1,11 +1,11 @@
 
 function post_parcel(){
 
-        var parcel_name = document.getElementById('parcel_name').value;
-        var pickup_location = document.getElementById('pickup_location').value;
-        var destination = document.getElementById('destination').value;
-        var reciever = document.getElementById('reciever').value;
-        var weight = document.getElementById('weight').value;
+        let  parcel_name = document.getElementById('parcel_name').value;
+        let pickup_location = document.getElementById('pickup_location').value;
+        let destination = document.getElementById('destination').value;
+        let reciever = document.getElementById('reciever').value;
+        let weight = document.getElementById('weight').value;
         const data = {"parcel_name":parcel_name, "pickup_location":pickup_location,"destination":destination,"reciever":reciever,"weight":weight};
         console.log(data);
         // alert(JSON.stringify(data));
