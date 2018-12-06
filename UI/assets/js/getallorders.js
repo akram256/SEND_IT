@@ -15,7 +15,7 @@ function all_parcels(){
              }})
                 .then((res) => res.json())
                 .then(function(data){
-                    alert(JSON.stringify(data));
+                    // alert(JSON.stringify(data));
 
                     // let out_put = "";
 
@@ -24,12 +24,12 @@ function all_parcels(){
 
                 let table = '<table border="2px">'+
                             '<tr>'+
-                            '<th>current_location</th>'+
+                            '<th>current_location<button>update</button></th>'+
                             '<th>destination</th>'+
                             '<th>order_date</th>'+
                             '<th>parcel_id</th>'+
                             '<th>parcel_name</th>'+
-                            '<th>parcel_status</th>'+
+                            '<th>parcel_status<button>update</button></th>'+
                             '<th>pickup_location</th>'+
                             '<th>reciever</th>'+
                             '<th>user_id</th>'+
@@ -42,8 +42,8 @@ function all_parcels(){
                           +"</td><td>"+data["Orders"][i]["destination"]
                           +"</td><td>"+data["Orders"][i]["order_date"]
                           +"</td><td>"+data["Orders"][i]["parcel_id"]
-                          +"</td><td>"+data["Orders"][i]["parcel_name"]
-                          +"</td><td>"+data["Orders"][i]["parcel_status"]
+                          +"</td><td><a href ='adminorder.html?parcel="+data["Orders"][i]["parcel_id"]+"'>"+data["Orders"][i]["parcel_name"]
+                          +"</a></td><td>"+data["Orders"][i]["parcel_status"]
                           +"</td><td>"+data["Orders"][i]["pickup_location"]
                           +"</td><td>"+data["Orders"][i]["reciever"]
                           +"</td><td>"+data["Orders"][i]["user_id"]
@@ -54,9 +54,10 @@ function all_parcels(){
                       }
                  
                      document.getElementById('parcels_table').innerHTML = table+"</table>";
-                     alert(table);
+                    //  alert(table);
                     
                      });
                      
 
 }
+

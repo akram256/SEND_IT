@@ -3,6 +3,7 @@ function SignupUser(){
     let  email = document.getElementById('email').value;
     let  password = document.getElementById('password').value;
     const data = {"user_name":user_name,"email":email, "password":password};
+    // console.log(data);
 
     fetch('http://127.0.0.1:5000/api/v2/auth/signup', {
         method: 'POST',

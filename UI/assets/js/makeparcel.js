@@ -1,14 +1,13 @@
 
 function post_parcel(){
 
-        let  parcel_name = document.getElementById('parcel_name').value;
-        let pickup_location = document.getElementById('pickup_location').value;
-        let destination = document.getElementById('destination').value;
-        let reciever = document.getElementById('reciever').value;
-        let weight = document.getElementById('weight').value;
-        const data = {"parcel_name":parcel_name, "pickup_location":pickup_location,"destination":destination,"reciever":reciever,"weight":weight};
-        console.log(data);
-        // alert(JSON.stringify(data));
+    let  parcel_name = document.getElementById('parcel_name').value;
+    let  pickup_location = document.getElementById('pickup_location').value;
+    let  destination = document.getElementById('destination').value;
+    let  reciever = document.getElementById('reciever').value;
+    let  weight = document.getElementById('weight').value;
+        const data = {parcel_name:parcel_name, pickup_location:pickup_location,destination:destination,reciever:reciever,weight:parseInt(weight)};
+     
 
         
             fetch('http://127.0.0.1:5000/api/v2/parcels', {
@@ -28,7 +27,6 @@ function post_parcel(){
                 alert(JSON.stringify(data));
 
                 let message = data.message;
-                // localStorage.setItem("auth-token", data.auth-token)
                 console.log(message);
                 if(message == 'Order has been Placed successfully'){
 
