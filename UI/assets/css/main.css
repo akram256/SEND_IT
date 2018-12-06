@@ -1,0 +1,223 @@
+/*....................................*/
+body {
+  margin: 0;
+  padding: 0;
+  background: #bec0c0;
+  font-family: 'Barlow', sans-serif;
+}
+a {
+  text-decoration: none;
+}
+nav {
+  background: grey;
+  padding: 20px;
+  display:  flex;
+  justify-content: space-between;
+}
+
+nav .brand a {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+ nav .nav-left .nav-item {
+    color: blue;
+    padding: 10px;
+    background: #bdc3c7;
+    text-transform: capitalize;
+    font-size: 14px;
+    box-sizing: border-box;
+ }
+ nav .nav-left .nav-item:hover {
+    color: #fff;
+ }
+.content {
+  margin-bottom: 20px;
+  min-height: 80vh;
+  
+}
+.form {
+  width: 30%;
+  margin: auto;
+  box-sizing: border-box;
+  border: rgb(241, 238, 238) solid;
+  margin-top: 10px;
+  text-align: center;
+
+}
+.form .signup {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.form h4 {
+  text-align: center;
+}
+.form .field {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+.form label {
+  font-size: 14px;
+  font-weight: 600;
+}
+.form .field input {
+  display: block;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #bdc3c7;
+  box-sizing: border-box;
+}
+.form .button {
+  margin-top: 20px; 
+}
+.form .button .submit {
+  border: none;
+  padding: 10px;
+  background:green;
+  font-weight: bold;
+  color: #fff;
+}
+.form.link{
+  margin-bottom:10px; 
+}
+.orders {
+  width: 60%;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.orders h4, .orders h6 {
+  text-align: center;
+}
+.orders .menu {
+  border-bottom: 1px double black;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.order-item {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  border-bottom: 1px dotted black;
+}
+
+.order-image {
+  flex: 1;
+}
+
+.order-image img {
+  margin: 0;
+  height: 80px;
+  width: 100px;
+}
+
+.order-content {
+  flex: 3;
+}
+.order-content .title {
+  font-weight: bold;
+  /* color: #d35400; */
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.order-content .title .price {
+  background: black;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px;
+  font-size: 12px;
+}
+
+.order-item .order-button .button {
+  display: inline-block;
+  margin-top: auto;
+  padding: 5px;
+  color: black;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid black;
+}
+
+.order-item .order-button .pending {
+  background: red !important;
+  color: #fff;
+}
+
+.order-item .order-button .completed {
+  background: #27ae60 !important;
+  border: 1px solid #27ae60;
+  color: #fff;
+}
+
+.order-item .field {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.order-item .field input, .order-item .field select {
+  border: 1px solid #7f8c8d;
+  padding: 8px;
+  
+}
+
+.order-item .date {
+  color: #2c3e50;
+  font-size: 12px;
+}
+footer {
+  text-align: center;
+  background: #7f8c8d;
+  padding: 10px;
+}
+footer a {
+  color: #fff;
+}
+
+@media only screen and (max-width: 992px) {
+  .form {
+    width: 50%;
+    padding: 10px;
+  }
+  .orders {
+    width: 80%;
+    padding: 10px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+    .form {
+      width: 100%;
+      padding: 10px;
+    }
+
+    .orders {
+      width: 100%;
+      padding: 10px;
+    }
+
+    nav{
+      display: inline;
+    }
+    nav .nav-left .nav-item {
+      display: block;
+      width: 100%;
+    }
+
+}
+
+
+@media only screen and (max-width: 400px) {
+    .order-item {
+      flex-direction: column;
+    }
+    .order-button {
+      margin: 1em 0;
+      text-align: center;
+    }
+}
