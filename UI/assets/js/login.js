@@ -16,20 +16,25 @@ function LoginUser(){
     })
         .then((res) => res.json())
         .then(result => {
-            if(result.status === 'success'){
+            var token = result["access_token"];
+            if(result["status"] === 'success'){
                 if(email == "admin@gmail.com"){
-                    localStorage.setItem("accessToken", data.access_token)
+                    localStorage.setItem("accessToken", token)
+                    alert(data.access_token);
                     window.location.href = 'adminhistory.html';
                 }
                 else{
-                    localStorage.setItem("accessToken", data.access_token)
+                    localStorage.setItem("accessToken", token)
                     window.location.href = 'parcel_order.html';
                 }
             }
             else{
 
             }
+
+        
             
         })
+    
         
 }
