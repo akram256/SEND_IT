@@ -15,6 +15,10 @@ function specific_parcels(){
                 .then((res) => res.json())
                 .then(function(data){
                     // alert(JSON.stringify(data));
+                let pending = new Array()
+                let in_transit = new Array()
+                let delivered = new Array()
+                let cancelled = new Array()
 
                  
                 let i = 0;
@@ -33,7 +37,7 @@ function specific_parcels(){
                             '<th>weight</th>'+
                            ' </tr>'; 
                   
-
+                           for(i = 0; i < data["message"].length; i++){
                           table += 
                           "<tr><td>"+data["message"][i]["current_location"]
                           +"</td><td><a href ='oneorderhistory.html?parcel="+data["message"][i]["parcel_id"]+"'>"+data["message"][i]["destination"]
@@ -51,12 +55,67 @@ function specific_parcels(){
                  
                      document.getElementById('specificparcels_table').innerHTML = table+"</table>";
                     //  alert(table);
-                    
+
+
+
+
+                   
+                
+                
+                           }
                      });
                      
-
+                    
 }
 
+
+if(/profile.html/.test(window.location.href)){
+
+    fetch('http://127.0.0.1:5000/api/v2/users/parcels', {
+
+        method: 'GET',
+        headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-type':'application/json',
+        
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+        'Access-Control-Allow-Origin': '*'
+            }})
+        .then((res) => res.json())
+        .then(function(data){
+            // alert(JSON.stringify(data));
+        let pending = new Array()
+        let in_transit = new Array()
+        let delivered = new Array()
+        let cancelled = new Array()
+
+            
+        let i = 0;
+        
+        for(i = 0; i < data["message"].length; i++){
+            if(data['message'][i]['parcel_status'] == 'pending'){
+                pending.push(data['message'][i]['StatusProfile'])
+            }
+        
+            if(data['message'][i]['parcel_status'] == 'in-transit'){
+                in_transit.push(data['message'][i]['StatusProfile'])
+            }
+        
+            if(data['message'][i]['parcel_status'] == 'delivered'){
+                delivered.push(data['message'][i]['StatusProfile'])
+            }
+        
+            if(data['message'][i]['parcel_status'] == 'cancelled'){
+                cancelled.push(data['message'][i]['StatusProfile'])
+            }
+        }
+
+        document.getElementById('num_parcel_pending').innerHTML = (pending.length);
+        document.getElementById('num_parcel_delivered').innerHTML = (in_transit.length);
+        document.getElementById('num_parcel_in_transit').innerHTML = (delivered.length);
+        document.getElementById('num_parcel_cancel').innerHTML = (cancelled.length);
+    });
+}
 
 // function change_destination(){
     if(/oneorderhistory.html/.test(window.location.href)){
