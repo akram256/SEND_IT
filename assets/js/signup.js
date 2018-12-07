@@ -5,7 +5,7 @@ function SignupUser(){
     const data = {"user_name":user_name,"email":email, "password":password};
     // console.log(data);
 
-    fetch('http://127.0.0.1:5000/api/v2/auth/signup', {
+    fetch('https://senditapp3.herokuapp.com/api/v2/auth/signup', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

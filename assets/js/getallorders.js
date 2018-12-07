@@ -3,7 +3,7 @@
 function all_parcels(){
 
     
-    fetch('http://127.0.0.1:5000/api/v2/parcels', {
+    fetch('https://senditapp3.herokuapp.com/api/v2/parcels', {
 
             method: 'GET',
             headers: {
