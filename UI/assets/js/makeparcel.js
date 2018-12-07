@@ -6,7 +6,7 @@ function post_parcel(){
     let  destination = document.getElementById('destination').value;
     let  reciever = document.getElementById('reciever').value;
     let  weight = document.getElementById('weight').value;
-        const data = {parcel_name:parcel_name, pickup_location:pickup_location,destination:destination,reciever:reciever,weight:parseInt(weight)};
+        const data = {"parcel_name":parcel_name, "pickup_location":pickup_location,"destination":destination,"reciever":reciever,"weight":parseInt(weight)};
      
 
         
