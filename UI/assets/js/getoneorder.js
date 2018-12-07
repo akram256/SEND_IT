@@ -18,7 +18,7 @@ if(/adminorder.html/.test(window.location.href)){
              }})
                 .then((res) => res.json())
                 .then(function(data){
-                    alert(JSON.stringify(data));
+                    // alert(JSON.stringify(data));
 
                 let i = 0;
 
@@ -32,12 +32,13 @@ if(/adminorder.html/.test(window.location.href)){
                             '<th>parcel_status</th>'+
                             '<th>pickup_location</th>'+
                             '<th>reciever</th>'+
+                            '<th>user_id</th>'+
                             '<th>weight</th>'+
                            ' </tr>'; 
                     //  for(i = 0; i < data["Orders"].length; i++){
 
                           table += 
-                          "<tr><td>"+data["message"][0]["current_location"]
+                          "<tr><td><a href ='#' onclick='change_current_location()' id='current-value'>"+data["message"][0]["current_location"]
                           +"</td><td>"+data["message"][0]["destination"]
                           +"</td><td>"+data["message"][0]["order_date"]
                           +"</td><td>"+data["message"][0]["parcel_id"]
@@ -53,7 +54,7 @@ if(/adminorder.html/.test(window.location.href)){
                     //   }
                  
                      document.getElementById('oneparcels_table').innerHTML = table+"</table>";
-                     alert(table);
+                    //  alert(table);
                     
                      });
                      
@@ -61,7 +62,7 @@ if(/adminorder.html/.test(window.location.href)){
 }
 
 function change_status(){
-    var status = window.prompt("change status ?")
+    let status = window.prompt("change status ?")
     console.log(status)
 
     let parcel_url = window.location.href
@@ -100,4 +101,43 @@ body: JSON.stringify(data)
 
 }
 
+function change_current_location(){
+    let current = window.prompt("change current?")
+    console.log(current)
+
+    let parcel_url = window.location.href
+    let url = new URL(parcel_url)
+    let parcel_id = url.searchParams.get("parcel")
+      console.log(parcel_id);
+
+    const data = {"current_location": current};
+
+
+fetch('http://127.0.0.1:5000/api/v2/parcels/'+parcel_id+'/currentlocation', {
+method: 'PUT',
+headers: {
+    'Accept': 'application/json',
+    'Content-type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+},
+cache: 'no-cache',
+body: JSON.stringify(data)
+
+})
+.then((res) => res.json())
+.then(result => {
+    if(result.status === 'success'){
+        document.getElementById('current-value').innerHTML = current
+        alert(result.message)
+        //window.location.href="admin_viewOrder.html";
+
+    }
+    else{
+        alert(result.message)
+    }
+    
+})
+
+
+}
 

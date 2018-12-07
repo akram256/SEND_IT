@@ -24,12 +24,12 @@ function all_parcels(){
 
                 let table = '<table border="2px">'+
                             '<tr>'+
-                            '<th>current_location<button>update</button></th>'+
+                            '<th>current_location</th>'+
                             '<th>destination</th>'+
                             '<th>order_date</th>'+
                             '<th>parcel_id</th>'+
                             '<th>parcel_name</th>'+
-                            '<th>parcel_status<button>update</button></th>'+
+                            '<th>parcel_status</th>'+
                             '<th>pickup_location</th>'+
                             '<th>reciever</th>'+
                             '<th>user_id</th>'+
