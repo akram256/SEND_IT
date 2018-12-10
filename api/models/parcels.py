@@ -70,14 +70,15 @@ class Parcel():
         """
              this is a method for updating an parcel_status
         """
-        dbhandler.cursor.execute("""SELECT "parcel_id" FROM parcels WHERE parcel_id= %s""",(parcel_id,))
+        dbhandler.cursor.execute("""SELECT "parcel_id" FROM parcels WHERE parcel_id= %s """,(parcel_id,))
         check_status=dbhandler.cursor.fetchone()
         if not check_status:
             return "No parcel_order to update, please select another parcel_id"
-        parcel_status_query = "UPDATE  parcels SET parcel_status = %s WHERE parcel_id = %s;"
+        parcel_status_query = "UPDATE  parcels SET parcel_status = %s WHERE parcel_id = %s"
         dbhandler.cursor.execute(parcel_status_query, (parcel_status, parcel_id, ))
         updated_rows = dbhandler.cursor.rowcount
         return updated_rows
+        
     
     def update_current_location(self, parcel_id, current_location):
         """
@@ -121,4 +122,19 @@ class Parcel():
         if not specfic_list:
             return "user has not made orders yet"
         return specfic_list
+    
+    # def specify_user_parcel_by_parcel_id(self,user_id,parcel_id):
+    #     """
+    #         this method is for getting orders for a specific user by pacel_id
+    #     """
+    #     dbhandler = DatabaseUtilities()
+    #     dbhandler.cursor.execute("""SELECT  * FROM parcels WHERE parcel_id %s AND user_id=%s""",(parcel_id, user_id) )
+    #     keys = ["parcel_id", "parcel_name", "pickup_location", "destination", "reciever",  "current_location", "weight", "parcel_status", "user_id", "order_date"]
+    #     parcels = dbhandler.cursor.fetchall()
+    #     specfic_list = []
+    #     for parcel in parcels:
+    #         specfic_list.append(dict(zip(keys, parcel)))
+    #     if not specfic_list:
+    #         return "user has not made orders yet"
+    #     return specfic_list
  

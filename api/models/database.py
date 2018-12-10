@@ -1,12 +1,13 @@
 """
 This module handlesusers and database
 """
+from flask import request, jsonify
+from flask.views import MethodView
 import os
 import psycopg2
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
-from flask import request, jsonify
-from flask.views import MethodView
+
 
 
 class DatabaseUtilities:

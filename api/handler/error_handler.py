@@ -46,4 +46,4 @@ class ErrorFeedback:
             'data': False
           
         }
-        return jsonify(response_object), 400
+        return jsonify(response_object), 404

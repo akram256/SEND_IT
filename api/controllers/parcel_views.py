@@ -23,8 +23,8 @@ class PlaceOrder(MethodView):
         """ 
         user_id = get_jwt_identity()  
         place_order = Parcel ()
-        key = ("parcel_name","pickup_location","destination","reciever","weight",)
-        if not set(key).issubset(set(request.json)):
+        keys = ("parcel_name","pickup_location","destination","reciever","weight")
+        if not set(keys).issubset(set(request.json)):
             return ErrorFeedback.missing_key()
         post_data = request.get_json()
         try:
@@ -43,10 +43,10 @@ class PlaceOrder(MethodView):
         if place_order.exist_order(request.json['parcel_name'],user_id):
                 return jsonify({'message':'wait order is being processed, You cant order twice'})
         user_id = get_jwt_identity()
-        string_pattern = r"(^[a-zA-Z\s]+$)"
-        if not re.match(string_pattern,request.json['parcel_name']):
-            return jsonify({'message':'Wrong format of parcel_name, please input a-z or A_Z characters only',
-                                'status':'failure'})
+        # string_pattern = r"(^[a-zA-Z\s]+$)"
+        # if not re.match(string_pattern,request.json['parcel_name']):
+        #     return jsonify({'message':'Wrong format of parcel_name, please input a-z or A_Z characters only',
+        #                         'status':'failure'})
         parcel_data = place_order.make_parcel_order(str(user_id),request.json['parcel_name'],request.json['pickup_location'],request.json['destination'],request.json['reciever'],request.json['weight'])
         if parcel_data:
             response_object = {
@@ -145,6 +145,7 @@ class UpdateStatus(MethodView):
                 parcel_status = post_data['parcel_status'].strip()
             except AttributeError:
                 return ErrorFeedback.invalid_data_format(),400
+          
             if not parcel_status:
                 return jsonify({'message':'You have field has no data, Please fill it',
                                 'status':'failure'}),400
@@ -152,6 +153,8 @@ class UpdateStatus(MethodView):
                 return jsonify({'message':'Parcel can only be in transit or delivered',
                                     'status':'failure'})
             new_parcel_status = update_status.update_parcel_status(str(parcel_id), request.json['parcel_status'].strip())
+            # if new_parcel_status['parcel_status'] == 'cancelled' or new_parcel_status['parcel_status']=='delievered':
+            #     return jsonify({'message':'order can not be edited'})
 
             if new_parcel_status == 'No parcel_order to update, please select another parcel_id':
                 return jsonify({'message':'No order to update',
@@ -267,4 +270,7 @@ class GetSpecific(MethodView):
                 'message': user_list
                 }
             return jsonify(response_object), 200
+        # orders_list = specify_order.specify_user_parcel_by_parcel_id(parcel_id, user_id)
+        # if orders_list:
+        #     return orders_list
         return jsonify({"Alert":"Not allowed to perform this task"})

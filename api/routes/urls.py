@@ -40,6 +40,9 @@ class Urls:
         app.add_url_rule('/api/v2/parcels/<int:parcel_id>/cancel',
                          view_func= CancelOrder.as_view('cancel_status'),
                           methods=['PUT',])
-        app.add_url_rule('/api/v2/users/<int:user_id>/parcels',
+        app.add_url_rule('/api/v2/users/parcels',
                          view_func= GetSpecific.as_view('user_specfic'),
                          defaults={'parcel_id': None, 'user_id':None}, methods=['GET',])
+        # app.add_url_rule('/api/v2/users/parcels/<int:parcel_id>',
+        #                  view_func= GetSpecific.as_view('user_parcel_specfic'),
+        #                  defaults={'parcel_id': None, 'user_id':None}, methods=['GET',])
