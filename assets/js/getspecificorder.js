@@ -71,7 +71,7 @@ if(/history.html/.test(window.location.href)){
 
 if(/profile.html/.test(window.location.href)){
 
-    fetch('https://senditapp3.herokuapp.com/api/v2/users/parcels', {
+    fetch('http://127.0.0.1:5000/api/v2/users/parcels', {
 
         method: 'GET',
         headers: {
@@ -130,7 +130,7 @@ if(/profile.html/.test(window.location.href)){
     const data = {"destination": destination};
 
 
-fetch('https://senditapp3.herokuapp.com/api/v2/parcels'+parcel_id+'/destination', {
+fetch('http://127.0.0.1:5000/api/v2/parcels'+parcel_id+'/destination', {
 method: 'PUT',
 headers: {
     'Accept': 'application/json',
@@ -171,7 +171,7 @@ if(/cancelstatus.html/.test(window.location.href)){
     const data = {"parcel_status": status};
 
 
-fetch('https://senditapp3.herokuapp.com/api/v2/parcels'+parcel_id+'/cancel', {
+fetch('http://127.0.0.1:5000/api/v2/parcels'+parcel_id+'/cancel', {
 method: 'PUT',
 headers: {
     'Accept': 'application/json',
