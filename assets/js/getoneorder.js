@@ -1,4 +1,3 @@
-//  document.getElementById('search').addEventListener('keyup' , search)
 if(/adminorder.html/.test(window.location.href)){
 
   let parcel_url = window.location.href
@@ -35,32 +34,36 @@ if(/adminorder.html/.test(window.location.href)){
                
                ' </tr>';
                           table += 
-                          "<tr><td><a href ='#'onclick='change_current_location()' id='current-value'>"+data["message"][0]["current_location"]
+                          "<tr><td><a href ='#' onclick='chg_dst()' id='current-value'>"+data["message"][0]["current_location"]
                           +"</td><td>"+data["message"][0]["destination"]
                           +"</td><td>"+data["message"][0]["order_date"]
                           +"</td><td>"+data["message"][0]["parcel_id"]
                           +"</td><td>"+data["message"][0]["parcel_name"]
-                          +"</td><td> <a href ='#' onclick='change_status()' id='status-value'>"+data["message"][0]["parcel_status"]
-                          +"</td><td>"+data["message"][0]["pickup_location"]
+                          +"</td><td> <a href ='#' onclick='chg_sts()' id='status-value'>"+data["message"][0]["parcel_status"]
+                          +"</a></td><td>"+data["message"][0]["pickup_location"]
                           +"</td><td>"+data["message"][0]["reciever"]
                           +"</td><td>"+data["message"][0]["user_id"]
                           +"</td><td >"+data["message"][0]["weight"]
                           +"</td></tr>";
-                          
-                        
-                    //   }
                  
                      document.getElementById('oneparcels_table').innerHTML = table+"</table>";
-                    //  alert(table);
+                    
                     
                      });
                      
+}
 
+function chg_sts(){
+    document.getElementById("main-out").style.display = 'block'
+}
+
+function cls(){
+    document.getElementById("main-out").style.display = 'none'
 }
 
 function change_status(){
     
-    let status = window.prompt("change status ?")
+    let status = document.getElementById("chng-status").value
     console.log(status)
 
     let parcel_url = window.location.href
@@ -84,13 +87,12 @@ body: JSON.stringify(data)
 })
 .then((res) => res.json())
 .then(result => {
-    if(result.status === 'success'){
-        document.getElementById('status-value').innerHTML = status
+    if(result.status == 'success'){
         alert(result.message)
-        //window.location.href="admin_viewOrder.html";
-
     }
     else{
+        document.getElementById('status-value').innerHTML = status
+        document.getElementById("main-out").style.display = 'none'
         alert(result.message)
     }
     
@@ -98,9 +100,17 @@ body: JSON.stringify(data)
 
 
 }
+function chg_dst(){
+    document.getElementById("main-dest").style.display = 'block'
+}
+
+function cls_current(){
+    document.getElementById("main-dest").style.display = 'none'
+}
 
 function change_current_location(){
-    let current = window.prompt("change current?")
+    let current = document.getElementById("chng-current").value
+    // let current = window.prompt("change current?")
     console.log(current)
 
     let parcel_url = window.location.href
@@ -125,12 +135,13 @@ body: JSON.stringify(data)
 .then((res) => res.json())
 .then(result => {
     if(result.status === 'success'){
-        document.getElementById('current-value').innerHTML = current
         alert(result.message)
         //window.location.href="admin_viewOrder.html";
 
     }
     else{
+        document.getElementById('current-value').innerHTML = current
+        document.getElementById("main-dest").style.display = 'none'
         alert(result.message)
     }
     

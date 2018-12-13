@@ -41,7 +41,7 @@ if(/history.html/.test(window.location.href)){
                            for(i = 0; i < data["message"].length; i++){
                           table += 
                           "<tr><td>"+data["message"][i]["current_location"]
-                          +"</td><td><a href ='oneorderhistory.html?parcel="+data["message"][i]["parcel_id"]+"'>"+data["message"][i]["destination"]
+                          +"</td><td><a onclick='change_destination(this)' href='#' data-id ='"+data["message"][i]["parcel_id"]+"'>"+data["message"][i]["destination"]
                       
                           +"</td><td>"+data["message"][i]["order_date"]
                           +"</td><td>"+data["message"][i]["parcel_id"]
@@ -61,29 +61,51 @@ if(/history.html/.test(window.location.href)){
                 
                            }
                      });
-                     function mysearch(){
-                        let input, filter, table,tr,td,i,txtValue;
-                    input = document.getElementById("input");
-                    filter = input.nodeValue.toUpperCase();
-                    table= document.getElementById("tables")
-                    tr = table.getElementsByTagName("tr");
-                    
-                    for (i=0; i<tr.length;i++){
-                        td= tr(i).getElementsByTagName("td")[0];
-                        if (td){
-                            txtValue=td.textContent 
-                            || td.innerText;
-                            if (txtValue.toUpperCase().indexOf(filter)>-1)
-                            {
-                                tr[i].style.display="";
-                    
-                            }else
-                            tr[i].style.display = "none";
-                        }
-                    }
-                    }
-                
 }
+
+function mysearch(){
+    let input, filter, table,tr,td,i,txtValue;
+    input = document.getElementById("input");
+    filter = input.value.toUpperCase();
+    table= document.getElementById("tables")
+    tr = table.getElementsByTagName("tr");
+    
+    for (i=0; i<tr.length;i++){
+        td = tr[i].getElementsByTagName("td")[5];
+
+        if (td){
+            console.log(td)
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter)>-1){
+                tr[i].style.display="";
+            }else
+            tr[i].style.display = "none";
+        }
+    }
+}
+// function myFunction(){
+//     var td, i, tdArr, j;
+//     var input = document.getElementById("myInput");
+//     var filter = input.value.toUpperCase();
+//     var table = document.getElementById("myTable");
+//     var tr = table.getElementsByTagName("tr");
+  
+//     // Loop through all table rows
+//     for (i = 0; i < tr.length; i++) {
+//       tdArr = tr[i].getElementsByTagName("td");
+//       // Loop through all table columns in the current row, and hide those who don't match the search query
+//       for (j = 0; j < tdArr.length; j++) {
+//         td = tdArr[j];
+//         if (td) {
+//           if (td.innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+//             tr[i].style.display = "";
+//           } else {
+//             tr[i].style.display = "none";
+//           }
+//         }
+//       }        
+//     }
+//   }
 
 
 if(/profile.html/.test(window.location.href)){
@@ -134,18 +156,15 @@ if(/profile.html/.test(window.location.href)){
     });
 }
 
-    if(/oneorderhistory.html/.test(window.location.href)){
-    let destination = window.prompt("change destination ?")
-//    let destination= function(event) {
-//     if (event.target == modal) {
-//         modal.style.display = "none";
-//     }
+function update_status(){
+    destination = document.getElementById('chng-destination').value
     console.log(destination)
 
-    let parcel_url = window.location.href
-    let url = new URL(parcel_url)
-    let parcel_id = url.searchParams.get("parcel")
-      console.log(parcel_id);
+    //let parcel_url = window.location.href
+    ///let url = new URL(parcel_url)
+    //let parcel_id = url.searchParams.get("parcel")
+    let parcel_id = d.getAttribute("data-id")
+    console.log(parcel_id);
 
     const data = {"destination": destination};
 
@@ -216,6 +235,16 @@ body: JSON.stringify(data)
 })
 
 
+}
+
+function change_destination(d){
+    alert(d.getAttribute(d.getAttribute("data-id")))
+    document.getElementById('main-out').style.display = 'block';
+}
+
+function cls(){
+    document.getElementById('chng-destination').value = '';
+    document.getElementById('main-out').style.display = 'none';
 }
 // function mysearch(){
 //     let input, filter, table,tr,td,i,txtValue;

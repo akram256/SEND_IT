@@ -291,6 +291,52 @@ footer a {
   text-decoration: none;
   cursor: pointer;
 }
+#main-dest{
+  top: 0%;
+  left: 0%;
+  position: fixed;
+  z-index: 99;
+  background-color: rgba(256, 256, 256, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+#main-dest .inner{
+  background: white;
+  width: 40%;
+  margin: 8% auto;
+  padding: 15px;
+}
+
+#main-out{
+  top: 0%;
+  left: 0%;
+  position: fixed;
+  z-index: 99;
+  background-color: rgba(256, 256, 256, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+
+#main-out .inner{
+  background: white;
+  width: 40%;
+  margin: 8% auto;
+  padding: 15px;
+}
+
+.inner input{
+  width: 97%;
+  padding: 10px 5px;
+  margin: 10px 0px;
+}
+.inner button{
+  padding: 5px 15px;
+  margin-right: 7px;
+}
 
 @media only screen and (max-width: 992px) {
   .form {
