@@ -1,6 +1,6 @@
 
 
-function all_parcels(){
+if(/adminhistory.html/.test(window.location.href)){
 
     
     fetch('http://127.0.0.1:5000/api/v2/parcels', {
@@ -20,21 +20,23 @@ function all_parcels(){
                     // let out_put = "";
 
                     // console.log(data.parcel_list.length);
+              
                 let i = 0;
 
-                let table = '<table border="2px">'+
-                            '<tr>'+
-                            '<th>current_location</th>'+
-                            '<th>destination</th>'+
-                            '<th>order_date</th>'+
-                            '<th>parcel_id</th>'+
-                            '<th>parcel_name</th>'+
-                            '<th>parcel_status</th>'+
-                            '<th>pickup_location</th>'+
-                            '<th>reciever</th>'+
-                            '<th>user_id</th>'+
-                            '<th>weight</th>'+
-                           ' </tr>'; 
+                let table = '<table id="tables">'+
+                '<tr>'+
+                '<th class="left">CURRENT LOCATION</th>'+
+                '<th class="center">DESTINATION</th>'+
+                '<th class="center">ORDER DATE</th>'+
+                '<th class="center">PARCEL ID</th>'+
+                '<th class="center">PARCEL NAME</th>'+
+                '<th class="center">PARCEL STATUS</th>'+
+                '<th class="center">PICKUP LOCATION</th>'+
+                '<th class="center">RECIEVER</th>'+
+                '<th class="center">USER ID</th>'+
+                '<th class="right">WEIGHT</th>'+
+               
+               ' </tr>'; 
                      for(i = 0; i < data["Orders"].length; i++){
 
                           table += 

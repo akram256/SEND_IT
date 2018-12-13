@@ -19,26 +19,23 @@ if(/adminorder.html/.test(window.location.href)){
                 .then((res) => res.json())
                 .then(function(data){
                     // alert(JSON.stringify(data));
-
                 let i = 0;
-
-                let table = '<table border="2px">'+
-                            '<tr>'+
-                            '<th>current_location</th>'+
-                            '<th>destination</th>'+
-                            '<th>order_date</th>'+
-                            '<th>parcel_id</th>'+
-                            '<th>parcel_name</th>'+
-                            '<th>parcel_status</th>'+
-                            '<th>pickup_location</th>'+
-                            '<th>reciever</th>'+
-                            '<th>user_id</th>'+
-                            '<th>weight</th>'+
-                           ' </tr>'; 
-                    //  for(i = 0; i < data["Orders"].length; i++){
-
+                let table = '<table id="tables">'+
+                '<tr>'+
+                '<th class="left">CURRENT LOCATION</th>'+
+                '<th class="center">DESTINATION</th>'+
+                '<th class="center">ORDER DATE</th>'+
+                '<th class="center">PARCEL ID</th>'+
+                '<th class="center">PARCEL NAME</th>'+
+                '<th class="center">PARCEL STATUS</th>'+
+                '<th class="center">PICKUP LOCATION</th>'+
+                '<th class="center">RECIEVER</th>'+
+                '<th class="center">USER ID</th>'+
+                '<th class="right">WEIGHT</th>'+
+               
+               ' </tr>';
                           table += 
-                          "<tr><td><a href ='#' onclick='change_current_location()' id='current-value'>"+data["message"][0]["current_location"]
+                          "<tr><td><a href ='#'onclick='change_current_location()' id='current-value'>"+data["message"][0]["current_location"]
                           +"</td><td>"+data["message"][0]["destination"]
                           +"</td><td>"+data["message"][0]["order_date"]
                           +"</td><td>"+data["message"][0]["parcel_id"]
@@ -47,7 +44,7 @@ if(/adminorder.html/.test(window.location.href)){
                           +"</td><td>"+data["message"][0]["pickup_location"]
                           +"</td><td>"+data["message"][0]["reciever"]
                           +"</td><td>"+data["message"][0]["user_id"]
-                          +"</td><td>"+data["message"][0]["weight"]
+                          +"</td><td >"+data["message"][0]["weight"]
                           +"</td></tr>";
                           
                         
@@ -62,6 +59,7 @@ if(/adminorder.html/.test(window.location.href)){
 }
 
 function change_status(){
+    
     let status = window.prompt("change status ?")
     console.log(status)
 

@@ -23,28 +23,31 @@ if(/history.html/.test(window.location.href)){
                  
                 let i = 0;
 
-                let table = '<table border="2px">'+
-                            '<tr>'+
-                            '<th>current_location</th>'+
-                            '<th>destination</th>'+
-                            '<th>order_date</th>'+
-                            '<th>parcel_id</th>'+
-                            '<th>parcel_name</th>'+
-                            '<th>parcel_status</th>'+
-                            '<th>pickup_location</th>'+
-                            '<th>reciever</th>'+
-                            '<th>user_id</th>'+
-                            '<th>weight</th>'+
-                           ' </tr>'; 
+                let table = '<table id="tables">'+
+                '<tr>'+
+                '<th class="left">CURRENT LOCATION</th>'+
+                '<th class="center">DESTINATION</th>'+
+                '<th class="center">ORDER DATE</th>'+
+                '<th class="center">PARCEL ID</th>'+
+                '<th class="center">PARCEL NAME</th>'+
+                '<th class="center">PARCEL STATUS</th>'+
+                '<th class="center">PICKUP LOCATION</th>'+
+                '<th class="center">RECIEVER</th>'+
+                '<th class="center">USER ID</th>'+
+                '<th class="right">WEIGHT</th>'+
+               
+               ' </tr>';
                   
                            for(i = 0; i < data["message"].length; i++){
                           table += 
                           "<tr><td>"+data["message"][i]["current_location"]
                           +"</td><td><a href ='oneorderhistory.html?parcel="+data["message"][i]["parcel_id"]+"'>"+data["message"][i]["destination"]
+                      
                           +"</td><td>"+data["message"][i]["order_date"]
                           +"</td><td>"+data["message"][i]["parcel_id"]
                           +"</td><td>"+data["message"][i]["parcel_name"]
                           +"</td><td><a href ='cancelstatus.html?parcel="+data["message"][i]["parcel_id"]+"'>"+data["message"][i]["parcel_status"]
+                        // +"</td><td><<select onclick='change_status'><option value='User'>User id</option><option value='User'>User id</option></select>"+data["message"][i]["parcel_status"]
                           +"</td><td>"+data["message"][i]["pickup_location"]
                           +"</td><td>"+data["message"][i]["reciever"]
                           +"</td><td>"+data["message"][i]["user_id"]
@@ -54,18 +57,32 @@ if(/history.html/.test(window.location.href)){
                         
                  
                      document.getElementById('specificparcels_table').innerHTML = table+"</table>";
-                    //  alert(table);
 
-
-
-
-                   
-                
                 
                            }
                      });
-                     
+                     function mysearch(){
+                        let input, filter, table,tr,td,i,txtValue;
+                    input = document.getElementById("input");
+                    filter = input.nodeValue.toUpperCase();
+                    table= document.getElementById("tables")
+                    tr = table.getElementsByTagName("tr");
                     
+                    for (i=0; i<tr.length;i++){
+                        td= tr(i).getElementsByTagName("td")[0];
+                        if (td){
+                            txtValue=td.textContent 
+                            || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter)>-1)
+                            {
+                                tr[i].style.display="";
+                    
+                            }else
+                            tr[i].style.display = "none";
+                        }
+                    }
+                    }
+                
 }
 
 
@@ -117,9 +134,12 @@ if(/profile.html/.test(window.location.href)){
     });
 }
 
-// function change_destination(){
     if(/oneorderhistory.html/.test(window.location.href)){
     let destination = window.prompt("change destination ?")
+//    let destination= function(event) {
+//     if (event.target == modal) {
+//         modal.style.display = "none";
+//     }
     console.log(destination)
 
     let parcel_url = window.location.href
@@ -197,3 +217,25 @@ body: JSON.stringify(data)
 
 
 }
+// function mysearch(){
+//     let input, filter, table,tr,td,i,txtValue;
+// input = document.getElementById("input");
+// filter = input.nodeValue.toUpperCase();
+// table= document.getElementById("specificparcels_table")
+// tr = table.getElementsByTagName("tr");
+
+// for (i=0; i<tr.length;i++){
+//     td= tr(i).getElementsByTagName("td")[0];
+//     if (td){
+//         txtValue=td.textContent 
+//         || td.innerText;
+//         if (txtValue.toUpperCase().indexOf(filter)>-1)
+//         {
+//             tr[i].style.display="";
+
+//         }else
+//         tr[i].style.display = "none";
+//     }
+// }
+// }
+

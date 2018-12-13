@@ -25,25 +25,25 @@
         LET'S SEND IT NOW
       </div>
 
-      <form action  method="POST" class="order-item">
+      <form class="order-item">
         <div class="order-content">
-          <div class="title">Parcel Gift  </div>
+          <div class="title">PLEASE FILL THE FORM TO MAKE A PARCEL ORDER  </div>
           <div class="field">  
-            <input type="text" id= "parcel_name"  placeholder="parcel_name" required>       
-            <input type="text" id= "pickup_location"  placeholder="pickup_location"required>
-            <input type="text" id = "destination"  placeholder="destination" required>
-            <input type="text" id= "reciever"  placeholder="reciever" required>
-            <input type="number" id= "weight"  placeholder="weight" required>
-       
-          </div>
+            <input type="text" id="parcel_name" placeholder="parcel_name"  required></div> 
+            <div class="field">   
+            <input type="text" id="pickup_location" placeholder="pickup_location"required></div>
+            <div class="field">  
+            <input type="text" id="destination" placeholder="destination" required></div>
+            <div class="field"> 
+            <input type="text" id="reciever" placeholder="reciever" required></div>
+            <div class="field"> 
+            <input type= number id="weight" placeholder="weight" required></div>
+            <div class="order-button">
+                <button  onclick="Post_parcel()" class="button completed">Create_order</button></div>
+          
         </div>
-          <div class="order-button">
-            <button  onclick="post_parcel()"  class="button completed">Create_order</button>
-          </div>
-          &nbsp;&nbsp;
-       
-          <!-- <div class="order-button">
-            <button type="submit" class="button">Cancel_order</button> -->
+
+      
         </div>
      
       </form>

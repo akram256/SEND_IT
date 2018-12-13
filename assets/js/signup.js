@@ -18,6 +18,7 @@ function SignupUser(){
     })
         .then((res) => res.json())
         .then(result => {
+            alert(JSON.stringify(data));
             if(result.status === 'success'){
                alert(result.message)
                window.location.href = 'index.html';

@@ -20,7 +20,7 @@ function LoginUser(){
             if(result["status"] === 'success'){
                 if(email == "admin@gmail.com"){
                     localStorage.setItem("accessToken", token)
-                    alert(data.access_token);
+                    // alert(data.access_token);
                     window.location.href = 'adminhistory.html';
                 }
                 else{
