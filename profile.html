@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=yes">
+  <title>Parcel_Order</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand">
+      <a href="index.html">send_it</a>
+    </div>
+    <div class="nav-left">
+      <a href="history.html"class="nav-item">Parcel history</a>
+      <a href="profile.html"class="nav-item">Profile</a>
+      <a href="index.html" class="nav-item">Logout</a>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="orders">
+          <div class="order-item">
+              <div class="order-content">
+                <table width="30%" class="parcel-table">
+                  <tbody>
+                    <tr><td><img src="assets/images/avatar.jpg"></td></tr>
+                    <tr><td><div class="title" class="button pending">Number of Parcel Orders in pending&nbsp;&nbsp; <small id= 'num_parcel_pending'></small></div></p></td></tr>
+                    <tr><td> <div class="title" class="button completed">Number of Parcel Orders delivered&nbsp;&nbsp; <small id= 'num_parcel_delivered'></small></div></td></tr>
+                    <tr><td> <div class="title">Number of Parcel Orders in transit&nbsp;&nbsp;<small id= 'num_parcel_in_transit'></small></div></p></td></tr>
+                    <tr><td> <div class="title">Number of Parcel Orders in cancelled&nbsp;&nbsp; <small id= 'num_parcel_cancel'></small></div></p></tr>
+                    <!-- <tr><td><strong>Status : </strong> <label>intransit</label></td></tr>
+                    <tr><td><strong>Order Date : </strong> <label>01-jan-2018</label></td></tr>
+                    <tr><td><button>change status</button> <button>change present location</button></td></tr> -->
+                  </tbody>
+                </table>
+        
+          <!-- <div class="order-image">
+              <img src="assets/images/avatar.jpg" alt="default image">
+        <div class="order-content">
+            <div class="title">Number of Parcel Orders in pending&nbsp;&nbsp; <small id= 'num_parcel_pending'></small></div></p>
+         
+          <div class="title">Number of Parcel Orders delivered&nbsp;&nbsp; <small id= 'num_parcel_delivered'></small></div>
+          <p>
+              <div class="title">Number of Parcel Orders in transit&nbsp;&nbsp;<small id= 'num_parcel_in_transit'></small></div></p>
+              <div class="title">Number of Parcel Orders in cancelled&nbsp;&nbsp; <small id= 'num_parcel_cancel'></small></div></p>
+        </div> -->
+      
+      </div>
+  
+  </div>
+  <script type="text/javascript" src="assets/js/getspecificorder.js"></script>
+</body>
+</html>
