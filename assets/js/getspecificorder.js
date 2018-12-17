@@ -2,7 +2,7 @@
 if(/history.html/.test(window.location.href)){
 
     
-    fetch('http://127.0.0.1:5000/api/v2/users/parcels', {
+    fetch('https://senditapp3.herokuapp.com/api/v2/users/parcels', {
 
             method: 'GET',
             headers: {
@@ -84,7 +84,7 @@ function mysearch(){
 
 if(/profile.html/.test(window.location.href)){
 
-    fetch('http://127.0.0.1:5000/api/v2/users/parcels', {
+    fetch('https://senditapp3.herokuapp.com/api/v2/users/parcels', {
 
         method: 'GET',
         headers: {
