@@ -8,7 +8,7 @@ function Post_parcel(){
      const data ={parcel_name:parcel_name,pickup_location:pickup_location,destination:destination,reciever:reciever,weight:parseInt(weight)};
      console.log(data);
         
-            fetch('http://127.0.0.1:5000/api/v2/parcels', {
+            fetch('https://senditapp3.herokuapp.com/api/v2/parcels', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
