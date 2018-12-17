@@ -1,0 +1,382 @@
+/*....................................*/
+body {
+  margin: 0;
+  padding: 0;
+  background: #bec0c0;
+  font-family: 'Barlow', sans-serif;
+}
+a {
+  text-decoration: none;
+}
+nav {
+  background: white;
+  padding: 20px;
+  display:  flex;
+  justify-content: space-between;
+}
+
+nav .brand a {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+ nav .nav-left .nav-item {
+    color: #4CAF50;
+    padding: 10px;
+    font-weight: 900;
+    background: rgb(24, 23, 23);
+    text-transform: capitalize;
+    font-size: 14px;
+    box-sizing: border-box;
+ }
+ nav .nav-left .nav-item:hover {
+    color: #fff;
+ }
+.content {
+  margin-bottom: 20px;
+  min-height: 80vh;
+  background-image: url("../images/blank4.jpg");
+  
+}
+.title {
+  font-weight: 700;
+  font-family: "Trebuchet MS", Arial;
+  background-color: #4CAF50;
+  padding: 10px;border-right: #000;
+  color:black;
+  /* margin-bottom: -10px; */
+  
+}
+#input{
+  /* background-image:url('/css/searchicon.png'); */
+  background-position: 10 px, 10px;
+  background-repeat: no-repeat;
+  width: 20%;
+  font-size: 12px;
+  padding: 8px 10px;
+  border: 1px solid;
+  margin-bottom: 12px;
+}
+.form {
+  width: 30%;
+  margin: auto;
+  box-sizing: border-box;
+  border:10px #4CAF50 solid;
+  display: -ms-grid;
+  margin-top: 10px;
+}
+.form .signup {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.form h4 {
+  text-align: center;
+}
+.form h5 {
+  text-align: center;
+}
+.form .field {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  text-align: center;
+}
+.form label {
+  font-size: 14px;
+  font-weight: 800;
+}
+.form .field input {
+  display: block;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #4CAF50;
+  box-sizing: border-box;
+}
+.form .button {
+  margin-top: 20px; 
+}
+.form .button .submit {
+  border: none;
+  padding: 10px;
+  background:green;
+  font-weight: bold;
+  color: #fff;
+}
+.form.link{
+  margin-bottom:10px; 
+}
+.orders {
+  width: 60%;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.orders h4, .orders h6 {
+  text-align: center;
+}
+.orders .menu {
+  border-bottom: 1px double black;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.order-item {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  border-bottom: 1px dotted black;
+}
+
+.order-image {
+  flex: 1;
+}
+
+.order-image img {
+  margin: 0;
+  height: 80px;
+  width: 100px;
+}
+
+.order-content {
+  flex: 3;
+}
+.order-content .title {
+  font-weight: bold;
+  /* color: #d35400; */
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.order-content .title .price {
+  background: black;
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px;
+  font-size: 12px;
+}
+
+.order-item .order-button .button {
+  display: inline-block;
+  margin-top: auto;
+  padding: 5px;
+  color: black;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid black;
+}
+
+.order-item .order-button .pending {
+  background: red !important;
+  color: #fff;
+}
+
+.order-item .order-button .completed {
+  background: #4CAF50 !important;
+  border: 1px solid black;
+  color: black;
+}
+
+.order-item .field {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.order-item .field input, .order-item .field select {
+  border: 1px solid #7f8c8d;
+  padding: 8px;
+  
+}
+
+.order-item .date {
+  color: #2c3e50;
+  font-size: 12px;
+}
+.order-content table{
+  background: whitesmoke;
+  padding: 15px;
+}
+.order-content table tr td, .order-content table tr th{
+  padding: 10px 5px;
+  overflow: auto;
+}
+.order-content table tr td strong{
+  float: left;
+}
+.order-content table tr td label{
+  float: right;
+}
+.order-content table tr td button{
+  padding: 5px 15px;
+  margin: 0px 10px;
+}
+table.parcel-table{
+  margin-left: 25%;
+}
+.left{
+  text-align: left;
+}
+.right{
+  text-align: right;
+}
+.center{
+  text-align: center;
+}
+footer {
+  text-align: center;
+  background: #7f8c8d;
+  padding: 10px;
+}
+footer a {
+  color: #fff;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1; 
+  padding-top: 100px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+#tables {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#tables td, #tables th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#tables tr:nth-child(even){background-color: #f2f2f2;}
+
+#tables tr:hover {background-color: #ddd;}
+
+#tables th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+.modal-content {
+  background-color:white;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 20%;
+}
+
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#main-dest{
+  top: 0%;
+  left: 0%;
+  position: fixed;
+  z-index: 99;
+  background-color: rgba(256, 256, 256, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+#main-dest .inner{
+  background: white;
+  width: 40%;
+  margin: 8% auto;
+  padding: 15px;
+}
+
+#main-out{
+  top: 0%;
+  left: 0%;
+  position: fixed;
+  z-index: 99;
+  background-color: rgba(256, 256, 256, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+
+#main-out .inner{
+  background: white;
+  width: 40%;
+  margin: 8% auto;
+  padding: 15px;
+}
+
+.inner input{
+  width: 97%;
+  padding: 10px 5px;
+  margin: 10px 0px;
+}
+.inner button{
+  padding: 5px 15px;
+  margin-right: 7px;
+}
+
+@media only screen and (max-width: 992px) {
+  .form {
+    width: 50%;
+    padding: 10px;
+  }
+  .orders {
+    width: 80%;
+    padding: 10px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+    .form {
+      width: 100%;
+      padding: 10px;
+    }
+
+    .orders {
+      width: 100%;
+      padding: 10px;
+    }
+
+    nav{
+      display: inline;
+    }
+    nav .nav-left .nav-item {
+      display: block;
+      width: 100%;
+    }
+
+}
+
+
+@media only screen and (max-width: 400px) {
+    .order-item {
+      flex-direction: column;
+    }
+    .order-button {
+      margin: 1em 0;
+      text-align: center;
+    }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=yes">
+  <title>ParcelOrder History</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand">
+      <a href="index.html">SEND_IT.</a>
+    </div>
+    <div class="nav-left">
+      <a href="parcel_order.html" class="nav-item">Create Parcel Order</a>
+      <a href="history.html"class="nav-item">View Parcel Orders</button>
+      <a href="profile.html" class="nav-item">Profile</a>
+      <a href="index.html" class="nav-item">(Logout)</a>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="orders">
+      <h4>All Parcel Delivery History.</h4>
+
+      <div class="menu">
+       VIEW ALL YOUR PARCEL ORDER 
+      </div>
+
+      <div class="order-item">
+        <div class="order-content">
+          <div id="oneuser_table">
+
+          </div>
+          <div id="main-out">
+            <div class="inner">
+              <h3>Cancel Status</h3>
+              <h4> Type "Cancelled"</h4>
+              <input type="text" placeholder="enter status" id='chng-status' />
+              <button onclick="cancel_status()">change</button>
+              <button onclick="cls()">close</button>
+            </div>
+          </div>
+          <div id="main-dest">
+            <div class="inner">
+              <h3>Change destination</h3>
+              <input type="text" placeholder="enter destination" id='chng-destination' />
+              <button onclick="change_destination()">change</button>
+              <button onclick="cls_current()">close</button>
+            </div>
+            </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="assets/js/get_one_user_parcel.js"></script>
+</body>
+</html>

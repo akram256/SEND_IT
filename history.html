@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=yes">
+  <title>ParcelOrder History</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand">
+      <a href="index.html">SEND_IT.</a>
+    </div>
+    <div class="nav-left">
+      <a href="parcel_order.html" class="nav-item">Create Parcel Order</a>
+      <!-- <button onclick="history.html"class="nav-item">View Parcel Orders</button> -->
+      <a href="profile.html" class="nav-item">Profile</a>
+      <a href="index.html" class="nav-item">(Logout)</a>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="orders">
+      <h4>All Parcel Delivery History.</h4>
+
+      <div class="menu">
+       VIEW ALL YOUR PARCEL ORDER &nbsp;&nbsp;&nbsp;
+       <input type ="text" id ="input" onkeyup="mysearch()" placeholder="Search by parcel status">
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       sort by&nbsp;<select name="Orders" align ="right">
+          <option value="User">User id</option>
+          <option value="time">Time</option>
+          <option value="status">status</option>
+          </select>
+        
+     
+      <div class="order-item">
+        <div class="order-content">
+          <div id="specificparcels_table"></div>
+          
+        </div>
+    </div>
+
+    <div id="main-out">
+      <div class="inner">
+        <h3>Change Destination</h3>
+        <input type="text" placeholder="enter destination" id='chng-status' />
+        <button onclick="update_status()">change</button>
+        <button onclick="cls()">close</button>
+      </div>
+      <div id="main-out">
+        <div class="inner">
+          <h3>Change Current Location</h3>
+          <input type="text" placeholder="enter Current location" id='chng-destination' />
+          <button onclick="change_current_location()">change</button>
+          <button onclick="cls()">close</button>
+        </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="assets/js/getspecificorder.js"></script>
+</body>
+</html>
