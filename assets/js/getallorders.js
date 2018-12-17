@@ -15,11 +15,7 @@ if(/adminhistory.html/.test(window.location.href)){
              }})
                 .then((res) => res.json())
                 .then(function(data){
-                    // alert(JSON.stringify(data));
 
-                    // let out_put = "";
-
-                    // console.log(data.parcel_list.length);
               
                 let i = 0;
 
@@ -61,5 +57,25 @@ if(/adminhistory.html/.test(window.location.href)){
                      });
                      
 
+}
+function mysearch(){
+    let input, filter, table,tr,td,i,txtValue;
+    input = document.getElementById("input");
+    filter = input.value.toUpperCase();
+    table= document.getElementById("tables")
+    tr = table.getElementsByTagName("tr");
+    
+    for (i=0; i<tr.length;i++){
+        td = tr[i].getElementsByTagName("td")[5];
+
+        if (td){
+            console.log(td)
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter)>-1){
+                tr[i].style.display="";
+            }else
+            tr[i].style.display = "none";
+        }
+    }
 }
 
