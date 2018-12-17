@@ -24,7 +24,7 @@
 
       <div class="menu">
        VIEW ALL YOUR PARCEL ORDER &nbsp;&nbsp;&nbsp;
-       <input type ="text" id ="input" onkeyup="mysearch" placeholder="Search of parcels">
+       <input type ="text" id ="input" onkeyup="mysearch()" placeholder="Search by parcel status">
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        sort by&nbsp;<select name="Orders" align ="right">
           <option value="User">User id</option>
@@ -35,12 +35,25 @@
      
       <div class="order-item">
         <div class="order-content">
+          <div id="specificparcels_table"></div>
           
-          <div id="specificparcels_table">
-              
+        </div>
+    </div>
 
-          </div>
-  
+    <div id="main-out">
+      <div class="inner">
+        <h3>Change Destination</h3>
+        <input type="text" placeholder="enter destination" id='chng-status' />
+        <button onclick="update_status()">change</button>
+        <button onclick="cls()">close</button>
+      </div>
+      <div id="main-out">
+        <div class="inner">
+          <h3>Change Current Location</h3>
+          <input type="text" placeholder="enter Current location" id='chng-destination' />
+          <button onclick="change_current_location()">change</button>
+          <button onclick="cls()">close</button>
+        </div>
     </div>
   </div>
   <script type="text/javascript" src="assets/js/getspecificorder.js"></script>

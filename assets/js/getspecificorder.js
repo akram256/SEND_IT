@@ -42,12 +42,10 @@ if(/history.html/.test(window.location.href)){
                           table += 
                           "<tr><td>"+data["message"][i]["current_location"]
                           +"</td><td><a href ='oneorderhistory.html?parcel="+data["message"][i]["parcel_id"]+"'>"+data["message"][i]["destination"]
-                      
                           +"</td><td>"+data["message"][i]["order_date"]
                           +"</td><td>"+data["message"][i]["parcel_id"]
                           +"</td><td>"+data["message"][i]["parcel_name"]
-                          +"</td><td><a href ='cancelstatus.html?parcel="+data["message"][i]["parcel_id"]+"'>"+data["message"][i]["parcel_status"]
-                        // +"</td><td><<select onclick='change_status'><option value='User'>User id</option><option value='User'>User id</option></select>"+data["message"][i]["parcel_status"]
+                          +"</td><td><a href ='oneorderhistory.html?parcel="+data["message"][i]["parcel_id"]+"'>"+data["message"][i]["parcel_status"]
                           +"</td><td>"+data["message"][i]["pickup_location"]
                           +"</td><td>"+data["message"][i]["reciever"]
                           +"</td><td>"+data["message"][i]["user_id"]
@@ -61,30 +59,28 @@ if(/history.html/.test(window.location.href)){
                 
                            }
                      });
-                     function mysearch(){
-                        let input, filter, table,tr,td,i,txtValue;
-                    input = document.getElementById("input");
-                    filter = input.nodeValue.toUpperCase();
-                    table= document.getElementById("tables")
-                    tr = table.getElementsByTagName("tr");
-                    
-                    for (i=0; i<tr.length;i++){
-                        td= tr(i).getElementsByTagName("td")[0];
-                        if (td){
-                            txtValue=td.textContent 
-                            || td.innerText;
-                            if (txtValue.toUpperCase().indexOf(filter)>-1)
-                            {
-                                tr[i].style.display="";
-                    
-                            }else
-                            tr[i].style.display = "none";
-                        }
-                    }
-                    }
-                
 }
 
+function mysearch(){
+    let input, filter, table,tr,td,i,txtValue;
+    input = document.getElementById("input");
+    filter = input.value.toUpperCase();
+    table= document.getElementById("tables")
+    tr = table.getElementsByTagName("tr");
+    
+    for (i=0; i<tr.length;i++){
+        td = tr[i].getElementsByTagName("td")[5];
+
+        if (td){
+            console.log(td)
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter)>-1){
+                tr[i].style.display="";
+            }else
+            tr[i].style.display = "none";
+        }
+    }
+}
 
 if(/profile.html/.test(window.location.href)){
 
@@ -133,109 +129,4 @@ if(/profile.html/.test(window.location.href)){
         document.getElementById('num_parcel_cancel').innerHTML = (cancelled.length);
     });
 }
-
-    if(/oneorderhistory.html/.test(window.location.href)){
-    let destination = window.prompt("change destination ?")
-//    let destination= function(event) {
-//     if (event.target == modal) {
-//         modal.style.display = "none";
-//     }
-    console.log(destination)
-
-    let parcel_url = window.location.href
-    let url = new URL(parcel_url)
-    let parcel_id = url.searchParams.get("parcel")
-      console.log(parcel_id);
-
-    const data = {"destination": destination};
-
-
-fetch('http://127.0.0.1:5000/api/v2/parcels/'+parcel_id+'/destination', {
-method: 'PUT',
-headers: {
-    'Accept': 'application/json',
-    'Content-type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-},
-cache: 'no-cache',
-body: JSON.stringify(data)
-
-})
-.then((res) => res.json())
-.then(result => {
-    if(result.status === 'success'){
-        // document.getElementById('destination').innerHTML = destination
-        alert(result.message)
-      
-
-    }
-    else{
-        alert(result.message)
-    }
-    
-})
-
-
-}
-// }
-
-if(/cancelstatus.html/.test(window.location.href)){
-    let status = window.prompt("cancel status ?")
-    console.log(status)
-
-    let parcel_url = window.location.href
-    let url = new URL(parcel_url)
-    let parcel_id = url.searchParams.get("parcel")
-      console.log(parcel_id);
-
-    const data = {"parcel_status": status};
-
-
-fetch('http://127.0.0.1:5000/api/v2/parcels/'+parcel_id+'/cancel', {
-method: 'PUT',
-headers: {
-    'Accept': 'application/json',
-    'Content-type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-},
-cache: 'no-cache',
-body: JSON.stringify(data)
-
-})
-.then((res) => res.json())
-.then(result => {
-    if(result.status === 'success'){
-        alert(result.message)
-      
-
-    }
-    else{
-        alert(result.message)
-    }
-    
-})
-
-
-}
-// function mysearch(){
-//     let input, filter, table,tr,td,i,txtValue;
-// input = document.getElementById("input");
-// filter = input.nodeValue.toUpperCase();
-// table= document.getElementById("specificparcels_table")
-// tr = table.getElementsByTagName("tr");
-
-// for (i=0; i<tr.length;i++){
-//     td= tr(i).getElementsByTagName("td")[0];
-//     if (td){
-//         txtValue=td.textContent 
-//         || td.innerText;
-//         if (txtValue.toUpperCase().indexOf(filter)>-1)
-//         {
-//             tr[i].style.display="";
-
-//         }else
-//         tr[i].style.display = "none";
-//     }
-// }
-// }
 
