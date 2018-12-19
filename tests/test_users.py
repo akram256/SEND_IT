@@ -42,8 +42,8 @@ class TestViews(Testbase):
                                                          password="codeisgood")))        
         
         respond = json.loads(result.data.decode("utf8"))
-        self.assertIn('message', respond)        
-        self.assertTrue(result.json["message"], 'Wrong format of the user_name')
+        self.assertIn('error_message', respond)        
+        self.assertTrue(result.json["error_message"], 'Some fields have no data')
     
     def test_sign_with_wrong_name(self):
         """
@@ -90,7 +90,7 @@ class TestViews(Testbase):
         respond = json.loads(result.data.decode("utf8"))
         self.assertIn('error_message', respond)
         self.assertIsInstance(respond, dict)
-        self.assertEqual(result.status_code, 400)
+        self.assertEqual(result.status_code, 404)
         self.assertTrue(result.json["error_message"], 'You have missing fields')
 
     def test_login_with_without_password(self):
