@@ -270,7 +270,11 @@ class GetSpecific(MethodView):
                 'message': user_list
                 }
             return jsonify(response_object), 200
-        # orders_list = specify_order.specify_user_parcel_by_parcel_id(parcel_id, user_id)
-        # if orders_list:
-        #     return orders_list
-        return jsonify({"Alert":"Not allowed to perform this task"})
+        one_list = specify_order.one_specific_order_for_user(user_id,parcel_id)
+        if not one_list:
+            return ErrorFeedback.order_absent(), 404
+        response_object ={
+                'status':'success',
+                'message': one_list
+            }   
+        return jsonify(response_object)

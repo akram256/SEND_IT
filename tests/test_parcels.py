@@ -120,7 +120,7 @@ class TestViews(Testbase):
         result = self.client().post('/api/v2/parcels',data=json.dumps(ORDER),headers=self.post_token)
         result = self.client().put('/api/v2/parcels/2/status', data=json.dumps(ORDER), headers=self.post_token)
         respond = json.loads(result.data.decode("utf8"))
-        self.assertEqual(result.status_code,400)
+        self.assertEqual(result.status_code,404)
         self.assertIn('error_message', respond)
         self.assertTrue(['error_message'], 'You have missing fields')
         self.assertIsInstance(respond, dict, )
@@ -161,7 +161,7 @@ class TestViews(Testbase):
         self.assertIn('message', respond)
         self.assertIsInstance(respond, dict, )
 
-    def test_cancelling_an_order_with_wrong_(self):
+    def test_cancelling_an_order(self):
         """
             Method for testing to cancelling order status
         """
@@ -169,8 +169,8 @@ class TestViews(Testbase):
         result = self.client().put('/api/v2/parcels/1/cancel', data=json.dumps(CANCEL_UPDATE), headers=self.get_user_token)
         respond = json.loads(result.data.decode("utf8"))
         self.assertEqual(result.status_code, 200)
-        self.assertTrue(['message'], 'No order to be cancelled' )
-        self.assertIn('message', respond)
+        self.assertTrue(['status'], 'order has been canceled' )
+        self.assertIn('status', respond)
         self.assertIsInstance(respond, dict, )
     
     def test_cancelling_order_wirong_status(self):
@@ -192,7 +192,7 @@ class TestViews(Testbase):
         result = self.client().post('/api/v2/parcels', data=json.dumps(ORDER),headers=self.get_user_token)
         result = self.client().put('/api/v2/parcels/1/cancel', data=json.dumps(EMPTY_UPDATE), headers=self.get_user_token)
         respond = json.loads(result.data.decode("utf8"))
-        self.assertEqual(result.status_code, 400)
+        self.assertEqual(result.status_code, 404)
         self.assertIn('error_message', respond)
         self.assertTrue(['message'], 'You have missing fields' )
         self.assertIsInstance(respond, dict, )
@@ -214,7 +214,7 @@ class TestViews(Testbase):
            Method for testing get all user parcel 
         """
         result = self.client().post('/api/v2/parcels', data=json.dumps(ORDER),headers=self.get_user_token)
-        result = self.client().get('/api/v2/users/1/parcels', headers=self.get_user_token)
+        result = self.client().get('/api/v2/users/parcels', headers=self.get_user_token)
         respond = json.loads(result.data.decode("utf8"))
         self.assertEqual(result.status_code, 200)
         self.assertIn('message', respond)
@@ -225,7 +225,7 @@ class TestViews(Testbase):
         """
            Method for testing get all user parcel 
         """
-        result = self.client().get('/api/v2/users/1/parcels',headers=self.get_user_token)
+        result = self.client().get('/api/v2/users/parcels',headers=self.get_user_token)
         respond = json.loads(result.data.decode("utf8"))
         self.assertEqual(result.status_code, 200)
         self.assertIn('message', respond)

@@ -123,18 +123,20 @@ class Parcel():
             return "user has not made orders yet"
         return specfic_list
     
-    # def specify_user_parcel_by_parcel_id(self,user_id,parcel_id):
-    #     """
-    #         this method is for getting orders for a specific user by pacel_id
-    #     """
-    #     dbhandler = DatabaseUtilities()
-    #     dbhandler.cursor.execute("""SELECT  * FROM parcels WHERE parcel_id %s AND user_id=%s""",(parcel_id, user_id) )
-    #     keys = ["parcel_id", "parcel_name", "pickup_location", "destination", "reciever",  "current_location", "weight", "parcel_status", "user_id", "order_date"]
-    #     parcels = dbhandler.cursor.fetchall()
-    #     specfic_list = []
-    #     for parcel in parcels:
-    #         specfic_list.append(dict(zip(keys, parcel)))
-    #     if not specfic_list:
-    #         return "user has not made orders yet"
-    #     return specfic_list
- 
+    def one_specific_order_for_user(self,user_id,parcel_id):
+        dbhandler = DatabaseUtilities()
+        single_order_query = "SELECT * FROM parcels WHERE user_id ={} AND  parcel_id ={}" .format(user_id,parcel_id)  
+        dbhandler.cursor.execute(single_order_query)
+        keys = ["parcel_id", "parcel_name", "pickup_location", "destination", "reciever",  "current_location", "weight", "parcel_status", "user_id", "order_date"]
+        single_order = dbhandler.cursor.fetchone()
+        if not single_order:
+            return "Order not available"
+        one_single= []
+        one_single.append(dict(zip(keys,single_order)))
+        return one_single
+        
+         
+
+
+        
+    
