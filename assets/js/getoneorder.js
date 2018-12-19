@@ -5,7 +5,7 @@ if(/adminorder.html/.test(window.location.href)){
   let parcel_id = url.searchParams.get("parcel")
     console.log(parcel_id);
 
-    fetch("https://senditapp3.herokuapp.com/api/v2/parcels/"+parcel_id,  {
+    fetch(" http://127.0.0.1:5000/api/v2/parcels/"+parcel_id,  {
 
             method: 'GET',
             headers: {
@@ -74,7 +74,7 @@ function change_status(){
     const data = {"parcel_status": status};
 
 
-fetch('https://senditapp3.herokuapp.com/api/v2/parcels/'+parcel_id+'/status', {
+fetch(' http://127.0.0.1:5000/api/v2/parcels/'+parcel_id+'/status', {
 method: 'PUT',
 headers: {
     'Accept': 'application/json',
@@ -121,7 +121,7 @@ function change_current_location(){
     const data = {"current_location": current};
 
 
-fetch('https://senditapp3.herokuapp.com/api/v2/parcels/'+parcel_id+'/currentlocation', {
+fetch(' http://127.0.0.1:5000/api/v2/parcels/'+parcel_id+'/currentlocation', {
 method: 'PUT',
 headers: {
     'Accept': 'application/json',

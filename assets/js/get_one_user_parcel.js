@@ -5,7 +5,7 @@ if(/oneorderhistory.html/.test(window.location.href)){
   let parcel_id = url.searchParams.get("parcel")
     console.log(parcel_id);
 
-    fetch("https://senditapp3.herokuapp.com/api/v2/users/parcels/"+parcel_id,  {
+    fetch(" http://127.0.0.1:5000/api/v2/users/parcels/"+parcel_id,  {
 
             method: 'GET',
             headers: {
@@ -75,7 +75,7 @@ function change_destination(){
     const data = {"destination": destination};
 
 
-fetch('https://senditapp3.herokuapp.com/api/v2/parcels/'+parcel_id+'/destination', {
+fetch(' http://127.0.0.1:5000/api/v2/parcels/'+parcel_id+'/destination', {
 method: 'PUT',
 headers: {
     'Accept': 'application/json',
@@ -124,7 +124,7 @@ function cancel_status(){
     const data = {"parcel_status": status};
 
 
-fetch('https://senditapp3.herokuapp.com/api/v2/parcels/'+parcel_id+'/cancel', {
+fetch(' http://127.0.0.1:5000/api/v2/parcels/'+parcel_id+'/cancel', {
 method: 'PUT',
 headers: {
     'Accept': 'application/json',
