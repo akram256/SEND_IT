@@ -43,10 +43,10 @@ class PlaceOrder(MethodView):
         if place_order.exist_order(request.json['parcel_name'],user_id):
                 return jsonify({'message':'wait order is being processed, You cant order twice'})
         user_id = get_jwt_identity()
-        # string_pattern = r"(^[a-zA-Z\s]+$)"
-        # if not re.match(string_pattern,request.json['parcel_name']):
-        #     return jsonify({'message':'Wrong format of parcel_name, please input a-z or A_Z characters only',
-        #                         'status':'failure'})
+        string_pattern = r"(^[a-zA-Z\s]+$)"
+        if not re.match(string_pattern,request.json['parcel_name']):
+            return jsonify({'message':'Wrong format of parcel_name, please input a-z or A_Z characters only',
+                                'status':'failure'})
         parcel_data = place_order.make_parcel_order(str(user_id),request.json['parcel_name'],request.json['pickup_location'],request.json['destination'],request.json['reciever'],request.json['weight'])
         if parcel_data:
             response_object = {
@@ -54,6 +54,7 @@ class PlaceOrder(MethodView):
             'message':parcel_data   
         }
             return jsonify(response_object), 201
+
 
 class GetParcel(MethodView):
     """
@@ -94,7 +95,7 @@ class UpdateDestination(MethodView):
        params: order_status
        respone: json data
     """
-   
+
     @jwt_required
     @flasgger.swag_from("../docs/update_destination.yml")
     def put(self,parcel_id):
@@ -120,12 +121,14 @@ class UpdateDestination(MethodView):
             'status': 'success',
             'message':'destination has been updated'}
         return jsonify(response_object), 200
+
 class UpdateStatus(MethodView):
     """
         Class to get all orders
        params: order_status
        respone: json data
     """
+
     @jwt_required
     @flasgger.swag_from("../docs/update_status.yml")
     def put(self,parcel_id):
@@ -153,9 +156,6 @@ class UpdateStatus(MethodView):
                 return jsonify({'message':'Parcel can only be in transit or delivered',
                                     'status':'failure'})
             new_parcel_status = update_status.update_parcel_status(str(parcel_id), request.json['parcel_status'].strip())
-            # if new_parcel_status['parcel_status'] == 'cancelled' or new_parcel_status['parcel_status']=='delievered':
-            #     return jsonify({'message':'order can not be edited'})
-
             if new_parcel_status == 'No parcel_order to update, please select another parcel_id':
                 return jsonify({'message':'No order to update',
                 'status':'failure'}),404
@@ -165,6 +165,7 @@ class UpdateStatus(MethodView):
             return jsonify(response_object), 200
             
         return jsonify({'Alert':"Not Authorised to perform this task"})
+
 class UpdateCurrentlocation(MethodView):
     """
         Class to get all orders
@@ -212,7 +213,7 @@ class CancelOrder(MethodView):
     """
    
     @jwt_required
-    # @flasgger.swag_from("../docs/cancelorder.yml")
+    @flasgger.swag_from("../docs/cancelorder.yml")
     def put(self,parcel_id):
         """
             this method for cancelling of an order
@@ -253,6 +254,7 @@ class GetSpecific(MethodView):
     """
         method for getting specific user parcels
     """
+    
     @flasgger.swag_from("../docs/specific_user.yml")
     @jwt_required
     def get(self,user_id=None,parcel_id=None):

@@ -11,11 +11,11 @@ from api.models.users import Users
 from api.handler.error_handler import ErrorFeedback
 
 
-
 class SignUp(MethodView):
     """
        Class contains method plus all signup performances
     """
+
     @flasgger.swag_from("../docs/signup.yml")
     def post(self):
         """
@@ -27,20 +27,16 @@ class SignUp(MethodView):
         keys = ("user_name", "email", "password")
         if not set(keys).issubset(set(request.json)):
             return ErrorFeedback.missing_key()
-        
-
         post_data = request.get_json()
         user_name =request.json['user_name']
         password = request.json['password']  
         if len(password)<8:
             return jsonify({'message':'Password should be more than 8 characters',
                             'status':'failure'}),400
-        # string_pattern = r"(^[a-zA-Z]+$)"
-        # if not re.match(string_pattern,request.json['user_name']):
-        #     return jsonify({'message':'Wrong format of the user_name',
-        #                         'status':'failure'})
-
-        
+        string_pattern = r"(^[a-zA-Z]+$)"
+        if not re.match(string_pattern,request.json['user_name']):
+            return jsonify({'message':'Wrong format of the user_name',
+                                'status':'failure'})
         try:
             user_name = post_data['user_name'].strip()
             password = post_data['password'].strip()
@@ -53,8 +49,6 @@ class SignUp(MethodView):
         if not re.match(pattern, request.json['email']):
             return jsonify({'message': 'Enter right format of email thanks',
                             'status':'Failure'}), 400
-
-       
         user_details = new_user.register_a_user(request.json['user_name'], request.json['email'], request.json['password'])
         if user_details == "Email exists boss, Please use another email":
             return jsonify({'message': user_details,
@@ -63,7 +57,6 @@ class SignUp(MethodView):
         return jsonify({'message': user_details,
         'status':'success'}), 201
     
-
 class Login(MethodView):
     """
        Class for logging in the user
@@ -91,10 +84,7 @@ class Login(MethodView):
             return ErrorFeedback.invalid_data_format()
         if not email or not password:
             return ErrorFeedback.empty_data_fields()
-
-        
         user_id = login_user.fetch_password(request.json['email'], request.json['password'])
-
         if user_id:
             return jsonify({
                 "access_token" : create_access_token(identity=user_id),
@@ -104,6 +94,3 @@ class Login(MethodView):
 
         return jsonify({"message": "Wrong username or passwerd",
                         'status':'failure'}), 400
-
-
-
