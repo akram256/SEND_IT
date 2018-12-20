@@ -5,7 +5,6 @@ import unittest
 import json
 import psycopg2
 import os
-# from run import APP
 from api.models.database import DatabaseUtilities
 from api.models.users import Users
 from api.models.parcels import Parcel
@@ -99,7 +98,6 @@ class TestViews(Testbase):
         self.assertIn('message', respond)
         self.assertIsInstance(respond, dict)
         self.assertTrue(result.json["status"],'Success' )    
-
 
     def test_updating_order_status(self):
         """

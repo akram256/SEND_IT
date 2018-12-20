@@ -5,7 +5,6 @@ import os
 import json
 import unittest
 import psycopg2
-# from run import APP
 from api.models.users import Users
 from api.models.database import DatabaseUtilities
 from api.config import TestingConfig

@@ -10,6 +10,7 @@ class Users:
     """
 
     dbhandler = DatabaseUtilities()
+    
     def register_a_user(self, username, email, password):
         """
            Method for registering a user

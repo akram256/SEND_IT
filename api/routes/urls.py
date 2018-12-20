@@ -5,8 +5,6 @@ from flask.views import MethodView
 from api.controllers.user_views import SignUp,Login
 from api.controllers.parcel_views import PlaceOrder, GetParcel, UpdateDestination, UpdateStatus, UpdateCurrentlocation, GetSpecific, CancelOrder
 
-
-
 class Urls:
     """
     Class to generate urls
@@ -18,6 +16,7 @@ class Urls:
         :param: app: takes in the app variable
         :return: urls
         """
+
         app.add_url_rule('/api/v2/auth/signup',
                          view_func= SignUp.as_view('Signup'), methods=['POST',])
         app.add_url_rule('/api/v2/auth/login',

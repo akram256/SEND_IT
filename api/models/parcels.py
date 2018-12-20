@@ -18,6 +18,7 @@ class Parcel():
         add_order_query = "INSERT INTO parcels(parcel_name, pickup_location, destination, reciever, weight, user_id) VALUES(%s, %s, %s, %s, %s, %s);"
         dbhandler.cursor.execute(add_order_query,(parcel_name,pickup_location,destination,reciever,weight,user_id,))
         return "Order has been Placed successfully"
+        
     def get_all_parcels(self):
         """
            Method for getting all parcels
@@ -45,6 +46,7 @@ class Parcel():
         one_parcel_list = []
         one_parcel_list.append(dict(zip(keys, parcel_list)))
         return one_parcel_list
+
     def update_parcel_destination(self, parcel_id, destination):
         """
              this is a method for changing destination by the user
@@ -65,7 +67,6 @@ class Parcel():
             return True
         return False
     
-
     def update_parcel_status(self, parcel_id, parcel_status):
         """
              this is a method for updating an parcel_status
@@ -79,7 +80,6 @@ class Parcel():
         updated_rows = dbhandler.cursor.rowcount
         return updated_rows
         
-    
     def update_current_location(self, parcel_id, current_location):
         """
              this is a method for updating a current location
@@ -98,7 +98,6 @@ class Parcel():
         """
         dbhandler.cursor.execute("""SELECT * FROM parcels WHERE parcel_id= %s """,(parcel_id ,) )
         check_cancel_status=dbhandler.cursor.fetchone()
-        print (check_cancel_status)
         if not check_cancel_status:
             return "No order to cancel, please select another parcel_id"
         if check_cancel_status[8] != user_id:
@@ -107,6 +106,7 @@ class Parcel():
         dbhandler.cursor.execute(parcel_cancel,(parcel_status, parcel_id, ))
         updated_rows = dbhandler.cursor.rowcount
         return updated_rows
+
     def specify_user_parcel(self,user_id):
         """
             this method is for getting orders for a specific user
@@ -134,9 +134,3 @@ class Parcel():
         one_single= []
         one_single.append(dict(zip(keys,single_order)))
         return one_single
-        
-         
-
-
-        
-    

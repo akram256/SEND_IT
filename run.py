@@ -1,8 +1,5 @@
 """
-This module runs the application
-"""
-"""
-This is the main module
+    This module runs the application
 """     
 from flask import Flask
 from flask_jwt_extended import JWTManager
