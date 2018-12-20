@@ -46,6 +46,4 @@ class Urls:
         app.add_url_rule('/api/v2/users/parcels/<int:parcel_id>',
                          view_func= GetSpecific.as_view('user_parcel_specfic'),
                           methods=['GET',])
-        # app.add_url_rule('/api/v2/users/parcels/<int:parcel_id>',
-        #                  view_func= Getonespecific.as_view('user_parcel_specfic'),
-        #                   methods=['GET',])
+     
