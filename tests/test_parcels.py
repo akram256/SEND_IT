@@ -231,4 +231,25 @@ class TestViews(Testbase):
         self.assertIn('message', respond)
         self.assertIsInstance(respond, dict)
         self.assertTrue(['message'], 'user has not made made parcel_orders yet' )
-    
+
+    def test_get_no_one_user_specfic_parcel(self):
+        """
+            method for testing one specfic parcel order a specfic user
+        """
+        result = self.client().get('api/v2/users/parcels/1', headers=self.get_user_token)
+        respond = json.loads(result.data.decode('utf8'))
+        self.assertEqual(result.status_code,200)
+        self.assertIn('message', respond)
+        self.assertIsInstance(respond,dict)
+        self.assertTrue(['message'],'order not available')
+    def test_get_one_user_specfic_parcel(self):
+        """
+            method for testing one specfic parcel order a specfic user
+        """
+        result = self.client().post('api/v2/parcels',data=json.dumps(ORDER),headers=self.get_user_token)
+        result = self.client().get('api/v2/users/parcels/1', headers=self.get_user_token)
+        respond = json.loads(result.data.decode('utf8'))
+        self.assertEqual(result.status_code,200)
+        self.assertIn('message', respond)
+        self.assertIsInstance(respond,dict)
+        
