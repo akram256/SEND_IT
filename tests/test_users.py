@@ -41,8 +41,8 @@ class TestViews(Testbase):
                                                          password="codeisgood")))        
         
         respond = json.loads(result.data.decode("utf8"))
-        self.assertIn('error_message', respond)        
-        self.assertTrue(result.json["error_message"], 'Some fields have no data')
+        self.assertIn('message', respond)        
+        self.assertTrue(result.json["message"], 'wrong format of the user_name')
     
     def test_sign_with_wrong_name(self):
         """
